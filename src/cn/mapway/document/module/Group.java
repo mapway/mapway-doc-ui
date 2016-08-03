@@ -2,6 +2,8 @@ package cn.mapway.document.module;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -10,7 +12,7 @@ import java.util.List;
  * @author zhangjianshe
  *
  */
-public class Group implements Serializable{
+public class Group implements Serializable {
 
 	public Group() {
 		entries = new ArrayList<Entry>();
@@ -109,5 +111,30 @@ public class Group implements Serializable{
 
 	public void setParent(Group parent) {
 		this.parent = parent;
+	}
+
+	/**
+	 * 排序
+	 */
+	public void sort() {
+
+		Collections.sort(subGroups, new Comparator<Group>() {
+			@Override
+			public int compare(Group o1, Group o2) {
+				return o1.name.compareTo(o2.name);
+			}
+		});
+
+		Collections.sort(entries, new Comparator<Entry>() {
+			@Override
+			public int compare(Entry o1, Entry o2) {
+				return o1.order > o2.order ? 1 : -1;
+			}
+		});
+
+		for (Group g : subGroups) {
+			g.sort();
+		}
+
 	}
 }

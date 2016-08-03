@@ -33,4 +33,10 @@ public interface SysResource extends ClientBundle {
 
 	@Source("image/inter.png")
 	ImageResource inter();
+	
+	@Source("image/treeOpen.png")
+	ImageResource treeOpen();
+	
+	@Source("image/treeClose.png")
+	ImageResource treeClose();
 }

@@ -49,7 +49,7 @@ public class MainFrame extends Composite {
 	private void showEntry(Entry e) {
 		if (entryPanel == null) {
 			entryPanel = new EntryPanel();
-			
+
 		}
 
 		content.clear();
@@ -108,6 +108,7 @@ public class MainFrame extends Composite {
 						}
 					});
 		} else {
+			lbTitle.setText(doc.title());
 			apiTree.parseData(doc);
 		}
 	}

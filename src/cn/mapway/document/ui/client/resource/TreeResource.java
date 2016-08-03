@@ -8,7 +8,7 @@ public class TreeResource implements Resources {
 	@Override
 	public ImageResource treeClosed() {
 
-		return SysResource.INSTANCE.plus();
+		return SysResource.INSTANCE.treeClose();
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class TreeResource implements Resources {
 	@Override
 	public ImageResource treeOpen() {
 
-		return SysResource.INSTANCE.minus();
+		return SysResource.INSTANCE.treeOpen();
 	}
 
 }

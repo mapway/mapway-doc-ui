@@ -31,7 +31,7 @@
 				</g:HorizontalPanel>
 			</g:HTMLPanel>
 		</g:north>
-		<g:west size="300">
+		<g:west size="350">
 			<g:ScrollPanel styleName="{style.left}">
 				<m:ApiTree ui:field="apiTree"></m:ApiTree>
 			</g:ScrollPanel>

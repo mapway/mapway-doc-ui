@@ -21,8 +21,8 @@ public class ApiTree extends Tree {
 	CssStyle css;
 
 	public ApiTree() {
-		super(new TreeResource());
-		
+		super(new TreeResource(), false);
+
 		css = SysResource.INSTANCE.getCss();
 	}
 
@@ -30,7 +30,7 @@ public class ApiTree extends Tree {
 		this.clear();
 
 		Group group = data.root();
-
+		
 		TreeItem root = new TreeItem();
 		root.setStyleName(css.group());
 		this.addItem(root);

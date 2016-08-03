@@ -37,6 +37,8 @@ public class SpringParser {
 
 	private final static org.nutz.log.Log log = Logs.getLog(SpringParser.class);
 
+	GenContext mContext;
+
 	/**
 	 * 解析包中的类
 	 * 
@@ -52,6 +54,7 @@ public class SpringParser {
 			throws IllegalArgumentException, IllegalAccessException,
 			InstantiationException {
 
+		mContext = context;
 		if (packageNames.length == 0) {
 			return new ApiDoc();
 		}
@@ -75,6 +78,7 @@ public class SpringParser {
 				parseClass(doc, clz);
 			}
 		}
+		doc.sort();
 		return doc;
 	}
 
@@ -145,7 +149,8 @@ public class SpringParser {
 			Entry entry = handleMethod(m);
 			entry.parentClassName = c.getName();
 			if (entry != null) {
-				entry.relativePath = basepath + entry.relativePath;
+				entry.relativePath = mContext.getBasepath() + basepath
+						+ entry.relativePath;
 				apigroup.entries.add(entry);
 			}
 		}
@@ -406,7 +411,7 @@ public class SpringParser {
 	}
 
 	private Object newInstance(Class<?> c) {
-		System.out.println(c.getName());
+		// System.out.println(c.getName());
 		Mirror<?> m = Mirror.me(c);
 		if (m.isInt()) {
 			return (Integer) 0;

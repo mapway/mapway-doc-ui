@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author zhangjianshe
  *
  */
-public class ApiDoc implements Serializable{
+public class ApiDoc implements Serializable {
 
 	/**
 	 * 作者
@@ -103,5 +103,9 @@ public class ApiDoc implements Serializable{
 		}
 
 		return g;
+	}
+
+	public void sort() {
+		root.sort();
 	}
 }

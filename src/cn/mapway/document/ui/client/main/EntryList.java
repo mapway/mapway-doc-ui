@@ -33,6 +33,10 @@ public class EntryList extends FlexTable {
 		Label l;
 		int col = 0;
 
+		l = new Label("序号");
+		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
+		setWidget(row, col++, l);
+		
 		l = new Label("接口名称");
 		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
 		setWidget(row, col++, l);
@@ -78,6 +82,7 @@ public class EntryList extends FlexTable {
 		for (int i = 0; i < group.entries().length(); i++) {
 			Entry e = group.entries().get(i);
 			int column = 0;
+			this.setWidget(row, column++, new Label((i+1)+""));
 			this.setWidget(row, column++, new Label(e.title()));
 			this.setWidget(row, column++, new Label(e.relativePath()));
 			this.setWidget(row, column++, new Label(e.state()));
