@@ -35,9 +35,6 @@ public class EntryList extends Grid {
 		Label l;
 		int col = 0;
 
-//		l = new Label("分组");
-//		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
-//		setWidget(row, col++, l);
 
 		l = new Label("序号");
 		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());

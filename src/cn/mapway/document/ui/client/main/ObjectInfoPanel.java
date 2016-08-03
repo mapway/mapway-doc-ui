@@ -17,9 +17,10 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 
-public class ObjectInfoPanel extends FlexTable implements
+public class ObjectInfoPanel extends Grid implements
 		HasSelectionHandlers<ObjectInfo>, ClickHandler {
 
 	private Label lbTitle;
@@ -45,11 +46,17 @@ public class ObjectInfoPanel extends FlexTable implements
 
 		lbTitle = new Label();
 
+		this.resize(2, 5);
 		int row = 0;
 
 		setWidget(row, 0, lbTitle);
 		getCellFormatter().getElement(0, 0).setAttribute("colspan", "5");
-
+		
+		this.removeCell(0, 1);
+		this.removeCell(0, 1);
+		this.removeCell(0, 1);
+		this.removeCell(0, 1);
+		
 		// 名称 类型 长度 选项 解释
 		Label l;
 		int col = 0;
@@ -88,10 +95,8 @@ public class ObjectInfoPanel extends FlexTable implements
 	public void parse(ObjectInfo obj, List<GenInfo> objList) {
 
 		lbTitle.setText(obj.name() + "-(" + obj.type() + ")");
-		int rowcount = getRowCount();
-		for (int index = obj.fields().length() + 2; index < rowcount; index++) {
-			removeRow(getRowCount() - 1);
-		}
+
+		this.resizeRows(obj.fields().length() + 2);
 
 		RowFormatter rf = getRowFormatter();
 

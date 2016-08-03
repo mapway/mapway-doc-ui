@@ -35,26 +35,33 @@ public class MainFrame extends Composite {
 		public void onSelection(SelectionEvent<TreeItem> arg0) {
 			TreeItem item = arg0.getSelectedItem();
 
-			if (item.getChildCount() == 0) {
-				Entry e = (Entry) item.getUserObject();
-				showEntry(e);
-			} else {
-				Group group = (Group) item.getUserObject();
-				showEntryList(group);
-			}
+			handleItem(item);
 		}
 
 	};
+
+	private void handleItem(TreeItem item) {
+		if (item.getChildCount() == 0) {
+			Entry e = (Entry) item.getUserObject();
+			showEntry(e);
+		} else {
+			Group group = (Group) item.getUserObject();
+			showEntryList(group);
+		}
+	}
 
 	private void showEntry(Entry e) {
 		if (entryPanel == null) {
 			entryPanel = new EntryPanel();
 
 		}
-
-		content.clear();
+		if (!entryPanel.isAttached()) {
+			content.clear();
+			content.add(entryPanel);
+		}
 		entryPanel.parse(e);
-		content.add(entryPanel);
+		content.scrollToTop();
+
 	}
 
 	EntryListPanel list;
@@ -63,9 +70,12 @@ public class MainFrame extends Composite {
 		if (list == null) {
 			list = new EntryListPanel();
 		}
-		content.clear();
+		if (!list.isAttached()) {
+			content.clear();
+			content.add(list);
+		}
 		list.parse(group);
-		content.add(list);
+		content.scrollToTop();
 	}
 
 	public MainFrame() {
@@ -109,7 +119,7 @@ public class MainFrame extends Composite {
 		} else {
 			lbTitle.setText(doc.title());
 			apiTree.parseData(doc);
-			apiTree.getItem(0).setSelected(true);
+			handleItem(apiTree.getItem(0));
 		}
 	}
 

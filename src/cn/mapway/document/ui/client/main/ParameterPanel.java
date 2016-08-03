@@ -68,11 +68,6 @@ public class ParameterPanel extends Composite implements
 		lbTitle.setText(string + obj.type());
 		lbSummary.setText(obj.summary());
 
-		int rowcount = tbl.getRowCount();
-		for (int index = obj.fields().length() + 1; index < rowcount; index++) {
-			tbl.removeRow(tbl.getRowCount() - 1);
-		}
-
 		tbl.parse(mObj, objList);
 
 		jsonPanel.setJson(obj.json());

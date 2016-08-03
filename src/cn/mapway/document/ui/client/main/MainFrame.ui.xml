@@ -19,6 +19,10 @@
 	.logo {
 		margin-left: 15px;
 	}
+	
+	.content {
+		padding-bottom: 50px;
+	}
 	</ui:style>
 	<g:DockLayoutPanel>
 		<g:north size="70">
@@ -37,7 +41,7 @@
 			</g:ScrollPanel>
 		</g:west>
 		<g:center>
-			<g:ScrollPanel ui:field="content"></g:ScrollPanel>
+			<g:ScrollPanel ui:field="content" styleName="{style.content}"></g:ScrollPanel>
 		</g:center>
 	</g:DockLayoutPanel>
 </ui:UiBinder> 
