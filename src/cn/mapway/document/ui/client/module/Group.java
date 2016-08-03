@@ -26,6 +26,15 @@ public class Group extends JavaScriptObject {
 	public  final native String name()/*-{
 		return this.name;
 	}-*/;
+	
+	/**
+	 *  节点全路径名称.
+	 *
+	 * @return the string
+	 */
+	public  final native String fullName()/*-{
+		return this.fullName;
+	}-*/;
 
 	/**
 	 *  节点说明.
@@ -42,7 +51,7 @@ public class Group extends JavaScriptObject {
 	 * @return the js array
 	 */
 	public  final native JsArray<Entry> entries()/*-{
-		return this.entries;
+		return this.entries || [];
 	}-*/;
 
 	/**
@@ -51,6 +60,6 @@ public class Group extends JavaScriptObject {
 	 * @return the js array
 	 */
 	public final native JsArray<Group> subGroups()/*-{
-		return this.subGroups;
+		return this.subGroups || [];
 	}-*/;
 }

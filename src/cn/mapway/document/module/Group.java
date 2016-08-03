@@ -33,6 +33,11 @@ public class Group implements Serializable {
 	private Group parent;
 
 	/**
+	 * 节点全路径名称
+	 */
+	public String fullName="/";
+
+	/**
 	 * 子节点
 	 */
 	public List<Entry> entries;

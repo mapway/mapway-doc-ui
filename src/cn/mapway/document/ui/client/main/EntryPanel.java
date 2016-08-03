@@ -59,9 +59,10 @@ public class EntryPanel extends Composite {
 
 		mapper = new HashMap<String, Anchor>();
 		gens = new ArrayList<GenInfo>();
-		lbTITLE.setText(e.title() + "(" + e.parentClassName() + ")");
+		lbTITLE.setText(e.title() + "   " + e.parentClassName() + "::"
+				+ e.methodName());
 		lbSUMMARY.setHTML(e.summary());
-		lbURL.setText("URL" + e.relativePath());
+		lbURL.setText("接口网址:  " + e.relativePath());
 		lbAUTHOR.setText("作者:" + e.author());
 		lbINVOKE.setText("调用方法:" + e.invokeMethod());
 

@@ -82,7 +82,7 @@ public class ObjectInfo extends JavaScriptObject {
 	 * @return the js array
 	 */
 	public final native JsArray<ObjectInfo> fields()/*-{
-		return this.fields;
+		return this.fields || [];
 	}-*/;
 
 	/**

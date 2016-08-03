@@ -57,12 +57,11 @@ public class MainFrame extends Composite {
 		content.add(entryPanel);
 	}
 
-	EntryList list;
+	EntryListPanel list;
 
 	protected void showEntryList(Group group) {
 		if (list == null) {
-			list = new EntryList();
-			list.setWidth("100%");
+			list = new EntryListPanel();
 		}
 		content.clear();
 		list.parse(group);
@@ -110,6 +109,7 @@ public class MainFrame extends Composite {
 		} else {
 			lbTitle.setText(doc.title());
 			apiTree.parseData(doc);
+			apiTree.getItem(0).setSelected(true);
 		}
 	}
 

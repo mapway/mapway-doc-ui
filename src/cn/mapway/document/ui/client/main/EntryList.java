@@ -6,6 +6,7 @@ import cn.mapway.document.ui.client.resource.SysResource;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 
@@ -15,7 +16,7 @@ import com.google.gwt.user.client.ui.Label;
  * @author zhangjianshe
  *
  */
-public class EntryList extends FlexTable {
+public class EntryList extends Grid {
 
 	public EntryList() {
 		init();
@@ -27,16 +28,21 @@ public class EntryList extends FlexTable {
 		e.setAttribute("cellPadding", "10px");
 		e.setAttribute("cellSpacing", "1px");
 
+		this.resize(1, 6);
 		int row = 0;
 
 		// 名称 类型 长度 选项 解释
 		Label l;
 		int col = 0;
 
+		l = new Label("分组");
+		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
+		setWidget(row, col++, l);
+
 		l = new Label("序号");
 		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
 		setWidget(row, col++, l);
-		
+
 		l = new Label("接口名称");
 		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
 		setWidget(row, col++, l);
@@ -68,10 +74,7 @@ public class EntryList extends FlexTable {
 		row = 1;
 		int count = findCount(group);
 
-		int rowcount = getRowCount();
-		for (int index = count + 1; index < rowcount; index++) {
-			removeRow(getRowCount() - 1);
-		}
+		this.resize(count + 1, 6);
 
 		parseGroup(group);
 
@@ -82,7 +85,10 @@ public class EntryList extends FlexTable {
 		for (int i = 0; i < group.entries().length(); i++) {
 			Entry e = group.entries().get(i);
 			int column = 0;
-			this.setWidget(row, column++, new Label((i+1)+""));
+
+			this.setWidget(row, column++, new Label(group.fullName()));
+			this.setWidget(row, column++, new Label((i + 1) + ""));
+
 			this.setWidget(row, column++, new Label(e.title()));
 			this.setWidget(row, column++, new Label(e.relativePath()));
 			this.setWidget(row, column++, new Label(e.state()));
@@ -92,7 +98,7 @@ public class EntryList extends FlexTable {
 			row++;
 		}
 
-		for (int i = 0; i > group.subGroups().length(); i++) {
+		for (int i = 0; i < group.subGroups().length(); i++) {
 			parseGroup(group.subGroups().get(i));
 		}
 	}

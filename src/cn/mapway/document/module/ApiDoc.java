@@ -81,7 +81,7 @@ public class ApiDoc implements Serializable {
 			}
 		}
 		Group g = root;
-
+		String fullName = "";
 		for (int i = 0; i < paths.length; i++) {
 			String p = paths[i];
 
@@ -98,7 +98,9 @@ public class ApiDoc implements Serializable {
 				Group ng = new Group();
 				ng.name = p;
 				g.addChildGroup(ng);
+				ng.fullName = fullName + "/" + p;
 				g = ng;
+				fullName = g.fullName;
 			}
 		}
 

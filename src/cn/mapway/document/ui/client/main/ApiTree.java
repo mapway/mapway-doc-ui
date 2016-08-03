@@ -30,7 +30,7 @@ public class ApiTree extends Tree {
 		this.clear();
 
 		Group group = data.root();
-		
+
 		TreeItem root = new TreeItem();
 		root.setStyleName(css.group());
 		this.addItem(root);
@@ -61,6 +61,8 @@ public class ApiTree extends Tree {
 			item.setStyleName(css.entry());
 			item.setText(e.title());
 			item.setUserObject(e);
+			item.setTitle("实现类:" + e.parentClassName() + "\r\n方法"
+					+ e.methodName());
 			root.addItem(item);
 		}
 		root.setState(true);
