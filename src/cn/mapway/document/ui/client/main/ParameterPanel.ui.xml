@@ -1,0 +1,64 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:m="urn:import:cn.mapway.document.ui.client.main">
+	<ui:style>
+	.title {
+		color: brown;
+		line-height: 28px;
+	}
+	
+	.summary {
+		color: green;
+		line-height: 28px;
+	}
+	
+	.tbl {
+		background-color: #a0a0a0;
+	}
+	
+	.box {
+		padding: 10px 0px;
+	}
+	
+	.out {
+		margin-bottom: 20px;
+	}
+	
+	.example {
+		padding: 15px;
+		word-wrap: normal;
+		word-break: break-all;
+		white-space: pre;
+		overflow: auto;
+		margin-bottom: 20px;
+		background: #fdf6e3;
+		color: #657b83;
+		font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+		font-size: 14px;
+		line-height: 20px;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		word-wrap: normal;
+		margin-top: 20px;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.out}">
+		<div class="{style.box}">
+			<g:HorizontalPanel width="100%">
+				<g:Label ui:field="lbTitle" styleName="{style.title}"></g:Label>
+			</g:HorizontalPanel>
+			<g:Label ui:field="lbSummary" styleName="{style.summary}"></g:Label>
+		</div>
+
+		<g:FlexTable ui:field="tbl" styleName="{style.tbl}"
+			cellPadding="10" cellSpacing="1" width="100%">
+
+		</g:FlexTable>
+
+		<m:JsonPanel ui:field="jsonPanel" styleName="{style.example}">
+		</m:JsonPanel>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 

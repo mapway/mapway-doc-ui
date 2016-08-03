@@ -1,0 +1,85 @@
+.treeItemImage {
+	margin-right: 8px;
+	vertical-align: middle;
+}
+
+@sprite .treeItemSelected {
+	gwt-image: "arrow_left_white";
+	color: blue;
+	cursor: default;
+	font-weight: normal;
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+
+.group {
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.entry {
+	color: brown;
+	font-weight: normal;
+	cursor: pointer;
+}
+
+.entry:HOVER {
+	background-color: skyblue;
+}
+
+.tableHeader {
+	font-weight: bold;
+}
+
+.name {
+	color: red;
+}
+
+.type {
+	color: darkblue;
+}
+
+.summary {
+	color: green;
+}
+
+.text {
+	color: black;
+}
+
+.row0 {
+	background-color: white;
+}
+
+.row1 {
+	background-color: #f8f8f8;
+}
+
+.rowh {
+	background-color: white;
+}
+
+.cssString {
+	color: green;
+}
+
+.cssNumber {
+	color: darkorange;
+}
+
+.cssBoolean {
+	color: blue;
+}
+
+.cssNull {
+	color: magenta;
+}
+
+.cssKey {
+	color: red;
+}
+
+.pre {
+	font-family: 'Anonymous Pro', sans-serif;
+	font-size: 12px;
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>mapway-doc-ui</display-name>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>apidoc</servlet-name>
+		<servlet-class>cn.mapway.document.servlet.ApiDocServlet</servlet-class>
+		<init-param>
+			<param-name>author</param-name>
+			<param-value>zhangjianshe@gmail.com</param-value>
+		</init-param>
+		<init-param>
+			<param-name>title</param-name>
+			<param-value>测试接口</param-value>
+		</init-param>
+		<init-param>
+			<param-name>basePath</param-name>
+			<param-value>http://api.mapway.cn/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>packages</param-name>
+			<param-value>cn.mapway.document.test</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<description>Doc api provider</description>
+		<display-name>Doc api provider</display-name>
+		<servlet-name>MapwayDocServlet</servlet-name>
+		<servlet-class>cn.mapway.document.servlet.MapwayDocServlet</servlet-class>
+		<init-param>
+			<param-name>author</param-name>
+			<param-value>zhangjianshe@gmail.com</param-value>
+		</init-param>
+		<init-param>
+			<param-name>title</param-name>
+			<param-value>测试接口</param-value>
+		</init-param>
+		<init-param>
+			<param-name>basePath</param-name>
+			<param-value>http://api.mapway.cn/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>packages</param-name>
+			<param-value>cn.mapway.document.test</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>apidoc</servlet-name>
+		<url-pattern>/apidoc</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MapwayDocServlet</servlet-name>
+		<url-pattern>/doc</url-pattern>
+	</servlet-mapping>
+</web-app>
