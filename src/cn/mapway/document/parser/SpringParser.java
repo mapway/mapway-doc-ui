@@ -78,6 +78,8 @@ public class SpringParser {
 				parseClass(doc, clz);
 			}
 		}
+		doc.root.name = doc.title;
+		doc.root.fullName = "/" + doc.title;
 		doc.sort();
 		return doc;
 	}

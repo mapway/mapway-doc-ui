@@ -22,7 +22,7 @@ public class Group implements Serializable {
 	}
 
 	/** 节点名称. */
-	public String name;
+	public String name="";
 
 	/** 节点说明. */
 	public String summary;

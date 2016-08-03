@@ -81,7 +81,7 @@ public class ApiDoc implements Serializable {
 			}
 		}
 		Group g = root;
-		String fullName = "";
+
 		for (int i = 0; i < paths.length; i++) {
 			String p = paths[i];
 
@@ -98,9 +98,8 @@ public class ApiDoc implements Serializable {
 				Group ng = new Group();
 				ng.name = p;
 				g.addChildGroup(ng);
-				ng.fullName = fullName + "/" + p;
+
 				g = ng;
-				fullName = g.fullName;
 			}
 		}
 
@@ -108,6 +107,19 @@ public class ApiDoc implements Serializable {
 	}
 
 	public void sort() {
+		processFullName();
 		root.sort();
+	}
+
+	public void processFullName() {
+		processGroupFullName(root, "");
+	}
+
+	private void processGroupFullName(Group root, String ppath) {
+		root.fullName = ppath + "/" + root.name;
+		for (int i = 0; i < root.subGroups.size(); i++) {
+			Group g = root.subGroups.get(i);
+			processGroupFullName(g, root.fullName);
+		}
 	}
 }

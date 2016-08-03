@@ -28,7 +28,7 @@ public class EntryListPanel extends Composite {
 	EntryList list;
 
 	public void parse(Group group) {
-		lbTitle.setText(group.name() == null ? "所有接口" : group.name());
+		lbTitle.setText(group.name() == null ? "所有接口" : group.fullName());
 		list.parse(group);
 	}
 }

@@ -28,16 +28,16 @@ public class EntryList extends Grid {
 		e.setAttribute("cellPadding", "10px");
 		e.setAttribute("cellSpacing", "1px");
 
-		this.resize(1, 6);
+		this.resize(1, 5);
 		int row = 0;
 
 		// 名称 类型 长度 选项 解释
 		Label l;
 		int col = 0;
 
-		l = new Label("分组");
-		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
-		setWidget(row, col++, l);
+//		l = new Label("分组");
+//		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
+//		setWidget(row, col++, l);
 
 		l = new Label("序号");
 		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
@@ -74,7 +74,7 @@ public class EntryList extends Grid {
 		row = 1;
 		int count = findCount(group);
 
-		this.resize(count + 1, 6);
+		this.resize(count + 1, 5);
 
 		parseGroup(group);
 
@@ -86,8 +86,8 @@ public class EntryList extends Grid {
 			Entry e = group.entries().get(i);
 			int column = 0;
 
-			this.setWidget(row, column++, new Label(group.fullName()));
-			this.setWidget(row, column++, new Label((i + 1) + ""));
+			//this.setWidget(row, column++, new Label(group.fullName()));
+			this.setWidget(row, column++, new Label((row) + ""));
 
 			this.setWidget(row, column++, new Label(e.title()));
 			this.setWidget(row, column++, new Label(e.relativePath()));
