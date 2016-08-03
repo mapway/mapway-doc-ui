@@ -2,6 +2,7 @@ package cn.mapway.document.ui.client.main;
 
 import cn.mapway.document.ui.client.module.ApiDoc;
 import cn.mapway.document.ui.client.module.Entry;
+import cn.mapway.document.ui.client.module.Group;
 import cn.mapway.document.ui.client.resource.SysResource;
 import cn.mapway.document.ui.client.rpc.ApiDocProxy;
 import cn.mapway.document.ui.client.rpc.IOnData;
@@ -33,9 +34,13 @@ public class MainFrame extends Composite {
 		@Override
 		public void onSelection(SelectionEvent<TreeItem> arg0) {
 			TreeItem item = arg0.getSelectedItem();
-			if (item.getUserObject() instanceof Entry) {
+
+			if (item.getChildCount() == 0) {
 				Entry e = (Entry) item.getUserObject();
 				showEntry(e);
+			} else {
+				Group group = (Group) item.getUserObject();
+				showEntryList(group);
 			}
 		}
 
@@ -44,12 +49,24 @@ public class MainFrame extends Composite {
 	private void showEntry(Entry e) {
 		if (entryPanel == null) {
 			entryPanel = new EntryPanel();
-
+			
 		}
 
 		content.clear();
 		entryPanel.parse(e);
 		content.add(entryPanel);
+	}
+
+	EntryList list;
+
+	protected void showEntryList(Group group) {
+		if (list == null) {
+			list = new EntryList();
+			list.setWidth("100%");
+		}
+		content.clear();
+		list.parse(group);
+		content.add(list);
 	}
 
 	public MainFrame() {

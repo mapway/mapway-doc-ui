@@ -52,10 +52,10 @@
 			<g:Label ui:field="lbSummary" styleName="{style.summary}"></g:Label>
 		</div>
 
-		<g:FlexTable ui:field="tbl" styleName="{style.tbl}"
+		<m:ObjectInfoPanel ui:field="tbl" styleName="{style.tbl}"
 			cellPadding="10" cellSpacing="1" width="100%">
-
-		</g:FlexTable>
+		</m:ObjectInfoPanel>
+		
 
 		<m:JsonPanel ui:field="jsonPanel" styleName="{style.example}">
 		</m:JsonPanel>

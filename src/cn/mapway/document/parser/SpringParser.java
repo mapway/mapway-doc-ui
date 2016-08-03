@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.mapway.document.annotation.ApiField;
+import cn.mapway.document.annotation.DevelopmentState;
 import cn.mapway.document.annotation.Doc;
 import cn.mapway.document.module.ApiDoc;
 import cn.mapway.document.module.Entry;
@@ -198,7 +199,7 @@ public class SpringParser {
 			e.summary = summary.desc();
 			e.order = summary.order();
 			e.author = summary.author();
-			// e.state = summary.state();
+			e.state = transState(summary.state());
 		}
 
 		Class<?>[] ps = m.getParameterTypes();
@@ -219,6 +220,20 @@ public class SpringParser {
 		e.output = handleParameter(out, "out");
 
 		return e;
+	}
+
+	private String transState(DevelopmentState state) {
+		if (state == DevelopmentState.FINISH) {
+			return "已完成";
+		} else if (state == DevelopmentState.OBSOLETED) {
+			return "已废弃";
+		} else if (state == DevelopmentState.PROCESS) {
+			return "开发中";
+		} else if (state == DevelopmentState.UNSTART) {
+			return "未开发";
+		}
+		return "";
+
 	}
 
 	/**

@@ -46,4 +46,7 @@ public interface CssStyle extends CssResource {
 
 	String pre();
 
+	String cssTable();
+
+	String typeLink();
 }

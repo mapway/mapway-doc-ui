@@ -1,10 +1,18 @@
 package cn.mapway.document.ui.client.main;
 
+import java.util.List;
+import java.util.Map;
+
+import cn.mapway.document.ui.client.module.GenInfo;
 import cn.mapway.document.ui.client.module.ObjectInfo;
 import cn.mapway.document.ui.client.resource.SysResource;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.HasSelectionHandlers;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -24,7 +32,8 @@ import com.google.gwt.user.client.ui.Widget;
  * @author zhangjianshe
  *
  */
-public class ParameterPanel extends Composite {
+public class ParameterPanel extends Composite implements
+		HasSelectionHandlers<ObjectInfo> {
 
 	private static ParameterPanelUiBinder uiBinder = GWT
 			.create(ParameterPanelUiBinder.class);
@@ -32,36 +41,17 @@ public class ParameterPanel extends Composite {
 	interface ParameterPanelUiBinder extends UiBinder<Widget, ParameterPanel> {
 	}
 
+	private SelectionHandler<ObjectInfo> handler = new SelectionHandler<ObjectInfo>() {
+
+		@Override
+		public void onSelection(SelectionEvent<ObjectInfo> arg0) {
+			SelectionEvent.fire(ParameterPanel.this, arg0.getSelectedItem());
+		}
+	};
+
 	public ParameterPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
-
-		tbl.getElement().setAttribute("borderCollapse", "collapse");
-		// 名称 类型 长度 选项 解释
-		Label l;
-		int col = 0;
-
-		l = new Label("名称");
-		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
-		tbl.setWidget(0, col++, l);
-
-		l = new Label("类型");
-		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
-		tbl.setWidget(0, col++, l);
-
-		l = new Label("长度");
-		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
-		tbl.setWidget(0, col++, l);
-
-		l = new Label("选项");
-		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
-		tbl.setWidget(0, col++, l);
-
-		l = new Label("解释");
-		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
-		tbl.setWidget(0, col++, l);
-
-		RowFormatter rf = tbl.getRowFormatter();
-		rf.setStylePrimaryName(0, SysResource.INSTANCE.getCss().rowh());
+		tbl.addSelectionHandler(handler);
 	}
 
 	@UiField
@@ -72,7 +62,7 @@ public class ParameterPanel extends Composite {
 
 	ObjectInfo mObj;
 
-	public void parse(ObjectInfo obj, String string) {
+	public void parse(ObjectInfo obj, String string, List<GenInfo> objList) {
 		mObj = obj;
 
 		lbTitle.setText(string + obj.type());
@@ -83,52 +73,20 @@ public class ParameterPanel extends Composite {
 			tbl.removeRow(tbl.getRowCount() - 1);
 		}
 
-		RowFormatter rf = tbl.getRowFormatter();
-
-		// 处理字段
-		int row = 1;
-		for (int i = 0; i < obj.fields().length(); i++) {
-			ObjectInfo o = obj.fields().get(i);
-			// 名称 类型 长度 选项 解释
-			Label l;
-			int col = 0;
-
-			if (row % 2 == 0) {
-				rf.setStyleName(row, SysResource.INSTANCE.getCss().row0());
-			} else {
-				rf.setStyleName(row, SysResource.INSTANCE.getCss().row1());
-			}
-
-			l = new Label(o.name());
-
-			l.setStyleName(SysResource.INSTANCE.getCss().name());
-			tbl.setWidget(row, col++, l);
-
-			l = new Label(o.type());
-			l.setStyleName(SysResource.INSTANCE.getCss().type());
-			tbl.setWidget(row, col++, l);
-
-			l = new Label(o.length() + "");
-			l.setStyleName(SysResource.INSTANCE.getCss().text());
-			tbl.setWidget(row, col++, l);
-
-			l = new Label(o.manditary() == true ? "必须" : "可选");
-			l.setStyleName(SysResource.INSTANCE.getCss().text());
-			tbl.setWidget(row, col++, l);
-
-			l = new Label(o.summary());
-			l.setStyleName(SysResource.INSTANCE.getCss().summary());
-			tbl.setWidget(row, col++, l);
-
-			row++;
-		}
+		tbl.parse(mObj, objList);
 
 		jsonPanel.setJson(obj.json());
 	}
 
 	@UiField
-	FlexTable tbl;
+	ObjectInfoPanel tbl;
 
 	@UiField
 	JsonPanel jsonPanel;
+
+	@Override
+	public HandlerRegistration addSelectionHandler(
+			SelectionHandler<ObjectInfo> arg0) {
+		return addHandler(arg0, SelectionEvent.getType());
+	}
 }

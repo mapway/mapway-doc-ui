@@ -54,5 +54,5 @@ public class Entry implements Serializable{
 	/**
 	 * 开发状态
 	 */
-	//public DevelopmentState state;
+	public String state;
 }

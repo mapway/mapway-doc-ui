@@ -39,6 +39,12 @@
 	color: darkblue;
 }
 
+.typeLink {
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 .summary {
 	color: green;
 }
@@ -77,6 +83,17 @@
 
 .cssKey {
 	color: red;
+}
+
+.cssTable {
+	background-color: #a0a0a0;
+	margin: 10px 0px;
+	width: 100%;
+	border: 0px;
+}
+
+.cssTable td {
+	padding: 10px;
 }
 
 .pre {
