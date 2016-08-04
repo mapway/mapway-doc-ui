@@ -18,9 +18,11 @@
 }
 
 .entry {
-	color: black;
+	color: #3d73d5;
 	font-weight: normal;
 	cursor: pointer;
+	line-height: 26px;
+	
 }
 
 .entry:HOVER {
@@ -98,5 +100,5 @@
 
 .pre {
 	font-family: 'Anonymous Pro', sans-serif;
-	font-size: 12px;
+	
 }

@@ -84,6 +84,11 @@ public class ObjectInfoPanel extends Grid implements
 
 		RowFormatter rf = getRowFormatter();
 		rf.setStylePrimaryName(row, SysResource.INSTANCE.getCss().rowh());
+		CellFormatter cf=getCellFormatter();
+		cf.setWidth(row, 0, "200px");
+		cf.setWidth(row, 1, "200px");
+		cf.setWidth(row, 2, "80px");
+		cf.setWidth(row, 3, "80px");
 	}
 
 	/**
