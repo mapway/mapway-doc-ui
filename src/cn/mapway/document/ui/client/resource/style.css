@@ -22,7 +22,6 @@
 	font-weight: normal;
 	cursor: pointer;
 	line-height: 26px;
-	
 }
 
 .entry:HOVER {
@@ -100,5 +99,14 @@
 
 .pre {
 	font-family: 'Anonymous Pro', sans-serif;
-	
+}
+
+.entryTitle {
+	color: darkblue;
+	font-weight: bold;
+}
+
+.desc {
+	color: green;
+	line-height: 28px;
 }

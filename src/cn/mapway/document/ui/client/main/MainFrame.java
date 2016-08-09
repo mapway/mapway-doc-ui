@@ -74,7 +74,7 @@ public class MainFrame extends Composite {
 			content.clear();
 			content.add(list);
 		}
-		list.parse(group);
+		list.parse(group, "");
 		content.scrollToTop();
 	}
 

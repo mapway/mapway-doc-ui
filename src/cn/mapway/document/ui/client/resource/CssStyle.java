@@ -49,4 +49,8 @@ public interface CssStyle extends CssResource {
 	String cssTable();
 
 	String typeLink();
+
+	String desc();
+
+	String entryTitle();
 }

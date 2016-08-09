@@ -62,4 +62,6 @@ public class Group extends JavaScriptObject {
 	public final native JsArray<Group> subGroups()/*-{
 		return this.subGroups || [];
 	}-*/;
+
+	
 }

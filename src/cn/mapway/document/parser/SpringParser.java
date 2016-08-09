@@ -80,6 +80,7 @@ public class SpringParser {
 		}
 		doc.root.name = doc.title;
 		doc.root.fullName = "/" + doc.title;
+		doc.root.summary="";
 		doc.sort();
 		return doc;
 	}
@@ -104,11 +105,7 @@ public class SpringParser {
 			return;
 		}
 
-		String path = doc.group();
-
-		Group apigroup = document.findGroup(path);
-
-		populateGroup(apigroup, clz);
+		populateGroup(document, clz);
 	}
 
 	/**
@@ -120,9 +117,16 @@ public class SpringParser {
 	 * @throws IllegalArgumentException
 	 * @throws InstantiationException
 	 */
-	private void populateGroup(Group apigroup, Class<?> c)
+	private void populateGroup(ApiDoc document, Class<?> c)
 			throws IllegalArgumentException, IllegalAccessException,
 			InstantiationException {
+		// 类Doc
+		Doc doc = c.getAnnotation(Doc.class);
+		String group_base_path = doc.group();
+
+		Group apigroup = document.findGroup(group_base_path);
+		apigroup.summary += doc.desc().length() > 0 ? doc.desc() : "";
+
 		String basepath = "";
 
 		RequestMapping rm = c.getAnnotation(RequestMapping.class);
@@ -148,12 +152,13 @@ public class SpringParser {
 		for (int i = 0; i < list.size(); i++) {
 			Method m = list.get(i);
 
-			Entry entry = handleMethod(m);
+			Entry entry = handleMethod(document, group_base_path, m);
 			entry.parentClassName = c.getName();
+
 			if (entry != null) {
 				entry.relativePath = mContext.getBasepath() + basepath
 						+ entry.relativePath;
-				apigroup.entries.add(entry);
+
 			}
 		}
 	}
@@ -161,14 +166,18 @@ public class SpringParser {
 	/**
 	 * 解析方法，生成APIentry
 	 * 
+	 * @param document
+	 * @param group_base_path
+	 * 
 	 * @param m
 	 * @return
 	 * @throws IllegalAccessException
 	 * @throws IllegalArgumentException
 	 * @throws InstantiationException
 	 */
-	private Entry handleMethod(Method m) throws IllegalArgumentException,
-			IllegalAccessException, InstantiationException {
+	private Entry handleMethod(ApiDoc document, String group_base_path, Method m)
+			throws IllegalArgumentException, IllegalAccessException,
+			InstantiationException {
 		Entry e = new Entry();
 
 		RequestMapping rm = m.getAnnotation(RequestMapping.class);
@@ -203,7 +212,7 @@ public class SpringParser {
 		Doc summary = m.getAnnotation(Doc.class);
 		if (summary != null) {
 			e.title = summary.value();
-			e.summary = summary.desc();
+			e.summary = summary.desc() == null ? "" : summary.desc();
 			e.order = summary.order();
 			e.author = summary.author();
 			e.state = transState(summary.state());
@@ -225,6 +234,10 @@ public class SpringParser {
 			}
 		}
 		e.output = handleParameter(out, "out");
+
+		String group_path = group_base_path + summary.group();
+		Group apiGroup = document.findGroup(group_path);
+		apiGroup.entries.add(e);
 
 		return e;
 	}

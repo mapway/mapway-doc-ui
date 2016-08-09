@@ -97,6 +97,7 @@ public class ApiDoc implements Serializable {
 				// 没有找到节点 创建节点，并添加到节点树
 				Group ng = new Group();
 				ng.name = p;
+				ng.summary = "";
 				g.addChildGroup(ng);
 
 				g = ng;

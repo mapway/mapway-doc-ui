@@ -5,7 +5,6 @@ import cn.mapway.document.ui.client.module.Group;
 import cn.mapway.document.ui.client.resource.SysResource;
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
@@ -34,7 +33,6 @@ public class EntryList extends Grid {
 		// 名称 类型 长度 选项 解释
 		Label l;
 		int col = 0;
-
 
 		l = new Label("序号");
 		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
@@ -66,24 +64,45 @@ public class EntryList extends Grid {
 
 	int row = 0;
 
-	public void parse(Group group) {
+	public String parse(Group group, String searchText) {
 
 		row = 1;
-		int count = findCount(group);
+		int count = findCount(group, searchText);
 
 		this.resize(count + 1, 5);
 
-		parseGroup(group);
-
+		String html = parseGroup(group, searchText);
+		return html;
 	}
 
-	private void parseGroup(Group group) {
+	private String parseGroup(Group group, String searchText) {
 
+		String html = "";
+		if (group.summary() != null && (!group.summary().equals("null"))
+				&& group.summary().length() > 0) {
+			html = "<div class='" + SysResource.INSTANCE.getCss().entryTitle()
+					+ "'>" + group.name() + "</div>" + "<div class='"
+					+ SysResource.INSTANCE.getCss().desc() + "'>"
+					+ group.summary() + "</div>";
+		}
 		for (int i = 0; i < group.entries().length(); i++) {
 			Entry e = group.entries().get(i);
+
+			boolean ok = false;
+
+			if (searchText == null || searchText.length() == 0) {
+				ok = true;
+			} else if (e.title().contains(searchText)) {
+				ok = true;
+			} else {
+				ok = false;
+			}
+
+			if (ok == false) {
+				continue;
+			}
 			int column = 0;
 
-			//this.setWidget(row, column++, new Label(group.fullName()));
 			this.setWidget(row, column++, new Label((row) + ""));
 
 			this.setWidget(row, column++, new Label(e.title()));
@@ -96,17 +115,33 @@ public class EntryList extends Grid {
 		}
 
 		for (int i = 0; i < group.subGroups().length(); i++) {
-			parseGroup(group.subGroups().get(i));
+			html += parseGroup(group.subGroups().get(i), searchText);
 		}
+
+		return html;
 	}
 
-	private int findCount(Group group) {
+	private int findCount(Group group, String searchText) {
 		Integer count = 0;
+		for (int i = 0; i < group.entries().length(); i++) {
+			boolean ok = false;
+			Entry e = group.entries().get(i);
+			if (searchText == null || searchText.length() == 0) {
+				ok = true;
+			} else if (e.title().contains(searchText)) {
+				ok = true;
+			} else {
+				ok = false;
+			}
 
-		count = count + group.entries().length();
+			if (ok == false) {
+				continue;
+			}
+			count = count + 1;
+		}
 
 		for (int i = 0; i < group.subGroups().length(); i++) {
-			count = count + findCount(group.subGroups().get(i));
+			count = count + findCount(group.subGroups().get(i), searchText);
 		}
 		return count;
 	}
