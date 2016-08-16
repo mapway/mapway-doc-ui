@@ -1,5 +1,6 @@
 package cn.mapway.document.ui.client.main;
 
+import cn.mapway.document.ui.client.main.storage.LocalStorage;
 import cn.mapway.document.ui.client.module.Entry;
 import cn.mapway.document.ui.client.module.Group;
 import cn.mapway.document.ui.client.resource.CssStyle;
@@ -7,11 +8,15 @@ import cn.mapway.document.ui.client.resource.SysResource;
 import cn.mapway.document.ui.client.resource.TreeResource;
 
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
+import com.google.gwt.event.logical.shared.OpenEvent;
+import com.google.gwt.event.logical.shared.OpenHandler;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 
 /**
- * API接口树
+ * API接口树 提供一个本地存储，存储各个节点的打开情况
  * 
  * @author zhangjianshe
  *
@@ -19,13 +24,47 @@ import com.google.gwt.user.client.ui.TreeItem;
 public class ApiTree extends Tree {
 
 	CssStyle css;
+	private OpenHandler<TreeItem> openHandler=new OpenHandler<TreeItem>() {
+		
+		@Override
+		public void onOpen(OpenEvent<TreeItem> event) {
+			Group g=(Group)event.getTarget().getUserObject();
+			setOpen(g.fullName(),true);
+		}
+	};
+	private CloseHandler<TreeItem> closeHandler=new CloseHandler<TreeItem>() {
+		
+		@Override
+		public void onClose(CloseEvent<TreeItem> event) {
+			Group g=(Group)event.getTarget().getUserObject();
+			setOpen(g.fullName(),false);
+		}
+	};
 
 	public ApiTree() {
 		super(new TreeResource(), false);
-
 		css = SysResource.INSTANCE.getCss();
+		
+		this.addOpenHandler(openHandler);
+		this.addCloseHandler(closeHandler);
 	}
 
+	public boolean isOpen(String key)
+	{
+		String data=LocalStorage.val(key);
+		if("1".equals(data)){
+			return true;
+		}
+		return false;
+	}
+	
+	public void setOpen(String key,boolean open)
+	{
+		LocalStorage.save(key, open?"1":"0");
+	}
+	
+	
+	
 	public void parseData(cn.mapway.document.ui.client.module.ApiDoc data) {
 		this.clear();
 
@@ -36,8 +75,7 @@ public class ApiTree extends Tree {
 		this.addItem(root);
 		root.setUserObject(group);
 		root.setText(data.title());
-		parseGroup(root, group);
-
+		parseGroup(root, group);	
 	}
 
 	private void parseGroup(TreeItem root, Group group) {
@@ -50,6 +88,7 @@ public class ApiTree extends Tree {
 			item.setUserObject(g);
 			item.setText(g.name());
 			parseGroup(item, g);
+			
 			root.addItem(item);
 		}
 		// 处理方法
@@ -59,13 +98,13 @@ public class ApiTree extends Tree {
 			Entry e = entries.get(i);
 			TreeItem item = new TreeItem();
 			item.setStyleName(css.entry());
-			item.setText(e.title());
+			item.setText((i+1)+"."+e.title());
 			item.setUserObject(e);
 			item.setTitle("实现类:" + e.parentClassName() + "\r\n方法"
 					+ e.methodName());
 			root.addItem(item);
 		}
-		root.setState(true);
+		root.setState(isOpen(group.fullName()));
 	}
 
 }
