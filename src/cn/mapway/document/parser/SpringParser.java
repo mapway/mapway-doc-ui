@@ -80,7 +80,7 @@ public class SpringParser {
 		}
 		doc.root.name = doc.title;
 		doc.root.fullName = "/" + doc.title;
-		doc.root.summary="";
+		doc.root.summary = "";
 		doc.sort();
 		return doc;
 	}
@@ -223,7 +223,9 @@ public class SpringParser {
 
 		for (Class<?> clz : ps) {
 			String name = clz.getSimpleName();
-			if (name.startsWith("Http")) {
+			String pname = clz.getPackage().getName();
+
+			if (name.startsWith("Http") || pname.startsWith("org.")) {
 				continue;
 			} else {
 				ObjectInfo p = handleParameter(clz, name);
@@ -253,7 +255,6 @@ public class SpringParser {
 			return "未开发";
 		}
 		return "";
-
 	}
 
 	/**
