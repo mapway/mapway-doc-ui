@@ -21,8 +21,10 @@ public class Group implements Serializable {
 		setParent(null);
 	}
 
+	public Integer order = 1;
+
 	/** 节点名称. */
-	public String name="";
+	public String name = "";
 
 	/** 节点说明. */
 	public String summary;
@@ -35,7 +37,7 @@ public class Group implements Serializable {
 	/**
 	 * 节点全路径名称
 	 */
-	public String fullName="/";
+	public String fullName = "/";
 
 	/**
 	 * 子节点
@@ -126,7 +128,7 @@ public class Group implements Serializable {
 		Collections.sort(subGroups, new Comparator<Group>() {
 			@Override
 			public int compare(Group o1, Group o2) {
-				return o1.name.compareTo(o2.name);
+				return o1.order > o2.order ? 1 : -1;
 			}
 		});
 

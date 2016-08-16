@@ -41,13 +41,14 @@ public class MainFrame extends Composite {
 	};
 
 	private void handleItem(TreeItem item) {
-		if (item.getChildCount() == 0) {
-			Entry e = (Entry) item.getUserObject();
-			showEntry(e);
-		} else {
+		if (item.getTitle().length() == 0) {
 			Group group = (Group) item.getUserObject();
 			showEntryList(group);
+		} else {
+			Entry e = (Entry) item.getUserObject();
+			showEntry(e);
 		}
+
 	}
 
 	private void showEntry(Entry e) {

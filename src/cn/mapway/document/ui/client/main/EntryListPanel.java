@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class EntryListPanel extends Composite {
@@ -60,14 +61,23 @@ public class EntryListPanel extends Composite {
 		if (group == null) {
 			return;
 		}
+
 		this.searchText = searchText;
 		txtSEARCH.setValue(searchText);
 		mGroup = group;
 		lbTitle.setText(group.name() == null ? "所有接口" : group.fullName());
+		int count = list.findCount(group, "");
 		String h = list.parse(group, searchText);
-
+		if (count == 0) {
+			entries.setVisible(false);
+		} else {
+			entries.setVisible(true);
+		}
 		html.setHTML(h);
 	}
+
+	@UiField
+	VerticalPanel entries;
 
 	@UiField
 	TextBox txtSEARCH;

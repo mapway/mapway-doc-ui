@@ -24,22 +24,23 @@
 	.desc {
 		padding: 10px;
 	}
-	
 	</ui:style>
 	<g:VerticalPanel width="100%">
 		<g:HTML ui:field="html" styleName="{style.desc}">
 		</g:HTML>
-		<g:HorizontalPanel width="100%" verticalAlignment="middle"
-			spacing="5">
-			<g:Label ui:field="lbTitle" styleName="{style.title}"></g:Label>
-			<g:cell horizontalAlignment="right">
-				<g:HorizontalPanel spacing="5">
-					<g:TextBox ui:field="txtSEARCH" styleName="{style.input}"></g:TextBox>
-					<g:Button ui:field="btnSearch" text="搜索" styleName="{style.btn}"></g:Button>
-				</g:HorizontalPanel>
-			</g:cell>
-		</g:HorizontalPanel>
+		<g:VerticalPanel width="100%" ui:field="entries">
+			<g:HorizontalPanel width="100%" verticalAlignment="middle"
+				spacing="5">
+				<g:Label ui:field="lbTitle" styleName="{style.title}"></g:Label>
+				<g:cell horizontalAlignment="right">
+					<g:HorizontalPanel spacing="5">
+						<g:TextBox ui:field="txtSEARCH" styleName="{style.input}"></g:TextBox>
+						<g:Button ui:field="btnSearch" text="搜索" styleName="{style.btn}"></g:Button>
+					</g:HorizontalPanel>
+				</g:cell>
+			</g:HorizontalPanel>
+			<m:EntryList ui:field="list" width="100%"></m:EntryList>
+		</g:VerticalPanel>
 
-		<m:EntryList ui:field="list" width="100%"></m:EntryList>
 	</g:VerticalPanel>
 </ui:UiBinder> 

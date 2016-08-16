@@ -121,7 +121,7 @@ public class EntryList extends Grid {
 		return html;
 	}
 
-	private int findCount(Group group, String searchText) {
+	public int findCount(Group group, String searchText) {
 		Integer count = 0;
 		for (int i = 0; i < group.entries().length(); i++) {
 			boolean ok = false;

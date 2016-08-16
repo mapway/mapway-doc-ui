@@ -120,12 +120,15 @@ public class SpringParser {
 	private void populateGroup(ApiDoc document, Class<?> c)
 			throws IllegalArgumentException, IllegalAccessException,
 			InstantiationException {
+
 		// 类Doc
 		Doc doc = c.getAnnotation(Doc.class);
 		String group_base_path = doc.group();
 
 		Group apigroup = document.findGroup(group_base_path);
+
 		apigroup.summary += doc.desc().length() > 0 ? doc.desc() : "";
+		apigroup.order = doc.order();
 
 		String basepath = "";
 
