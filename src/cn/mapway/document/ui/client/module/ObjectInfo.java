@@ -1,16 +1,8 @@
 package cn.mapway.document.ui.client.module;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ObjectInfo.
- */
 /*
  * 类对象信息
  */
@@ -47,6 +39,15 @@ public class ObjectInfo extends JavaScriptObject {
 	 */
 	public final native String summary()/*-{
 		return this.summary;
+	}-*/;
+
+	/**
+	 * Title.
+	 *
+	 * @return the string
+	 */
+	public final native String title()/*-{
+		return this.title;
 	}-*/;
 
 	/**

@@ -59,8 +59,7 @@ public class EntryPanel extends Composite {
 
 		mapper = new HashMap<String, Anchor>();
 		gens = new ArrayList<GenInfo>();
-		lbTITLE.setText(e.title() + "   " + e.parentClassName() + "::"
-				+ e.methodName());
+		lbTITLE.setText(e.title());
 		lbSUMMARY.setHTML(e.summary());
 		lbURL.setText("接口网址:  " + e.relativePath());
 		lbAUTHOR.setText("作者:" + e.author());
@@ -90,7 +89,24 @@ public class EntryPanel extends Composite {
 			merge(gens, gens2);
 		}
 
+		
+		String html = "<p>JAVA源码信息<br/><table cellpadding='5px'>";
+		html +="<tr><td>控制类</td><td>" + e.parentClassName()+"</td></tr>";
+		html += "<tr><td>控制方法</td><td>" + e.methodName()+"</td></tr>";
+
+		if (e.input().length() > 0) {
+			html += "<tr><td>输入参数 </td><td>" + e.input().get(0).type()+"</td></tr>";
+		}
+		if (e.output() != null) {
+			html += "<tr><td>输出参数</td><td>" + e.output().type()+"</td></tr>";
+		}
+
+		html+="</table>";
+		javaSource.setHTML(html);
 	}
+
+	@UiField
+	HTML javaSource;
 
 	private void merge(List<GenInfo> gens, List<GenInfo> gens2) {
 		for (GenInfo info : gens2) {

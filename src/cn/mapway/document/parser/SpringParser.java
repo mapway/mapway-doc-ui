@@ -121,6 +121,8 @@ public class SpringParser {
 			throws IllegalArgumentException, IllegalAccessException,
 			InstantiationException {
 
+		log.info("process " + c.getName());
+		
 		// 类Doc
 		Doc doc = c.getAnnotation(Doc.class);
 		String group_base_path = doc.group();
@@ -277,7 +279,9 @@ public class SpringParser {
 		Doc summary = clz.getAnnotation(Doc.class);
 
 		p.name = name == null ? clz.getSimpleName() : name;
-		p.summary = summary == null ? "" : summary.value();
+
+		p.title = summary == null ? "" : summary.value();
+		p.summary = summary == null ? "" : summary.desc();
 
 		if (isPrimitive(clz)) {
 			p.type = clz.getSimpleName();

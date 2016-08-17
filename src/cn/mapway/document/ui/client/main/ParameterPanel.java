@@ -57,17 +57,12 @@ public class ParameterPanel extends Composite implements
 	@UiField
 	Label lbTitle;
 
-	@UiField
-	Label lbSummary;
-
 	ObjectInfo mObj;
 
 	public void parse(ObjectInfo obj, String string, List<GenInfo> objList) {
 		mObj = obj;
 
-		lbTitle.setText(string + obj.type());
-		lbSummary.setText(obj.summary());
-
+		lbTitle.setText(string);
 		tbl.parse(mObj, objList);
 
 		jsonPanel.setJson(obj.json());

@@ -5,7 +5,7 @@ import java.util.List;
 import cn.mapway.document.annotation.ApiField;
 import cn.mapway.document.annotation.Doc;
 
-@Doc("Req test")
+@Doc("请求参数积累")
 public class Req {
 
 	@ApiField("int field")

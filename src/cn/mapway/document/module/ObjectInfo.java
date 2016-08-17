@@ -15,6 +15,7 @@ public class ObjectInfo implements Serializable {
 	public String name;
 	public String type;
 	public String summary;
+	public String title;
 	public String example;
 	public boolean manditary;
 	public int length = 0;

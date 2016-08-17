@@ -32,6 +32,10 @@
 	.box {
 		padding: 10px;
 	}
+	
+	.source {
+		padding: 20px 0px;
+	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.box}">
 		<div class="{style.header}">
@@ -53,5 +57,7 @@
 		<m:ParameterPanel ui:field="paraOut"></m:ParameterPanel>
 		<g:HTMLPanel ui:field="objInfoList">
 		</g:HTMLPanel>
+		<g:HTML ui:field="javaSource" styleName="{style.source}">
+		</g:HTML>
 	</g:HTMLPanel>
 </ui:UiBinder> 

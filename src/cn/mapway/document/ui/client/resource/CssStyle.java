@@ -53,4 +53,6 @@ public interface CssStyle extends CssResource {
 	String desc();
 
 	String entryTitle();
+
+	String rowTitle();
 }

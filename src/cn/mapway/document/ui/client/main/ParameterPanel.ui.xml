@@ -5,6 +5,7 @@
 	.title {
 		color: brown;
 		line-height: 28px;
+		font-weight: bold;
 	}
 	
 	.summary {
@@ -49,13 +50,12 @@
 			<g:HorizontalPanel width="100%">
 				<g:Label ui:field="lbTitle" styleName="{style.title}"></g:Label>
 			</g:HorizontalPanel>
-			<g:Label ui:field="lbSummary" styleName="{style.summary}"></g:Label>
 		</div>
 
 		<m:ObjectInfoPanel ui:field="tbl" styleName="{style.tbl}"
 			cellPadding="10" cellSpacing="1" width="100%">
 		</m:ObjectInfoPanel>
-		
+
 
 		<m:JsonPanel ui:field="jsonPanel" styleName="{style.example}">
 		</m:JsonPanel>

@@ -7,7 +7,6 @@ import cn.mapway.document.ui.client.module.GenInfo;
 import cn.mapway.document.ui.client.module.ObjectInfo;
 import cn.mapway.document.ui.client.resource.SysResource;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -15,15 +14,15 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ObjectInfoPanel extends Grid implements
 		HasSelectionHandlers<ObjectInfo>, ClickHandler {
 
 	private Label lbTitle;
+	private Label lbSummary;
 
 	@Override
 	public void onClick(ClickEvent arg0) {
@@ -44,19 +43,26 @@ public class ObjectInfoPanel extends Grid implements
 		e.setAttribute("cellPadding", "10px");
 		e.setAttribute("cellSpacing", "1px");
 
+		RowFormatter rf = getRowFormatter();
+
 		lbTitle = new Label();
+		lbSummary = new Label();
+		lbSummary.setStyleName(SysResource.INSTANCE.getCss().summary());
+		VerticalPanel vp = new VerticalPanel();
+		vp.add(lbTitle);
+		vp.add(lbSummary);
 
 		this.resize(2, 5);
 		int row = 0;
-
-		setWidget(row, 0, lbTitle);
+		rf.setStyleName(row, SysResource.INSTANCE.getCss().rowTitle());
+		setWidget(row, 0, vp);
 		getCellFormatter().getElement(0, 0).setAttribute("colspan", "5");
-		
+
 		this.removeCell(0, 1);
 		this.removeCell(0, 1);
 		this.removeCell(0, 1);
 		this.removeCell(0, 1);
-		
+
 		// 名称 类型 长度 选项 解释
 		Label l;
 		int col = 0;
@@ -82,9 +88,9 @@ public class ObjectInfoPanel extends Grid implements
 		l.setStyleName(SysResource.INSTANCE.getCss().tableHeader());
 		setWidget(row, col++, l);
 
-		RowFormatter rf = getRowFormatter();
 		rf.setStylePrimaryName(row, SysResource.INSTANCE.getCss().rowh());
-		CellFormatter cf=getCellFormatter();
+
+		CellFormatter cf = getCellFormatter();
 		cf.setWidth(row, 0, "200px");
 		cf.setWidth(row, 1, "200px");
 		cf.setWidth(row, 2, "80px");
@@ -99,8 +105,8 @@ public class ObjectInfoPanel extends Grid implements
 	 */
 	public void parse(ObjectInfo obj, List<GenInfo> objList) {
 
-		lbTitle.setText(obj.name() + "-(" + obj.type() + ")");
-
+		lbTitle.setText(obj.title() == null ? obj.type() : obj.title());
+		lbSummary.setText(obj.summary());
 		this.resizeRows(obj.fields().length() + 2);
 
 		RowFormatter rf = getRowFormatter();
