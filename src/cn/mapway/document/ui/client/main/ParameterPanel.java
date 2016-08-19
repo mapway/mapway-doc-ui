@@ -1,5 +1,7 @@
 package cn.mapway.document.ui.client.main;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
 import com.google.gwt.user.client.ui.Label;
@@ -41,17 +44,9 @@ public class ParameterPanel extends Composite implements
 	interface ParameterPanelUiBinder extends UiBinder<Widget, ParameterPanel> {
 	}
 
-	private SelectionHandler<ObjectInfo> handler = new SelectionHandler<ObjectInfo>() {
-
-		@Override
-		public void onSelection(SelectionEvent<ObjectInfo> arg0) {
-			SelectionEvent.fire(ParameterPanel.this, arg0.getSelectedItem());
-		}
-	};
-
 	public ParameterPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
-		tbl.addSelectionHandler(handler);
+		tbl.addSelectionHandler(fieldTypeSelectionHandler);
 	}
 
 	@UiField
@@ -59,13 +54,81 @@ public class ParameterPanel extends Composite implements
 
 	ObjectInfo mObj;
 
-	public void parse(ObjectInfo obj, String string, List<GenInfo> objList) {
+	Map<String, Anchor> mapper;
+
+	List<GenInfo> gens;
+
+	private SelectionHandler<ObjectInfo> fieldTypeSelectionHandler = new SelectionHandler<ObjectInfo>() {
+
+		@Override
+		public void onSelection(SelectionEvent<ObjectInfo> arg0) {
+			if (mapper != null) {
+				ObjectInfo info = arg0.getSelectedItem();
+				Anchor a = mapper.get(info.type());
+				if (a != null) {
+					a.getElement().scrollIntoView();
+				}
+			}
+		}
+	};
+
+	public void parse(ObjectInfo obj, String string) {
 		mObj = obj;
+		gens = new ArrayList<GenInfo>();
+		mapper = new HashMap<String, Anchor>();
 
 		lbTitle.setText(string);
-		tbl.parse(mObj, objList);
+		tbl.parse(mObj, gens, mapper);
+
+		objInfoPanel.clear();
+		while (needContinue(gens)) {
+			List<GenInfo> gens2 = new ArrayList<GenInfo>();
+			for (GenInfo info : gens) {
+				if (info.gen == false) {
+
+					
+
+					ObjectInfoPanel p = new ObjectInfoPanel();
+					p.addSelectionHandler(fieldTypeSelectionHandler);
+					p.parse(info.obj, gens2, mapper);
+					objInfoPanel.add(p);
+					info.gen = true;
+					
+					Anchor a = new Anchor();
+					a.setName(info.type);
+					mapper.put(info.type, a);
+					objInfoPanel.add(a);
+				}
+			}
+			merge(gens, gens2);
+		}
 
 		jsonPanel.setJson(obj.json());
+	}
+
+	private void merge(List<GenInfo> gens, List<GenInfo> gens2) {
+		for (GenInfo info : gens2) {
+			boolean find = false;
+			for (GenInfo gen : gens) {
+				if (gen.type.equals(info.type)) {
+					find = true;
+					break;
+				}
+			}
+
+			if (find == false) {
+				gens.add(info);
+			}
+		}
+	}
+
+	private boolean needContinue(List<GenInfo> gens2) {
+		for (GenInfo info : gens2) {
+			if (info.gen == false) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@UiField
@@ -79,4 +142,7 @@ public class ParameterPanel extends Composite implements
 			SelectionHandler<ObjectInfo> arg0) {
 		return addHandler(arg0, SelectionEvent.getType());
 	}
+
+	@UiField
+	HTMLPanel objInfoPanel;
 }

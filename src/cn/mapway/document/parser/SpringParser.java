@@ -121,7 +121,7 @@ public class SpringParser {
 			throws IllegalArgumentException, IllegalAccessException,
 			InstantiationException {
 
-		log.info("process " + c.getName());
+		log.debug("process " + c.getName());
 		
 		// 类Doc
 		Doc doc = c.getAnnotation(Doc.class);

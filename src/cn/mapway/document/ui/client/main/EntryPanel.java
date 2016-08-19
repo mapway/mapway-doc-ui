@@ -33,105 +33,37 @@ public class EntryPanel extends Composite {
 
 	public EntryPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
-		paraIn.addSelectionHandler(fieldTypeSelectionHandler);
-		paraOut.addSelectionHandler(fieldTypeSelectionHandler);
 	}
-
-	List<GenInfo> gens;
-
-	private SelectionHandler<ObjectInfo> fieldTypeSelectionHandler = new SelectionHandler<ObjectInfo>() {
-
-		@Override
-		public void onSelection(SelectionEvent<ObjectInfo> arg0) {
-			if (mapper != null) {
-				ObjectInfo info = arg0.getSelectedItem();
-				Anchor a = mapper.get(info.type());
-				if (a != null) {
-					a.getElement().scrollIntoView();
-				}
-			}
-		}
-	};
-
-	Map<String, Anchor> mapper;
 
 	public void parse(Entry e) {
 
-		mapper = new HashMap<String, Anchor>();
-		gens = new ArrayList<GenInfo>();
 		lbTITLE.setText(e.title());
 		lbSUMMARY.setHTML(e.summary());
 		lbURL.setText("接口网址:  " + e.relativePath());
 		lbAUTHOR.setText("作者:" + e.author());
 		lbINVOKE.setText("调用方法:" + e.invokeMethod());
 
-		paraIn.parse(e.input().get(0), "传入参数", gens);
-		paraOut.parse(e.output(), "传出参数", gens);
+		paraIn.parse(e.input().get(0), "传入参数");
+		paraOut.parse(e.output(), "传出参数");
 
-		objInfoList.clear();
-		while (needContinue(gens)) {
-			List<GenInfo> gens2 = new ArrayList();
-			for (GenInfo info : gens) {
-				if (info.gen == false) {
-
-					Anchor a = new Anchor();
-					a.setName(info.type);
-					mapper.put(info.type, a);
-					objInfoList.add(a);
-
-					ObjectInfoPanel p = new ObjectInfoPanel();
-					p.addSelectionHandler(fieldTypeSelectionHandler);
-					p.parse(info.obj, gens2);
-					objInfoList.add(p);
-					info.gen = true;
-				}
-			}
-			merge(gens, gens2);
-		}
-
-		
 		String html = "<p>JAVA源码信息<br/><table cellpadding='5px'>";
-		html +="<tr><td>控制类</td><td>" + e.parentClassName()+"</td></tr>";
-		html += "<tr><td>控制方法</td><td>" + e.methodName()+"</td></tr>";
+		html += "<tr><td>控制类</td><td>" + e.parentClassName() + "</td></tr>";
+		html += "<tr><td>控制方法</td><td>" + e.methodName() + "</td></tr>";
 
 		if (e.input().length() > 0) {
-			html += "<tr><td>输入参数 </td><td>" + e.input().get(0).type()+"</td></tr>";
+			html += "<tr><td>输入参数 </td><td>" + e.input().get(0).type()
+					+ "</td></tr>";
 		}
 		if (e.output() != null) {
-			html += "<tr><td>输出参数</td><td>" + e.output().type()+"</td></tr>";
+			html += "<tr><td>输出参数</td><td>" + e.output().type() + "</td></tr>";
 		}
 
-		html+="</table>";
+		html += "</table>";
 		javaSource.setHTML(html);
 	}
 
 	@UiField
 	HTML javaSource;
-
-	private void merge(List<GenInfo> gens, List<GenInfo> gens2) {
-		for (GenInfo info : gens2) {
-			boolean find = false;
-			for (GenInfo gen : gens) {
-				if (gen.type.equals(info.type)) {
-					find = true;
-					break;
-				}
-			}
-
-			if (find == false) {
-				gens.add(info);
-			}
-		}
-	}
-
-	private boolean needContinue(List<GenInfo> gens2) {
-		for (GenInfo info : gens2) {
-			if (info.gen == false) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	@UiField
 	Label lbTITLE;
@@ -151,8 +83,5 @@ public class EntryPanel extends Composite {
 
 	@UiField
 	ParameterPanel paraOut;
-
-	@UiField
-	HTMLPanel objInfoList;
 
 }

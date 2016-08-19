@@ -1,6 +1,7 @@
 package cn.mapway.document.ui.client.main;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.mapway.document.ui.client.component.CustomAnchor;
 import cn.mapway.document.ui.client.module.GenInfo;
@@ -14,7 +15,9 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -48,7 +51,7 @@ public class ObjectInfoPanel extends Grid implements
 		lbTitle = new Label();
 		lbSummary = new Label();
 		lbSummary.setStyleName(SysResource.INSTANCE.getCss().summary());
-		VerticalPanel vp = new VerticalPanel();
+		HTMLPanel vp = new HTMLPanel("");
 		vp.add(lbTitle);
 		vp.add(lbSummary);
 
@@ -102,8 +105,9 @@ public class ObjectInfoPanel extends Grid implements
 	 * 
 	 * @param obj
 	 * @param objList
+	 * @param mapper 
 	 */
-	public void parse(ObjectInfo obj, List<GenInfo> objList) {
+	public void parse(ObjectInfo obj, List<GenInfo> objList, Map<String, Anchor> mapper) {
 
 		lbTitle.setText(obj.title() == null ? obj.type() : obj.title());
 		lbSummary.setText(obj.summary());

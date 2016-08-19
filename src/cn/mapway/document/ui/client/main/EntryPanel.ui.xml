@@ -35,11 +35,26 @@
 	
 	.source {
 		padding: 20px 0px;
+		margin-top: 50px;
+		border-left: solid 3px green;
+		padding-left: 10px;
+	}
+	
+	.partin {
+		margin-top: 50px;
+		border-left: solid 3px red;
+		padding-left: 10px;
+	}
+	
+	.partout {
+		margin-top: 50px;
+		border-left: solid 3px skyblue;
+		padding-left: 10px;
 	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.box}">
+		<g:Label ui:field="lbTITLE" styleName="{style.title}"></g:Label>
 		<div class="{style.header}">
-			<g:Label ui:field="lbTITLE" styleName="{style.title}"></g:Label>
 			<g:HTML ui:field="lbSUMMARY" styleName="{style.summary}"></g:HTML>
 		</div>
 
@@ -53,10 +68,11 @@
 		<g:Label ui:field="lbINVOKE" styleName="{style.invoke}">
 		</g:Label>
 
-		<m:ParameterPanel ui:field="paraIn"></m:ParameterPanel>
-		<m:ParameterPanel ui:field="paraOut"></m:ParameterPanel>
-		<g:HTMLPanel ui:field="objInfoList">
-		</g:HTMLPanel>
+
+		<m:ParameterPanel ui:field="paraIn" styleName="{style.partin}"></m:ParameterPanel>
+
+		<m:ParameterPanel ui:field="paraOut" styleName="{style.partout}"></m:ParameterPanel>
+
 		<g:HTML ui:field="javaSource" styleName="{style.source}">
 		</g:HTML>
 	</g:HTMLPanel>
