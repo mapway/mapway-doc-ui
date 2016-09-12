@@ -17,6 +17,7 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -25,7 +26,7 @@ public class ObjectInfoPanel extends Grid implements
 		HasSelectionHandlers<ObjectInfo>, ClickHandler {
 
 	private Label lbTitle;
-	private Label lbSummary;
+	private HTML lbSummary;
 
 	@Override
 	public void onClick(ClickEvent arg0) {
@@ -49,7 +50,7 @@ public class ObjectInfoPanel extends Grid implements
 		RowFormatter rf = getRowFormatter();
 
 		lbTitle = new Label();
-		lbSummary = new Label();
+		lbSummary = new HTML();
 		lbSummary.setStyleName(SysResource.INSTANCE.getCss().summary());
 		HTMLPanel vp = new HTMLPanel("");
 		vp.add(lbTitle);
@@ -109,8 +110,8 @@ public class ObjectInfoPanel extends Grid implements
 	 */
 	public void parse(ObjectInfo obj, List<GenInfo> objList, Map<String, Anchor> mapper) {
 
-		lbTitle.setText(obj.title() == null ? obj.type() : obj.title());
-		lbSummary.setText(obj.summary());
+		lbTitle.setText(obj.type()+"==>" +(obj.title() == null ?"": obj.title()));
+		lbSummary.setHTML(obj.summary());
 		this.resizeRows(obj.fields().length() + 2);
 
 		RowFormatter rf = getRowFormatter();
@@ -166,7 +167,7 @@ public class ObjectInfoPanel extends Grid implements
 			l.setStyleName(SysResource.INSTANCE.getCss().text());
 			setWidget(row, col++, l);
 
-			l = new Label(o.summary());
+			l = new Label(o.title());
 			l.setStyleName(SysResource.INSTANCE.getCss().summary());
 			setWidget(row, col++, l);
 

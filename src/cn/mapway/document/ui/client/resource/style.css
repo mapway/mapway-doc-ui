@@ -28,6 +28,14 @@
 	background-color: skyblue;
 }
 
+.entrySelected {
+	background-color: white;
+}
+
+.entrySelected:HOVER {
+	background-color: white;
+}
+
 .tableHeader {
 	font-weight: bold;
 }

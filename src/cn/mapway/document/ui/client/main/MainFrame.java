@@ -28,14 +28,23 @@ public class MainFrame extends Composite {
 	interface MainFrameUiBinder extends UiBinder<Widget, MainFrame> {
 	}
 
+	TreeItem currentItem = null;
 	EntryPanel entryPanel;
 	private SelectionHandler<TreeItem> treeSelect = new SelectionHandler<TreeItem>() {
 
 		@Override
 		public void onSelection(SelectionEvent<TreeItem> arg0) {
 			TreeItem item = arg0.getSelectedItem();
+			if (currentItem != null) {
+				currentItem.removeStyleName(SysResource.INSTANCE.getCss()
+						.entrySelected());
+			}
 
 			handleItem(item);
+
+			currentItem = item;
+			currentItem.addStyleName(SysResource.INSTANCE.getCss()
+					.entrySelected());
 		}
 
 	};

@@ -349,11 +349,12 @@ public class SpringParser {
 
 			ObjectInfo fi = new ObjectInfo();
 			fi.manditary = wf.mandidate();
-			fi.summary = wf.value();
+			fi.title = wf.value();
 			fi.length = wf.length();
 			fi.example = wf.example();
 			fi.name = f.getName();
 			fi.type = f.getType().getName();
+		      
 
 			// 记录类型的循环次数
 
@@ -375,10 +376,10 @@ public class SpringParser {
 				Class<?> c = (Class<?>) type;
 				fi.type = "List<" + c.getSimpleName() + ">";
 
+				
 				ArrayList list = new ArrayList();
 				if (instance != null) {
 					// 处理例子
-
 					f.set(instance, list);
 				}
 
@@ -388,10 +389,18 @@ public class SpringParser {
 					// 不处理了，油循环引用
 					deeps.decLevel();
 					return null;
-
 				}
 
 				Object cinstance = newInstance(c);
+				// 处理 DOc fi.summary;
+				
+				//读取List数组中对象的Doc注解
+				Doc fdoc=c.getAnnotation(Doc.class);
+				if(fdoc!=null)
+				{
+					fi.summary=fdoc.desc();
+				}
+				
 				// 列表添加2个例子
 				list.add(cinstance);
 
@@ -418,6 +427,13 @@ public class SpringParser {
 				cinstance = newInstance(f.getType());
 				f.set(instance, cinstance);
 
+				//读取List数组中对象的Doc注解
+				Doc fdoc=cinstance.getClass().getAnnotation(Doc.class);
+				if(fdoc!=null)
+				{
+					fi.summary=fdoc.desc();
+				}
+				
 				for (Field f1 : f.getType().getFields()) {
 					ObjectInfo o = handleField(cinstance, f1);
 					if (o != null) {
