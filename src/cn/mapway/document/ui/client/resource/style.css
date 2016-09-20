@@ -122,3 +122,22 @@
 	color: green;
 	line-height: 28px;
 }
+
+.dlg {
+	background-color: white;
+	border: solid 5px #a0a0a0;
+}
+
+.btn {
+	background-color: skyblue;
+	color: black;
+	border: solid 1px darkblue;
+	padding: 10px 16px;
+}
+
+.btn:HOVER {
+	background-color: darkblue;
+	color: white;
+	border: solid 1px skyblue;
+	padding: 10px 16px;
+}

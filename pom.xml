@@ -129,6 +129,16 @@
 			<artifactId>slf4j-jdk14</artifactId>
 			<version>1.7.21</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.15-beta2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<version>3.15-beta2</version>
+		</dependency>
 	</dependencies>
 
 	<profiles>

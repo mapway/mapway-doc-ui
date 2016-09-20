@@ -53,7 +53,12 @@
 	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.box}">
-		<g:Label ui:field="lbTITLE" styleName="{style.title}"></g:Label>
+		<g:HorizontalPanel styleName="{style.title}" width="100%">
+			<g:Label ui:field="lbTITLE" ></g:Label>
+			<g:cell horizontalAlignment="right">
+				<g:Button ui:field="btnTest" text="测试"></g:Button>
+			</g:cell>
+		</g:HorizontalPanel>
 		<div class="{style.header}">
 			<g:HTML ui:field="lbSUMMARY" styleName="{style.summary}"></g:HTML>
 		</div>

@@ -55,5 +55,10 @@ public interface CssStyle extends CssResource {
 	String entryTitle();
 
 	String rowTitle();
+
 	String entrySelected();
+
+	String dlg();
+
+	String btn();
 }

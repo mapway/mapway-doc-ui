@@ -116,12 +116,12 @@ public class MainFrame extends Composite {
 			ApiDocProxy.fetchData(target,
 					new IOnData<cn.mapway.document.ui.client.module.ApiDoc>() {
 						@Override
-						public void onError(String error) {
+						public void onError(String url,String error) {
 							Window.alert(error);
 						}
 
 						@Override
-						public void onSuccess(
+						public void onSuccess(String url,
 								cn.mapway.document.ui.client.module.ApiDoc data) {
 							apiTree.parseData(data);
 						}

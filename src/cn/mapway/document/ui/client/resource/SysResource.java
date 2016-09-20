@@ -22,6 +22,9 @@ public interface SysResource extends ClientBundle {
 	@Source("image/logo.png")
 	ImageResource logo();
 
+	@Source("image/loadding.gif")
+	ImageResource loading();
+
 	@Source("image/arrow_left_white.png")
 	ImageResource arrow_left_white();
 
@@ -33,10 +36,13 @@ public interface SysResource extends ClientBundle {
 
 	@Source("image/inter.png")
 	ImageResource inter();
-	
+
 	@Source("image/treeOpen.png")
 	ImageResource treeOpen();
-	
+
 	@Source("image/treeClose.png")
 	ImageResource treeClose();
+
+	@Source("image/history.png")
+	ImageResource history();
 }

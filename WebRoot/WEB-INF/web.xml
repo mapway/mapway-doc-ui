@@ -23,7 +23,7 @@
 		</init-param>
 		<init-param>
 			<param-name>basePath</param-name>
-			<param-value>http://api.mapway.cn/</param-value>
+			<param-value>http://localhost:8080/mapway-doc-ui/</param-value>
 		</init-param>
 		<init-param>
 			<param-name>packages</param-name>

@@ -11,8 +11,91 @@ import com.google.gwt.http.client.URL;
 
 public class ApiDocProxy {
 
-	public static <T extends JavaScriptObject> void fetchData(String target,
-			final IOnData<T> handler) {
+	/**
+	 * 向服务器请求接口调用
+	 * 
+	 * @param url
+	 * @param jsonData
+	 * @param method
+	 * @param handler
+	 * @throws RequestException
+	 */
+	public static void fetchString(final String url, String jsonData,
+			String contextType, String method, final IOnData<String> handler)
+			throws RequestException {
+
+		RequestBuilder builder = new RequestBuilder(
+				method.equalsIgnoreCase("post") ? RequestBuilder.POST
+						: RequestBuilder.GET, URL.encode(url));
+		if (contextType == null || contextType.length() == 0) {
+			contextType = "application/json;charset=UTF-8";
+		}
+		builder.setHeader("Content-type", contextType);
+		if (RpcContext.get().ENN_CUSTOM_TOKEN.length() > 0) {
+			builder.setHeader("ENN-CUSTOM-TOKEN",
+					RpcContext.get().ENN_CUSTOM_TOKEN);
+		}
+		if (RpcContext.get().ENN_GATEWAY_TOKEN.length() > 0) {
+			builder.setHeader("ENN-GATEWAY-TOKEN",
+					RpcContext.get().ENN_GATEWAY_TOKEN);
+		}
+		Request request = builder.sendRequest(jsonData, new RequestCallback() {
+			public void onError(Request request, Throwable exception) {
+				handler.onError(url,exception.getMessage());
+			}
+
+			@Override
+			public void onResponseReceived(Request request, Response response) {
+				if (200 == response.getStatusCode()) {
+					String data = response.getText();
+					handler.onSuccess(url,data);
+				} else {
+					handler.onError(url,response.getStatusText());
+				}
+			}
+		});
+	}
+
+	/**
+	 * 向服务器请求接口调用
+	 * 
+	 * @param url
+	 * @param jsonData
+	 * @param method
+	 * @param handler
+	 * @throws RequestException
+	 */
+	public static <T extends JavaScriptObject> void fetch(final String url,
+			String jsonData, String method, final IOnData<T> handler)
+			throws RequestException {
+
+		RequestBuilder builder = new RequestBuilder(
+				method.equalsIgnoreCase("post") ? RequestBuilder.POST
+						: RequestBuilder.GET, URL.encode(url));
+		builder.setHeader("ENN-CUSTOM-TOKEN", RpcContext.get().ENN_CUSTOM_TOKEN);
+		builder.setHeader("ENN-GATEWAY-TOKEN",
+				RpcContext.get().ENN_GATEWAY_TOKEN);
+
+		Request request = builder.sendRequest(jsonData, new RequestCallback() {
+			public void onError(Request request, Throwable exception) {
+				handler.onError(url, exception.getMessage());
+			}
+
+			@Override
+			public void onResponseReceived(Request request, Response response) {
+				if (200 == response.getStatusCode()) {
+					String data = response.getText();
+					T obj = JsonUtils.unsafeEval(data);
+					handler.onSuccess(url, obj);
+				} else {
+					handler.onError(url, response.getStatusText());
+				}
+			}
+		});
+	}
+
+	public static <T extends JavaScriptObject> void fetchData(
+			final String target, final IOnData<T> handler) {
 
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET,
 				URL.encode(target));
@@ -20,29 +103,23 @@ public class ApiDocProxy {
 		try {
 			Request request = builder.sendRequest(null, new RequestCallback() {
 				public void onError(Request request, Throwable exception) {
-					// Couldn't connect to server (could be timeout, SOP
-					// violation, etc.)
-					handler.onError(exception.getMessage());
+					handler.onError(target, exception.getMessage());
 				}
 
 				@Override
 				public void onResponseReceived(Request request,
 						Response response) {
 					if (200 == response.getStatusCode()) {
-						// Process the response in response.getText()
 						String data = response.getText();
 						T obj = JsonUtils.unsafeEval(data);
-						handler.onSuccess(obj);
+						handler.onSuccess(target, obj);
 					} else {
-						// Handle the error. Can get the status text from
-						// response.getStatusText()
-						handler.onError(response.getStatusText());
+						handler.onError(target, response.getStatusText());
 					}
 				}
 			});
 		} catch (RequestException e) {
-			// Couldn't connect to server
-			handler.onError(e.getMessage());
+			handler.onError(target, e.getMessage());
 		}
 	}
 

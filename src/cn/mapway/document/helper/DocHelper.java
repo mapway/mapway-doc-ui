@@ -1,5 +1,6 @@
 package cn.mapway.document.helper;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.nutz.json.Json;
@@ -9,6 +10,9 @@ import cn.mapway.document.module.ApiDoc;
 import cn.mapway.document.parser.GenContext;
 import cn.mapway.document.parser.SpringParser;
 import cn.mapway.document.resource.Template;
+
+import com.google.gwt.dom.client.Style.VerticalAlign;
+import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
 
 /**
  * 辅助类
@@ -63,9 +67,7 @@ public class DocHelper {
 					.readTemplate("/cn/mapway/document/resource/doctemplate.html");
 			String ui = Template
 					.readTemplate("/cn/mapway/document/resource/apidoc.nocache.js");
-
-			String json = Json.toJson(doc, JsonFormat.full());
-
+			String json = Json.toJson(doc, JsonFormat.tidy());
 			template = template.replace("API_DOC_DATA", json);
 			template = template.replace("API_DOC_UI", ui);
 			return template;
@@ -89,5 +91,19 @@ public class DocHelper {
 	 */
 	public static byte[] getClearGifData() {
 		return gifdata;
+	}
+
+	/**
+	 * 生成Word File
+	 * 
+	 * @param context
+	 * @param packages
+	 * @return
+	 */
+	public String genDoc(ParseType pt, GenContext context, String... packages) {
+		ApiDoc doc = toDoc(pt, context, packages);
+		String wordFile = "";
+
+		return wordFile;
 	}
 }
