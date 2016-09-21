@@ -141,3 +141,10 @@
 	border: solid 1px skyblue;
 	padding: 10px 16px;
 }
+
+
+.gwt-PopupPanelGlass {
+    background-color: #000;
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+} 

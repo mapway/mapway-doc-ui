@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.user.client.ui.Tree;
 
 /**
@@ -45,4 +46,8 @@ public interface SysResource extends ClientBundle {
 
 	@Source("image/history.png")
 	ImageResource history();
+
+	@Source("main.css")
+	TextResource mainCss();
+
 }

@@ -1,0 +1,19 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.item {
+		border-bottom: solid 1px #f0f0f0;
+		background-color: white;
+		cursor: pointer;
+	}
+	
+	.item:HOVER {
+		background-color: skyblue;
+	}
+	</ui:style>
+	<g:HorizontalPanel spacing="3" width="100%"
+		styleName="{style.item}">
+		<g:Label ui:field="lbTitle"></g:Label>
+	</g:HorizontalPanel>
+</ui:UiBinder> 

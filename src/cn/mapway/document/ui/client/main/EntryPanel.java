@@ -92,6 +92,7 @@ public class EntryPanel extends Composite {
 	void onTest(ClickEvent e) {
 		if (dlg == null) {
 			dlg = new DialogBox();
+			dlg.setText("接口测试");
 			testPanel = new TestPanel();
 			testPanel.addCloseHandler(new CloseHandler<Void>() {
 
