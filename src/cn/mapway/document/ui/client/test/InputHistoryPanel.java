@@ -15,24 +15,39 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InputHistoryPanel.
+ */
 public class InputHistoryPanel extends Composite implements
 		HasCloseHandlers<HistoryData> {
 
+	/** The ui binder. */
 	private static InputHistoryPanelUiBinder uiBinder = GWT
 			.create(InputHistoryPanelUiBinder.class);
 
+	/**
+	 * The Interface InputHistoryPanelUiBinder.
+	 */
 	interface InputHistoryPanelUiBinder extends
 			UiBinder<Widget, InputHistoryPanel> {
 	}
 
+	/**
+	 * Instantiates a new input history panel.
+	 */
 	public InputHistoryPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
+	/** The current. */
 	HistoryItem current = null;
 
+	/** The content. */
 	@UiField
 	HTMLPanel content;
+	
+	/** The item click. */
 	private ClickHandler itemClick = new ClickHandler() {
 
 		@Override
@@ -42,10 +57,19 @@ public class InputHistoryPanel extends Composite implements
 		}
 	};
 
+	/**
+	 * Cleat content.
+	 */
 	public void cleatContent() {
 		content.clear();
 	}
 
+	/**
+	 * Adds the item.
+	 *
+	 * @param title the title
+	 * @param value the value
+	 */
 	public void addItem(String title, String value) {
 		HistoryItem item = new HistoryItem();
 		HistoryData hd = new HistoryData(title, value);
@@ -55,11 +79,19 @@ public class InputHistoryPanel extends Composite implements
 		content.add(item);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.gwt.event.logical.shared.HasCloseHandlers#addCloseHandler(com.google.gwt.event.logical.shared.CloseHandler)
+	 */
 	@Override
 	public HandlerRegistration addCloseHandler(CloseHandler<HistoryData> handler) {
 		return addHandler(handler, CloseEvent.getType());
 	}
 
+	/**
+	 * Render.
+	 *
+	 * @param relativePath the relative path
+	 */
 	public void render(String relativePath) {
 		content.clear();
 		String v = LocalStorage.val(relativePath);

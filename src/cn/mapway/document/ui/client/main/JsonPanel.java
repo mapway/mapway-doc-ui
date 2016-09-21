@@ -5,11 +5,23 @@ import cn.mapway.document.ui.client.resource.SysResource;
 
 import com.google.gwt.user.client.ui.HTML;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JsonPanel.
+ */
 public class JsonPanel extends HTML {
 
+	/**
+	 * Instantiates a new json panel.
+	 */
 	public JsonPanel() {
 	}
 
+	/**
+	 * Sets the json.
+	 *
+	 * @param json the new json
+	 */
 	public void setJson(String json) {
 		CssStyle css = SysResource.INSTANCE.getCss();
 		String html = highted(json, css.cssNumber(), css.cssKey(),
@@ -17,20 +29,26 @@ public class JsonPanel extends HTML {
 		this.setHTML("<pre class='" + css.pre() + "'>" + html + "</pre>");
 	}
 
+	/**
+	 * Sets the string.
+	 *
+	 * @param text the new string
+	 */
 	public void setString(String text) {
 		CssStyle css = SysResource.INSTANCE.getCss();
 		this.setHTML("<pre class='" + css.pre() + "'>" + text + "</pre>");
 	}
 
 	/**
-	 * 
-	 * @param json
-	 * @param cssNumber
-	 * @param cssKey
-	 * @param cssString
-	 * @param cssBoolean
-	 * @param cssNull
-	 * @return
+	 * Highted.
+	 *
+	 * @param json the json
+	 * @param cssNumber the css number
+	 * @param cssKey the css key
+	 * @param cssString the css string
+	 * @param cssBoolean the css boolean
+	 * @param cssNull the css null
+	 * @return the string
 	 */
 	private native String highted(String json, String cssNumber, String cssKey,
 			String cssString, String cssBoolean, String cssNull)/*-{

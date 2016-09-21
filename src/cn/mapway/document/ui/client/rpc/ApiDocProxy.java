@@ -9,16 +9,21 @@ import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.http.client.URL;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApiDocProxy.
+ */
 public class ApiDocProxy {
 
 	/**
-	 * 向服务器请求接口调用
-	 * 
-	 * @param url
-	 * @param jsonData
-	 * @param method
-	 * @param handler
-	 * @throws RequestException
+	 * 向服务器请求接口调用.
+	 *
+	 * @param url the url
+	 * @param jsonData the json data
+	 * @param contextType the context type
+	 * @param method the method
+	 * @param handler the handler
+	 * @throws RequestException the request exception
 	 */
 	public static void fetchString(final String url, String jsonData,
 			String contextType, String method, final IOnData<String> handler)
@@ -57,13 +62,14 @@ public class ApiDocProxy {
 	}
 
 	/**
-	 * 向服务器请求接口调用
-	 * 
-	 * @param url
-	 * @param jsonData
-	 * @param method
-	 * @param handler
-	 * @throws RequestException
+	 * 向服务器请求接口调用.
+	 *
+	 * @param <T> the generic type
+	 * @param url the url
+	 * @param jsonData the json data
+	 * @param method the method
+	 * @param handler the handler
+	 * @throws RequestException the request exception
 	 */
 	public static <T extends JavaScriptObject> void fetch(final String url,
 			String jsonData, String method, final IOnData<T> handler)
@@ -94,6 +100,13 @@ public class ApiDocProxy {
 		});
 	}
 
+	/**
+	 * Fetch data.
+	 *
+	 * @param <T> the generic type
+	 * @param target the target
+	 * @param handler the handler
+	 */
 	public static <T extends JavaScriptObject> void fetchData(
 			final String target, final IOnData<T> handler) {
 

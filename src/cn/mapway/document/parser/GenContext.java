@@ -27,6 +27,9 @@ public class GenContext extends Properties {
 	/** The Constant NAMESPACE. */
 	private final static String NAMESPACE = "NAMESPACE";
 
+	/** WORD URL. */
+	private final static String WORDURL = "WORDURL";
+
 	/**
 	 * Gets the domain.
 	 *
@@ -132,5 +135,23 @@ public class GenContext extends Properties {
 	 */
 	public void setNameSpace(String namespace) {
 		put(NAMESPACE, namespace);
+	}
+
+	/**
+	 * Gets the name space.
+	 *
+	 * @return the name space
+	 */
+	public String getWordURL() {
+		return getProperty(WORDURL);
+	}
+
+	/**
+	 * Sets the name space.
+	 *
+	 * @param wordUrl the new word URL
+	 */
+	public void setWordURL(String wordUrl) {
+		put(WORDURL, wordUrl);
 	}
 }

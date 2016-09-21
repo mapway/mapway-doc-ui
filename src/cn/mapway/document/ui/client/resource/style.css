@@ -133,6 +133,7 @@
 	color: black;
 	border: solid 1px darkblue;
 	padding: 10px 16px;
+	font-weight: 16px;
 }
 
 .btn:HOVER {
@@ -142,9 +143,19 @@
 	padding: 10px 16px;
 }
 
-
 .gwt-PopupPanelGlass {
-    background-color: #000;
-    opacity: 0.3;
-    filter: alpha(opacity=30);
-} 
+	background-color: #000;
+	opacity: 0.3;
+	filter: alpha(opacity = 30);
+}
+
+.imgButton {
+	background-color: white;
+	border: solid 1px white;
+	margin-right: 8px;
+}
+
+.imgButton:HOVER {
+	background-color: skyblue;
+	border: solid 1px skyblue;
+}

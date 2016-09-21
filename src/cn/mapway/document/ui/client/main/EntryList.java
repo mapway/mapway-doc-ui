@@ -9,18 +9,24 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 
+// TODO: Auto-generated Javadoc
 /**
- * 接口列表
- * 
- * @author zhangjianshe
+ * 接口列表.
  *
+ * @author zhangjianshe
  */
 public class EntryList extends Grid {
 
+	/**
+	 * Instantiates a new entry list.
+	 */
 	public EntryList() {
 		init();
 	}
 
+	/**
+	 * Inits the.
+	 */
 	private void init() {
 		Element e = getElement();
 		e.setAttribute("borderCollapse", "collapse");
@@ -62,8 +68,16 @@ public class EntryList extends Grid {
 
 	}
 
+	/** The row. */
 	int row = 0;
 
+	/**
+	 * Parses the.
+	 *
+	 * @param group the group
+	 * @param searchText the search text
+	 * @return the string
+	 */
 	public String parse(Group group, String searchText) {
 
 		row = 1;
@@ -75,6 +89,13 @@ public class EntryList extends Grid {
 		return html;
 	}
 
+	/**
+	 * Parses the group.
+	 *
+	 * @param group the group
+	 * @param searchText the search text
+	 * @return the string
+	 */
 	private String parseGroup(Group group, String searchText) {
 
 		String html = "";
@@ -121,6 +142,13 @@ public class EntryList extends Grid {
 		return html;
 	}
 
+	/**
+	 * Find count.
+	 *
+	 * @param group the group
+	 * @param searchText the search text
+	 * @return the int
+	 */
 	public int findCount(Group group, String searchText) {
 		Integer count = 0;
 		for (int i = 0; i < group.entries().length(); i++) {

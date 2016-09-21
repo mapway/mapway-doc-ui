@@ -15,15 +15,18 @@ import com.google.gwt.event.logical.shared.OpenHandler;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 
+// TODO: Auto-generated Javadoc
 /**
- * API接口树 提供一个本地存储，存储各个节点的打开情况
- * 
- * @author zhangjianshe
+ * API接口树 提供一个本地存储，存储各个节点的打开情况.
  *
+ * @author zhangjianshe
  */
 public class ApiTree extends Tree {
 
+	/** The css. */
 	CssStyle css;
+	
+	/** The open handler. */
 	private OpenHandler<TreeItem> openHandler=new OpenHandler<TreeItem>() {
 		
 		@Override
@@ -32,6 +35,8 @@ public class ApiTree extends Tree {
 			setOpen(g.fullName(),true);
 		}
 	};
+	
+	/** The close handler. */
 	private CloseHandler<TreeItem> closeHandler=new CloseHandler<TreeItem>() {
 		
 		@Override
@@ -41,6 +46,9 @@ public class ApiTree extends Tree {
 		}
 	};
 
+	/**
+	 * Instantiates a new api tree.
+	 */
 	public ApiTree() {
 		super(new TreeResource(), false);
 		css = SysResource.INSTANCE.getCss();
@@ -49,6 +57,12 @@ public class ApiTree extends Tree {
 		this.addCloseHandler(closeHandler);
 	}
 
+	/**
+	 * Checks if is open.
+	 *
+	 * @param key the key
+	 * @return true, if is open
+	 */
 	public boolean isOpen(String key)
 	{
 		String data=LocalStorage.val(key);
@@ -58,6 +72,12 @@ public class ApiTree extends Tree {
 		return false;
 	}
 	
+	/**
+	 * Sets the open.
+	 *
+	 * @param key the key
+	 * @param open the open
+	 */
 	public void setOpen(String key,boolean open)
 	{
 		LocalStorage.save(key, open?"1":"0");
@@ -65,6 +85,11 @@ public class ApiTree extends Tree {
 	
 	
 	
+	/**
+	 * Parses the data.
+	 *
+	 * @param data the data
+	 */
 	public void parseData(cn.mapway.document.ui.client.module.ApiDoc data) {
 		this.clear();
 
@@ -78,6 +103,12 @@ public class ApiTree extends Tree {
 		parseGroup(root, group);	
 	}
 
+	/**
+	 * Parses the group.
+	 *
+	 * @param root the root
+	 * @param group the group
+	 */
 	private void parseGroup(TreeItem root, Group group) {
 		JsArray<Group> subs = group.subGroups();
 		// 处理子节点

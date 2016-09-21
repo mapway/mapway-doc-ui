@@ -61,4 +61,6 @@ public interface CssStyle extends CssResource {
 	String dlg();
 
 	String btn();
+
+	String imgButton();
 }

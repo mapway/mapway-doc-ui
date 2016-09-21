@@ -108,6 +108,7 @@ public class MapwayDocServlet extends HttpServlet {
 		context.setDocTitle(this.getInitParameter("title"));
 		context.setDomain(this.getInitParameter("domain"));
 		context.setBasepath(this.getInitParameter("basePath"));
+		context.setWordURL("http://www.baidu.com/");
 		packageNames = this.getInitParameter("packages");
 	}
 

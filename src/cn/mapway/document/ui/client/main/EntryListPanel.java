@@ -18,14 +18,25 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EntryListPanel.
+ */
 public class EntryListPanel extends Composite {
 
+	/** The ui binder. */
 	private static EntryListPanelUiBinder uiBinder = GWT
 			.create(EntryListPanelUiBinder.class);
 
+	/**
+	 * The Interface EntryListPanelUiBinder.
+	 */
 	interface EntryListPanelUiBinder extends UiBinder<Widget, EntryListPanel> {
 	}
 
+	/**
+	 * Instantiates a new entry list panel.
+	 */
 	public EntryListPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
 		txtSEARCH.addKeyUpHandler(new KeyUpHandler() {
@@ -47,16 +58,30 @@ public class EntryListPanel extends Composite {
 		});
 	}
 
+	/** The lb title. */
 	@UiField
 	Label lbTitle;
 
+	/** The list. */
 	@UiField
 	EntryList list;
+	
+	/** The m group. */
 	Group mGroup;
+	
+	/** The search text. */
 	String searchText;
+	
+	/** The html. */
 	@UiField
 	HTML html;
 
+	/**
+	 * Parses the.
+	 *
+	 * @param group the group
+	 * @param searchText the search text
+	 */
 	public void parse(Group group, String searchText) {
 		if (group == null) {
 			return;
@@ -76,17 +101,27 @@ public class EntryListPanel extends Composite {
 		html.setHTML(h);
 	}
 
+	/** The entries. */
 	@UiField
 	VerticalPanel entries;
 
+	/** The txt SEARCH. */
 	@UiField
 	TextBox txtSEARCH;
 
+	/**
+	 * On search.
+	 *
+	 * @param e the e
+	 */
 	@UiHandler("btnSearch")
 	void onSearch(ClickEvent e) {
 		search();
 	}
 
+	/**
+	 * Search.
+	 */
 	private void search() {
 		String key = txtSEARCH.getValue();
 		if (key == null || key.length() == 0) {

@@ -27,28 +27,29 @@ import cn.mapway.document.module.Entry;
 import cn.mapway.document.module.Group;
 import cn.mapway.document.module.ObjectInfo;
 
+// TODO: Auto-generated Javadoc
 /**
- * 解析Spring 注解
- * 
- * @author zhangjianshe@gmail.com
+ * 解析Spring 注解.
  *
+ * @author zhangjianshe@gmail.com
  */
 public class SpringParser {
 
+	/** The Constant log. */
 	private final static org.nutz.log.Log log = Logs.getLog(SpringParser.class);
 
+	/** The m context. */
 	GenContext mContext;
 
 	/**
-	 * 解析包中的类
-	 * 
-	 * @param context
-	 * @param packageNames
-	 *            包名
-	 * @return
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InstantiationException
+	 * 解析包中的类.
+	 *
+	 * @param context the context
+	 * @param packageNames            包名
+	 * @return the api doc
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InstantiationException the instantiation exception
 	 */
 	public ApiDoc parse(GenContext context, String... packageNames)
 			throws IllegalArgumentException, IllegalAccessException,
@@ -65,12 +66,11 @@ public class SpringParser {
 			clzs.addAll(clz);
 		}
 
-		log.debug("mapway-doc parse classes: " + clzs.size());
-
 		ApiDoc doc = new ApiDoc();
 		doc.author = context.getAuthor();
 		doc.basePath = context.getBasepath();
 		doc.title = context.getDocTitle();
+		doc.wordUrl = context.getWordURL();
 
 		for (Class<?> clz : clzs) {
 			if (clz.getAnnotation(Controller.class) != null
@@ -86,13 +86,13 @@ public class SpringParser {
 	}
 
 	/**
-	 * 解析某个类
-	 * 
-	 * @param doc
-	 * @param clz
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InstantiationException
+	 * 解析某个类.
+	 *
+	 * @param document the document
+	 * @param clz the clz
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InstantiationException the instantiation exception
 	 */
 	private void parseClass(ApiDoc document, Class<?> clz)
 			throws IllegalArgumentException, IllegalAccessException,
@@ -110,19 +110,19 @@ public class SpringParser {
 
 	/**
 	 * 填充Group信息.
-	 * 
-	 * @param apigroup
-	 * @param clz
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InstantiationException
+	 *
+	 * @param document the document
+	 * @param c the c
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InstantiationException the instantiation exception
 	 */
 	private void populateGroup(ApiDoc document, Class<?> c)
 			throws IllegalArgumentException, IllegalAccessException,
 			InstantiationException {
 
 		log.debug("process " + c.getName());
-		
+
 		// 类Doc
 		Doc doc = c.getAnnotation(Doc.class);
 		String group_base_path = doc.group();
@@ -169,16 +169,15 @@ public class SpringParser {
 	}
 
 	/**
-	 * 解析方法，生成APIentry
-	 * 
-	 * @param document
-	 * @param group_base_path
-	 * 
-	 * @param m
-	 * @return
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InstantiationException
+	 * 解析方法，生成APIentry.
+	 *
+	 * @param document the document
+	 * @param group_base_path the group base path
+	 * @param m the m
+	 * @return the entry
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InstantiationException the instantiation exception
 	 */
 	private Entry handleMethod(ApiDoc document, String group_base_path, Method m)
 			throws IllegalArgumentException, IllegalAccessException,
@@ -249,6 +248,12 @@ public class SpringParser {
 		return e;
 	}
 
+	/**
+	 * Trans state.
+	 *
+	 * @param state the state
+	 * @return the string
+	 */
 	private String transState(DevelopmentState state) {
 		if (state == DevelopmentState.FINISH) {
 			return "已完成";
@@ -263,13 +268,14 @@ public class SpringParser {
 	}
 
 	/**
-	 * 处理参数
-	 * 
-	 * @param clz
-	 * @return
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InstantiationException
+	 * 处理参数.
+	 *
+	 * @param clz the clz
+	 * @param name the name
+	 * @return the object info
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InstantiationException the instantiation exception
 	 */
 	private ObjectInfo handleParameter(Class<?> clz, String name)
 			throws IllegalArgumentException, IllegalAccessException,
@@ -323,21 +329,18 @@ public class SpringParser {
 		return p;
 	}
 
-	/**
-	 * 类深度信息
-	 */
+	/** 类深度信息. */
 	Deeps deeps;
 
 	/**
-	 * 处理字段
-	 * 
-	 * @param instance
-	 * 
-	 * @param f
-	 * @return
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InstantiationException
+	 * 处理字段.
+	 *
+	 * @param instance the instance
+	 * @param f the f
+	 * @return the object info
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InstantiationException the instantiation exception
 	 */
 	private ObjectInfo handleField(Object instance, Field f)
 			throws IllegalArgumentException, IllegalAccessException,
@@ -354,7 +357,6 @@ public class SpringParser {
 			fi.example = wf.example();
 			fi.name = f.getName();
 			fi.type = f.getType().getName();
-		      
 
 			// 记录类型的循环次数
 
@@ -376,7 +378,6 @@ public class SpringParser {
 				Class<?> c = (Class<?>) type;
 				fi.type = "List<" + c.getSimpleName() + ">";
 
-				
 				ArrayList list = new ArrayList();
 				if (instance != null) {
 					// 处理例子
@@ -393,14 +394,13 @@ public class SpringParser {
 
 				Object cinstance = newInstance(c);
 				// 处理 DOc fi.summary;
-				
-				//读取List数组中对象的Doc注解
-				Doc fdoc=c.getAnnotation(Doc.class);
-				if(fdoc!=null)
-				{
-					fi.summary=fdoc.desc();
+
+				// 读取List数组中对象的Doc注解
+				Doc fdoc = c.getAnnotation(Doc.class);
+				if (fdoc != null) {
+					fi.summary = fdoc.desc();
 				}
-				
+
 				// 列表添加2个例子
 				list.add(cinstance);
 
@@ -427,13 +427,12 @@ public class SpringParser {
 				cinstance = newInstance(f.getType());
 				f.set(instance, cinstance);
 
-				//读取List数组中对象的Doc注解
-				Doc fdoc=cinstance.getClass().getAnnotation(Doc.class);
-				if(fdoc!=null)
-				{
-					fi.summary=fdoc.desc();
+				// 读取List数组中对象的Doc注解
+				Doc fdoc = cinstance.getClass().getAnnotation(Doc.class);
+				if (fdoc != null) {
+					fi.summary = fdoc.desc();
 				}
-				
+
 				for (Field f1 : f.getType().getFields()) {
 					ObjectInfo o = handleField(cinstance, f1);
 					if (o != null) {
@@ -449,6 +448,12 @@ public class SpringParser {
 		return null;
 	}
 
+	/**
+	 * New instance.
+	 *
+	 * @param c the c
+	 * @return the object
+	 */
 	private Object newInstance(Class<?> c) {
 		// System.out.println(c.getName());
 		Mirror<?> m = Mirror.me(c);
@@ -472,9 +477,10 @@ public class SpringParser {
 	}
 
 	/**
-	 * 
-	 * @param f
-	 * @return
+	 * Checks if is list.
+	 *
+	 * @param f the f
+	 * @return true, if is list
 	 */
 	private boolean isList(Field f) {
 		if (f.getType().isAssignableFrom(List.class)) {
@@ -484,9 +490,10 @@ public class SpringParser {
 	}
 
 	/**
-	 * 
-	 * @param f
-	 * @return
+	 * Gets the generic type.
+	 *
+	 * @param f the f
+	 * @return the generic type
 	 */
 	private Type getGenericType(Field f) {
 		ParameterizedType pt = (ParameterizedType) f.getGenericType();
@@ -494,9 +501,10 @@ public class SpringParser {
 	}
 
 	/**
-	 * 
-	 * @param c
-	 * @return
+	 * Checks if is primitive.
+	 *
+	 * @param c the c
+	 * @return true, if is primitive
 	 */
 	private boolean isPrimitive(Class<?> c) {
 		String name = c.getName();
@@ -512,6 +520,14 @@ public class SpringParser {
 		return false;
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InstantiationException the instantiation exception
+	 */
 	public static void main(String[] args) throws IllegalArgumentException,
 			IllegalAccessException, InstantiationException {
 

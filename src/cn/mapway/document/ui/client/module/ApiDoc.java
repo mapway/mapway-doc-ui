@@ -89,4 +89,13 @@ public class ApiDoc extends JavaScriptObject {
 	public final native Group root()/*-{
 		return this.root;
 	}-*/;
+	
+	/**
+	 * WordUrl
+	 *
+	 * @return the group
+	 */
+	public final native String wordUrl()/*-{
+		return this.wordUrl;
+	}-*/;
 }

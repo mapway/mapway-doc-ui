@@ -10,25 +10,38 @@ import cn.mapway.document.module.ApiDoc;
 import cn.mapway.document.parser.GenContext;
 import cn.mapway.document.parser.SpringParser;
 import cn.mapway.document.resource.Template;
+import cn.mapway.document.word.WordExport;
 
 import com.google.gwt.dom.client.Style.VerticalAlign;
 import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
 
+// TODO: Auto-generated Javadoc
 /**
- * 辅助类
- * 
- * @author zhangjianshe
+ * 辅助类.
  *
+ * @author zhangjianshe
  */
 public class DocHelper {
 
 	/**
-	 * 生成接口文档JSON格式
-	 * 
-	 * @param pt
-	 * @param context
-	 * @param packages
-	 * @return
+	 * 生成WORD文档.
+	 *
+	 * @param api the api
+	 * @param fileName the file name
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public void toWord(ApiDoc api, String fileName) throws IOException {
+		WordExport export = new WordExport();
+		export.toWord(api, fileName);
+	}
+
+	/**
+	 * 生成接口文档JSON格式.
+	 *
+	 * @param pt the pt
+	 * @param context the context
+	 * @param packages the packages
+	 * @return the api doc
 	 */
 	public ApiDoc toDoc(ParseType pt, GenContext context, String... packages) {
 		if (pt == ParseType.PT_SPRING) {
@@ -53,11 +66,12 @@ public class DocHelper {
 	}
 
 	/**
-	 * 生成HTML文档
-	 * 
-	 * @param context
-	 * @param packages
-	 * @return
+	 * 生成HTML文档.
+	 *
+	 * @param pt the pt
+	 * @param context the context
+	 * @param packages the packages
+	 * @return the string
 	 */
 	public String genHTML(ParseType pt, GenContext context, String... packages) {
 		ApiDoc doc = toDoc(pt, context, packages);
@@ -77,6 +91,7 @@ public class DocHelper {
 		}
 	}
 
+	/** The gifdata. */
 	private static byte[] gifdata = { 0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x01,
 			0x00, 0x01, 0x00, (byte) 0x80, 0x00, 0x00, (byte) 0xff,
 			(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
@@ -85,20 +100,21 @@ public class DocHelper {
 			0x01, 0x00, 0x3b };
 
 	/**
-	 * 获取透明 1X1 像素的GIF图片数据
-	 * 
-	 * @return
+	 * 获取透明 1X1 像素的GIF图片数据.
+	 *
+	 * @return the clear gif data
 	 */
 	public static byte[] getClearGifData() {
 		return gifdata;
 	}
 
 	/**
-	 * 生成Word File
-	 * 
-	 * @param context
-	 * @param packages
-	 * @return
+	 * 生成Word File.
+	 *
+	 * @param pt the pt
+	 * @param context the context
+	 * @param packages the packages
+	 * @return the string
 	 */
 	public String genDoc(ParseType pt, GenContext context, String... packages) {
 		ApiDoc doc = toDoc(pt, context, packages);

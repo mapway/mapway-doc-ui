@@ -11,6 +11,10 @@ import java.io.Serializable;
 public class ApiDoc implements Serializable {
 
 	/**
+	 * 用户设置导出WordURL地址
+	 */
+	public String wordUrl = "";
+	/**
 	 * 作者
 	 */
 	public String author;

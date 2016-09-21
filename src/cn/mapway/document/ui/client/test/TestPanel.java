@@ -34,20 +34,27 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
+// TODO: Auto-generated Javadoc
 /**
- * 测试面板
- * 
- * @author zhangjianshe
+ * 测试面板.
  *
+ * @author zhangjianshe
  */
 public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 
+	/** The ui binder. */
 	private static TestPanelUiBinder uiBinder = GWT
 			.create(TestPanelUiBinder.class);
 
+	/**
+	 * The Interface TestPanelUiBinder.
+	 */
 	interface TestPanelUiBinder extends UiBinder<Widget, TestPanel> {
 	}
 
+	/**
+	 * Instantiates a new test panel.
+	 */
 	public TestPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
 		btnExecute.setStyleName(SysResource.INSTANCE.getCss().btn());
@@ -77,18 +84,30 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 		txtCustomToken.setValue(RpcContext.get().ENN_CUSTOM_TOKEN);
 	}
 
+	/** The lb title. */
 	@UiField
 	Label lbTitle;
+	
+	/** The lb url. */
 	@UiField
 	Label lbUrl;
 
+	/** The txt input. */
 	@UiField
 	TextArea txtInput;
+	
+	/** The txt output. */
 	@UiField
 	JsonPanel txtOutput;
 
+	/** The m entry. */
 	Entry mEntry;
 
+	/**
+	 * Invoke.
+	 *
+	 * @param entry the entry
+	 */
 	public void invoke(Entry entry) {
 		mEntry = entry;
 		lbTitle.setText(entry.title());
@@ -101,6 +120,11 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 		txtOutput.setString("");
 	}
 
+	/**
+	 * Read history.
+	 *
+	 * @return the string
+	 */
 	private String readHistory() {
 		String r = "";
 		String v = LocalStorage.val(mEntry.relativePath());
@@ -119,18 +143,27 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 		return r;
 	}
 
+	/** The btn execute. */
 	@UiField
 	Button btnExecute;
 
+	/** The btn close. */
 	@UiField
 	Button btnClose;
 
+	/** The img loadding. */
 	@UiField
 	Image imgLoadding;
 
+	/** The btn history. */
 	@UiField
 	Image btnHistory;
 
+	/**
+	 * On execute.
+	 *
+	 * @param ev the ev
+	 */
 	@UiHandler("btnExecute")
 	void onExecute(ClickEvent ev) {
 		imgLoadding.setVisible(true);
@@ -172,10 +205,10 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 	}
 
 	/**
-	 * 处理TOKEN
-	 * 
-	 * @param url
-	 * @param data
+	 * 处理TOKEN.
+	 *
+	 * @param url the url
+	 * @param data the data
 	 */
 	protected void processToken(String url, String data) {
 
@@ -189,24 +222,39 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 		}
 	}
 
+	/** The txt custom token. */
 	@UiField
 	TextBox txtCustomToken;
 
+	/** The txt gateway token. */
 	@UiField
 	TextBox txtGatewayToken;
 
+	/**
+	 * On close.
+	 *
+	 * @param ev the ev
+	 */
 	@UiHandler("btnClose")
 	void onClose(ClickEvent ev) {
 		CloseEvent.fire(this, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.gwt.event.logical.shared.HasCloseHandlers#addCloseHandler(com.google.gwt.event.logical.shared.CloseHandler)
+	 */
 	@Override
 	public HandlerRegistration addCloseHandler(CloseHandler<Void> handler) {
 		return addHandler(handler, CloseEvent.getType());
 	}
 
+	/** The pop. */
 	PopupPanel pop = null;
+	
+	/** The history panel. */
 	InputHistoryPanel historyPanel;
+	
+	/** The item selected. */
 	private CloseHandler<HistoryData> itemSelected = new CloseHandler<HistoryData>() {
 
 		@Override
@@ -217,9 +265,9 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 	};
 
 	/**
-	 * 显示历史记录
-	 * 
-	 * @param e
+	 * 显示历史记录.
+	 *
+	 * @param e the e
 	 */
 	@UiHandler("btnHistory")
 	void onHistory(ClickEvent e) {

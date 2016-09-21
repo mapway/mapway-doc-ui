@@ -58,9 +58,9 @@ public @interface ApiField {
 	public boolean mandidate() default true;
 
 	/**
-	 * 字段的排序
-	 * 
-	 * @return
+	 * 字段的排序.
+	 *
+	 * @return the int
 	 */
 	public int order() default 0;
 }

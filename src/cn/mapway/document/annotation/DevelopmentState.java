@@ -1,26 +1,22 @@
 package cn.mapway.document.annotation;
 
+// TODO: Auto-generated Javadoc
 /**
- * 开发状态
- * 
- * @author zhangjianshe
+ * 开发状态.
  *
+ * @author zhangjianshe
  */
 public enum DevelopmentState {
-	/**
-	 * 未开始
-	 */
+	
+	/** 未开始. */
 	UNSTART,
-	/**
-	 * 进行中
-	 */
+	
+	/** 进行中. */
 	PROCESS,
-	/**
-	 * 已完成
-	 */
+	
+	/** 已完成. */
 	FINISH,
-	/**
-	 * 已废弃
-	 */
+	
+	/** 已废弃. */
 	OBSOLETED
 }

@@ -49,5 +49,8 @@ public interface SysResource extends ClientBundle {
 
 	@Source("main.css")
 	TextResource mainCss();
+	
+	@Source("image/word.png")
+	ImageResource word();
 
 }

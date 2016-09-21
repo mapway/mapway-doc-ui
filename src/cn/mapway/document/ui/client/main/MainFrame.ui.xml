@@ -26,14 +26,24 @@
 	</ui:style>
 	<g:DockLayoutPanel>
 		<g:north size="70">
-			<g:HTMLPanel styleName="{style.top}">
-				<g:HorizontalPanel height="70px"
-					verticalAlignment="middle">
-					<g:Image ui:field="logo" width="45px" height="45px"
-						styleName="{style.logo}"></g:Image>
-					<g:Label text="接口文档" ui:field="lbTitle" styleName="{style.title}"></g:Label>
-				</g:HorizontalPanel>
-			</g:HTMLPanel>
+
+			<g:HorizontalPanel styleName="{style.top}" verticalAlignment="middle" width="100%">
+				<g:cell>
+					<g:HorizontalPanel height="70px"
+						verticalAlignment="middle">
+						<g:Image ui:field="logo" width="45px" height="45px"
+							styleName="{style.logo}"></g:Image>
+						<g:Label text="接口文档" ui:field="lbTitle" styleName="{style.title}"></g:Label>
+					</g:HorizontalPanel>
+				</g:cell>
+				<g:cell horizontalAlignment="right">
+					<g:HorizontalPanel ui:field="tools" verticalAlignment="middle" spacing="5">
+							
+					</g:HorizontalPanel>
+				</g:cell>
+			</g:HorizontalPanel>
+
+
 		</g:north>
 		<g:west size="350">
 			<g:ScrollPanel styleName="{style.left}">

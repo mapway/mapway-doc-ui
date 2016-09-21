@@ -22,12 +22,22 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ObjectInfoPanel.
+ */
 public class ObjectInfoPanel extends Grid implements
 		HasSelectionHandlers<ObjectInfo>, ClickHandler {
 
+	/** The lb title. */
 	private Label lbTitle;
+	
+	/** The lb summary. */
 	private HTML lbSummary;
 
+	/* (non-Javadoc)
+	 * @see com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt.event.dom.client.ClickEvent)
+	 */
 	@Override
 	public void onClick(ClickEvent arg0) {
 		CustomAnchor anchor = (CustomAnchor) arg0.getSource();
@@ -36,11 +46,17 @@ public class ObjectInfoPanel extends Grid implements
 		SelectionEvent.fire(this, info);
 	}
 
+	/**
+	 * Instantiates a new object info panel.
+	 */
 	public ObjectInfoPanel() {
 		init();
 		this.setStyleName(SysResource.INSTANCE.getCss().cssTable());
 	}
 
+	/**
+	 * Inits the.
+	 */
 	void init() {
 		Element e = getElement();
 		e.setAttribute("borderCollapse", "collapse");
@@ -102,11 +118,11 @@ public class ObjectInfoPanel extends Grid implements
 	}
 
 	/**
-	 * 级联操作
-	 * 
-	 * @param obj
-	 * @param objList
-	 * @param mapper 
+	 * 级联操作.
+	 *
+	 * @param obj the obj
+	 * @param objList the obj list
+	 * @param mapper the mapper
 	 */
 	public void parse(ObjectInfo obj, List<GenInfo> objList, Map<String, Anchor> mapper) {
 
@@ -175,6 +191,13 @@ public class ObjectInfoPanel extends Grid implements
 		}
 	}
 
+	/**
+	 * Find obj.
+	 *
+	 * @param type the type
+	 * @param objList the obj list
+	 * @return true, if successful
+	 */
 	private boolean findObj(String type, List<GenInfo> objList) {
 		for (GenInfo info : objList) {
 			if (info.type.equals(type)) {
@@ -184,10 +207,17 @@ public class ObjectInfoPanel extends Grid implements
 		return false;
 	}
 
+	/** The ps. */
 	private static String[] ps = { "int", "Integer", "float", "FLoat",
 			"Double", "double", "long", "Long", "Date", "DateTime", "String",
 			"boolean", "Boolean", "char", "short", "byte", "Timestamp" };
 
+	/**
+	 * Checks if is primitive.
+	 *
+	 * @param type the type
+	 * @return true, if is primitive
+	 */
 	private boolean isPrimitive(String type) {
 
 		for (String s : ps) {
@@ -199,6 +229,9 @@ public class ObjectInfoPanel extends Grid implements
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.gwt.event.logical.shared.HasSelectionHandlers#addSelectionHandler(com.google.gwt.event.logical.shared.SelectionHandler)
+	 */
 	@Override
 	public HandlerRegistration addSelectionHandler(
 			SelectionHandler<ObjectInfo> handler) {

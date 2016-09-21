@@ -18,21 +18,38 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EntryPanel.
+ */
 public class EntryPanel extends Composite {
 
+	/** The ui binder. */
 	private static EntryPanelUiBinder uiBinder = GWT
 			.create(EntryPanelUiBinder.class);
 
+	/**
+	 * The Interface EntryPanelUiBinder.
+	 */
 	interface EntryPanelUiBinder extends UiBinder<Widget, EntryPanel> {
 	}
 
+	/**
+	 * Instantiates a new entry panel.
+	 */
 	public EntryPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
 		btnTest.setStyleName(SysResource.INSTANCE.getCss().btn());
 	}
 
+	/** The m entry. */
 	Entry mEntry;
 
+	/**
+	 * Parses the.
+	 *
+	 * @param e the e
+	 */
 	public void parse(Entry e) {
 		mEntry = e;
 		lbTITLE.setText(e.title());
@@ -60,34 +77,53 @@ public class EntryPanel extends Composite {
 		javaSource.setHTML(html);
 	}
 
+	/** The java source. */
 	@UiField
 	HTML javaSource;
 
+	/** The lb TITLE. */
 	@UiField
 	Label lbTITLE;
 
+	/** The lb SUMMARY. */
 	@UiField
 	HTML lbSUMMARY;
 
+	/** The lb URL. */
 	@UiField
 	Label lbURL;
+	
+	/** The lb AUTHOR. */
 	@UiField
 	Label lbAUTHOR;
+	
+	/** The lb INVOKE. */
 	@UiField
 	Label lbINVOKE;
 
+	/** The para in. */
 	@UiField
 	ParameterPanel paraIn;
 
+	/** The para out. */
 	@UiField
 	ParameterPanel paraOut;
 
+	/** The dlg. */
 	DialogBox dlg;
+	
+	/** The test panel. */
 	TestPanel testPanel;
 
+	/** The btn test. */
 	@UiField
 	Button btnTest;
 
+	/**
+	 * On test.
+	 *
+	 * @param e the e
+	 */
 	@UiHandler("btnTest")
 	void onTest(ClickEvent e) {
 		if (dlg == null) {

@@ -29,35 +29,47 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
+// TODO: Auto-generated Javadoc
 /**
- * 参数面板
- * 
- * @author zhangjianshe
+ * 参数面板.
  *
+ * @author zhangjianshe
  */
 public class ParameterPanel extends Composite implements
 		HasSelectionHandlers<ObjectInfo> {
 
+	/** The ui binder. */
 	private static ParameterPanelUiBinder uiBinder = GWT
 			.create(ParameterPanelUiBinder.class);
 
+	/**
+	 * The Interface ParameterPanelUiBinder.
+	 */
 	interface ParameterPanelUiBinder extends UiBinder<Widget, ParameterPanel> {
 	}
 
+	/**
+	 * Instantiates a new parameter panel.
+	 */
 	public ParameterPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
 		tbl.addSelectionHandler(fieldTypeSelectionHandler);
 	}
 
+	/** The lb title. */
 	@UiField
 	Label lbTitle;
 
+	/** The m obj. */
 	ObjectInfo mObj;
 
+	/** The mapper. */
 	Map<String, Anchor> mapper;
 
+	/** The gens. */
 	List<GenInfo> gens;
 
+	/** The field type selection handler. */
 	private SelectionHandler<ObjectInfo> fieldTypeSelectionHandler = new SelectionHandler<ObjectInfo>() {
 
 		@Override
@@ -72,6 +84,12 @@ public class ParameterPanel extends Composite implements
 		}
 	};
 
+	/**
+	 * Parses the.
+	 *
+	 * @param obj the obj
+	 * @param string the string
+	 */
 	public void parse(ObjectInfo obj, String string) {
 		mObj = obj;
 		gens = new ArrayList<GenInfo>();
@@ -106,6 +124,12 @@ public class ParameterPanel extends Composite implements
 		jsonPanel.setJson(obj.json());
 	}
 
+	/**
+	 * Merge.
+	 *
+	 * @param gens the gens
+	 * @param gens2 the gens 2
+	 */
 	private void merge(List<GenInfo> gens, List<GenInfo> gens2) {
 		for (GenInfo info : gens2) {
 			boolean find = false;
@@ -122,6 +146,12 @@ public class ParameterPanel extends Composite implements
 		}
 	}
 
+	/**
+	 * Need continue.
+	 *
+	 * @param gens2 the gens 2
+	 * @return true, if successful
+	 */
 	private boolean needContinue(List<GenInfo> gens2) {
 		for (GenInfo info : gens2) {
 			if (info.gen == false) {
@@ -131,18 +161,24 @@ public class ParameterPanel extends Composite implements
 		return false;
 	}
 
+	/** The tbl. */
 	@UiField
 	ObjectInfoPanel tbl;
 
+	/** The json panel. */
 	@UiField
 	JsonPanel jsonPanel;
 
+	/* (non-Javadoc)
+	 * @see com.google.gwt.event.logical.shared.HasSelectionHandlers#addSelectionHandler(com.google.gwt.event.logical.shared.SelectionHandler)
+	 */
 	@Override
 	public HandlerRegistration addSelectionHandler(
 			SelectionHandler<ObjectInfo> arg0) {
 		return addHandler(arg0, SelectionEvent.getType());
 	}
 
+	/** The obj info panel. */
 	@UiField
 	HTMLPanel objInfoPanel;
 }

@@ -59,16 +59,16 @@ public @interface Doc {
 	public String group() default "/";
 
 	/**
-	 * 接口在分组中的排序
-	 * 
-	 * @return
+	 * 接口在分组中的排序.
+	 *
+	 * @return the int
 	 */
 	public int order() default 0;
 
 	/**
-	 * 开发状态
-	 * 
-	 * @return
+	 * 开发状态.
+	 *
+	 * @return the development state
 	 */
 	public DevelopmentState state() default DevelopmentState.UNSTART;
 
