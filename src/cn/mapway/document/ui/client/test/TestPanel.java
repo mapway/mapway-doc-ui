@@ -87,7 +87,7 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 	/** The lb title. */
 	@UiField
 	Label lbTitle;
-	
+
 	/** The lb url. */
 	@UiField
 	Label lbUrl;
@@ -95,7 +95,7 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 	/** The txt input. */
 	@UiField
 	TextArea txtInput;
-	
+
 	/** The txt output. */
 	@UiField
 	JsonPanel txtOutput;
@@ -106,7 +106,8 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 	/**
 	 * Invoke.
 	 *
-	 * @param entry the entry
+	 * @param entry
+	 *            the entry
 	 */
 	public void invoke(Entry entry) {
 		mEntry = entry;
@@ -162,10 +163,16 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 	/**
 	 * On execute.
 	 *
-	 * @param ev the ev
+	 * @param ev
+	 *            the ev
 	 */
 	@UiHandler("btnExecute")
 	void onExecute(ClickEvent ev) {
+
+		// JavaScriptObject jso = JsonUtils.unsafeEval(SysResource.INSTANCE
+		// .jsondata().getText());
+		// txtOutput.setJson(JsonUtils.stringify(jso, "   "));
+		// if (false == true) {
 		imgLoadding.setVisible(true);
 		txtOutput.setText("");
 		// 保存到本地
@@ -202,13 +209,16 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 			txtOutput.setString(e.getMessage());
 			imgLoadding.setVisible(false);
 		}
+		// }
 	}
 
 	/**
 	 * 处理TOKEN.
 	 *
-	 * @param url the url
-	 * @param data the data
+	 * @param url
+	 *            the url
+	 * @param data
+	 *            the data
 	 */
 	protected void processToken(String url, String data) {
 
@@ -233,15 +243,20 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 	/**
 	 * On close.
 	 *
-	 * @param ev the ev
+	 * @param ev
+	 *            the ev
 	 */
 	@UiHandler("btnClose")
 	void onClose(ClickEvent ev) {
 		CloseEvent.fire(this, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.event.logical.shared.HasCloseHandlers#addCloseHandler(com.google.gwt.event.logical.shared.CloseHandler)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.logical.shared.HasCloseHandlers#addCloseHandler(
+	 * com.google.gwt.event.logical.shared.CloseHandler)
 	 */
 	@Override
 	public HandlerRegistration addCloseHandler(CloseHandler<Void> handler) {
@@ -250,10 +265,10 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 
 	/** The pop. */
 	PopupPanel pop = null;
-	
+
 	/** The history panel. */
 	InputHistoryPanel historyPanel;
-	
+
 	/** The item selected. */
 	private CloseHandler<HistoryData> itemSelected = new CloseHandler<HistoryData>() {
 
@@ -267,7 +282,8 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 	/**
 	 * 显示历史记录.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@UiHandler("btnHistory")
 	void onHistory(ClickEvent e) {

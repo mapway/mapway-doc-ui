@@ -8,7 +8,12 @@
 	}
 	
 	.center {
-		padding: 5px;
+		overflow: hidden;
+	}
+	
+	.center1 {
+		padding: 4px;
+		overflow: hidden;
 	}
 	
 	.titletext {
@@ -32,7 +37,14 @@
 	}
 	
 	.json {
-		padding: 5px;
+		margin: 4px;
+		border: solid 1px green;
+		padding: 3px;
+		overflow: auto;
+	}
+	
+	.edit {
+		margin: 4px;
 	}
 	</ui:style>
 	<g:DockLayoutPanel width="800px" height="526px">
@@ -56,39 +68,30 @@
 				</g:cell>
 			</g:HorizontalPanel>
 		</g:north>
+		<g:north size="40">
+
+			<g:HorizontalPanel spacing="2" verticalAlignment="middle">
+				<g:Label text="用户TOKEN"></g:Label>
+				<g:TextBox ui:field="txtCustomToken" styleName="{style.input}"></g:TextBox>
+				<g:Image ui:field="btnHistory" width="28px" height="28px"
+					styleName="{style.btnImage}"></g:Image>
+				<g:Label text="网关TOKEN"></g:Label>
+				<g:TextBox ui:field="txtGatewayToken" styleName="{style.input}"></g:TextBox>
+			</g:HorizontalPanel>
+
+		</g:north>
+		<g:west size="300">
+			<g:ScrollPanel styleName="{style.center}">
+				<g:TextArea ui:field="txtInput" styleName="{style.edit}"
+					width="280px" height="385px">
+				</g:TextArea>
+			</g:ScrollPanel>
+		</g:west>
 		<g:center>
-			<g:HTMLPanel styleName="{style.center}">
-				<g:HorizontalPanel width="100%" spacing="5">
-					<g:cell width="49%">
-						<g:HTMLPanel>
-							<g:HorizontalPanel spacing="2"
-								verticalAlignment="middle">
-								<g:Label text="用户TOKEN"></g:Label>
-								<g:TextBox ui:field="txtCustomToken" styleName="{style.input}"></g:TextBox>
-								<g:Image ui:field="btnHistory" width="28px" height="28px"
-									styleName="{style.btnImage}"></g:Image>
-							</g:HorizontalPanel>
-							<g:TextArea ui:field="txtInput" width="100%" height="400px">
-							</g:TextArea>
-						</g:HTMLPanel>
-
-					</g:cell>
-					<g:cell>
-						<g:ScrollPanel width="100%" height="400px">
-							<g:HTMLPanel>
-								<g:HorizontalPanel spacing="2"
-									verticalAlignment="middle">
-									<g:Label text="网关TOKEN"></g:Label>
-									<g:TextBox ui:field="txtGatewayToken" styleName="{style.input}"></g:TextBox>
-								</g:HorizontalPanel>
-								<m:JsonPanel ui:field="txtOutput" styleName="{style.json}"></m:JsonPanel>
-							</g:HTMLPanel>
-
-						</g:ScrollPanel>
-					</g:cell>
-				</g:HorizontalPanel>
-			</g:HTMLPanel>
-
+			<g:ScrollPanel styleName="{style.center}">
+				<m:JsonPanel ui:field="txtOutput" styleName="{style.json}"
+					width="485px" height="385px"></m:JsonPanel>
+			</g:ScrollPanel>
 		</g:center>
 
 	</g:DockLayoutPanel>
