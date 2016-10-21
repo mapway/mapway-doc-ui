@@ -44,12 +44,17 @@ public class SpringParser {
 	/**
 	 * 解析包中的类.
 	 *
-	 * @param context the context
-	 * @param packageNames            包名
+	 * @param context
+	 *            the context
+	 * @param packageNames
+	 *            包名
 	 * @return the api doc
-	 * @throws IllegalArgumentException the illegal argument exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalArgumentException
+	 *             the illegal argument exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
 	 */
 	public ApiDoc parse(GenContext context, String... packageNames)
 			throws IllegalArgumentException, IllegalAccessException,
@@ -71,6 +76,7 @@ public class SpringParser {
 		doc.basePath = context.getBasepath();
 		doc.title = context.getDocTitle();
 		doc.wordUrl = context.getWordURL();
+		doc.summary = context.getSubtitle();
 
 		for (Class<?> clz : clzs) {
 			if (clz.getAnnotation(Controller.class) != null
@@ -88,11 +94,16 @@ public class SpringParser {
 	/**
 	 * 解析某个类.
 	 *
-	 * @param document the document
-	 * @param clz the clz
-	 * @throws IllegalArgumentException the illegal argument exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws InstantiationException the instantiation exception
+	 * @param document
+	 *            the document
+	 * @param clz
+	 *            the clz
+	 * @throws IllegalArgumentException
+	 *             the illegal argument exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
 	 */
 	private void parseClass(ApiDoc document, Class<?> clz)
 			throws IllegalArgumentException, IllegalAccessException,
@@ -111,11 +122,16 @@ public class SpringParser {
 	/**
 	 * 填充Group信息.
 	 *
-	 * @param document the document
-	 * @param c the c
-	 * @throws IllegalArgumentException the illegal argument exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws InstantiationException the instantiation exception
+	 * @param document
+	 *            the document
+	 * @param c
+	 *            the c
+	 * @throws IllegalArgumentException
+	 *             the illegal argument exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
 	 */
 	private void populateGroup(ApiDoc document, Class<?> c)
 			throws IllegalArgumentException, IllegalAccessException,
@@ -171,13 +187,19 @@ public class SpringParser {
 	/**
 	 * 解析方法，生成APIentry.
 	 *
-	 * @param document the document
-	 * @param group_base_path the group base path
-	 * @param m the m
+	 * @param document
+	 *            the document
+	 * @param group_base_path
+	 *            the group base path
+	 * @param m
+	 *            the m
 	 * @return the entry
-	 * @throws IllegalArgumentException the illegal argument exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalArgumentException
+	 *             the illegal argument exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
 	 */
 	private Entry handleMethod(ApiDoc document, String group_base_path, Method m)
 			throws IllegalArgumentException, IllegalAccessException,
@@ -251,7 +273,8 @@ public class SpringParser {
 	/**
 	 * Trans state.
 	 *
-	 * @param state the state
+	 * @param state
+	 *            the state
 	 * @return the string
 	 */
 	private String transState(DevelopmentState state) {
@@ -270,12 +293,17 @@ public class SpringParser {
 	/**
 	 * 处理参数.
 	 *
-	 * @param clz the clz
-	 * @param name the name
+	 * @param clz
+	 *            the clz
+	 * @param name
+	 *            the name
 	 * @return the object info
-	 * @throws IllegalArgumentException the illegal argument exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalArgumentException
+	 *             the illegal argument exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
 	 */
 	private ObjectInfo handleParameter(Class<?> clz, String name)
 			throws IllegalArgumentException, IllegalAccessException,
@@ -335,12 +363,17 @@ public class SpringParser {
 	/**
 	 * 处理字段.
 	 *
-	 * @param instance the instance
-	 * @param f the f
+	 * @param instance
+	 *            the instance
+	 * @param f
+	 *            the f
 	 * @return the object info
-	 * @throws IllegalArgumentException the illegal argument exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalArgumentException
+	 *             the illegal argument exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
 	 */
 	private ObjectInfo handleField(Object instance, Field f)
 			throws IllegalArgumentException, IllegalAccessException,
@@ -451,7 +484,8 @@ public class SpringParser {
 	/**
 	 * New instance.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 * @return the object
 	 */
 	private Object newInstance(Class<?> c) {
@@ -479,7 +513,8 @@ public class SpringParser {
 	/**
 	 * Checks if is list.
 	 *
-	 * @param f the f
+	 * @param f
+	 *            the f
 	 * @return true, if is list
 	 */
 	private boolean isList(Field f) {
@@ -492,7 +527,8 @@ public class SpringParser {
 	/**
 	 * Gets the generic type.
 	 *
-	 * @param f the f
+	 * @param f
+	 *            the f
 	 * @return the generic type
 	 */
 	private Type getGenericType(Field f) {
@@ -503,7 +539,8 @@ public class SpringParser {
 	/**
 	 * Checks if is primitive.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 * @return true, if is primitive
 	 */
 	private boolean isPrimitive(Class<?> c) {
@@ -523,10 +560,14 @@ public class SpringParser {
 	/**
 	 * The main method.
 	 *
-	 * @param args the arguments
-	 * @throws IllegalArgumentException the illegal argument exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws InstantiationException the instantiation exception
+	 * @param args
+	 *            the arguments
+	 * @throws IllegalArgumentException
+	 *             the illegal argument exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
 	 */
 	public static void main(String[] args) throws IllegalArgumentException,
 			IllegalAccessException, InstantiationException {

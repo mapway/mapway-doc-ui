@@ -2,6 +2,7 @@ package cn.mapway.document.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -109,6 +110,7 @@ public class MapwayDocServlet extends HttpServlet {
 		context.setDomain(this.getInitParameter("domain"));
 		context.setBasepath(this.getInitParameter("basePath"));
 		context.setWordURL("http://www.baidu.com/");
+		context.setSubtitle("Hello" + new Date());
 		packageNames = this.getInitParameter("packages");
 	}
 

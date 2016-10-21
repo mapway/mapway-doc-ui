@@ -23,22 +23,34 @@
 	.content {
 		padding-bottom: 50px;
 	}
+	
+	.subtitle {
+		color: skyblue;
+		font-size: 12px;
+		padding-left: 10px;
+	}
 	</ui:style>
 	<g:DockLayoutPanel>
 		<g:north size="70">
 
-			<g:HorizontalPanel styleName="{style.top}" verticalAlignment="middle" width="100%">
+			<g:HorizontalPanel styleName="{style.top}"
+				verticalAlignment="middle" width="100%">
 				<g:cell>
 					<g:HorizontalPanel height="70px"
 						verticalAlignment="middle">
 						<g:Image ui:field="logo" width="45px" height="45px"
 							styleName="{style.logo}"></g:Image>
-						<g:Label text="接口文档" ui:field="lbTitle" styleName="{style.title}"></g:Label>
+						<g:VerticalPanel>
+
+							<g:Label text="接口文档" ui:field="lbTitle" styleName="{style.title}"></g:Label>
+							<g:Label ui:field="lbSubtitle" styleName="{style.subtitle}"></g:Label>
+						</g:VerticalPanel>
 					</g:HorizontalPanel>
 				</g:cell>
 				<g:cell horizontalAlignment="right">
-					<g:HorizontalPanel ui:field="tools" verticalAlignment="middle" spacing="5">
-							
+					<g:HorizontalPanel ui:field="tools"
+						verticalAlignment="middle" spacing="5">
+
 					</g:HorizontalPanel>
 				</g:cell>
 			</g:HorizontalPanel>

@@ -29,6 +29,8 @@ public class GenContext extends Properties {
 
 	/** WORD URL. */
 	private final static String WORDURL = "WORDURL";
+	/** SUBTITLE URL. */
+	private final static String SUBTITLE = "SUBTITLE";
 
 	/**
 	 * Gets the domain.
@@ -149,9 +151,29 @@ public class GenContext extends Properties {
 	/**
 	 * Sets the name space.
 	 *
-	 * @param wordUrl the new word URL
+	 * @param wordUrl
+	 *            the new word URL
 	 */
 	public void setWordURL(String wordUrl) {
 		put(WORDURL, wordUrl);
+	}
+
+	
+	/**
+	 * Gets the subtitle.
+	 *
+	 * @return the subtitle
+	 */
+	public String getSubtitle() {
+		return getProperty(SUBTITLE);
+	}
+
+	/**
+	 * Sets the subtitle.
+	 *
+	 * @param subtitle the new subtitle
+	 */
+	public void setSubtitle(String subtitle) {
+		put(SUBTITLE, subtitle);
 	}
 }

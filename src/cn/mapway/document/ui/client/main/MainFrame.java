@@ -42,10 +42,10 @@ public class MainFrame extends Composite {
 
 	/** The current item. */
 	TreeItem currentItem = null;
-	
+
 	/** The entry panel. */
 	EntryPanel entryPanel;
-	
+
 	/** The tree select. */
 	private SelectionHandler<TreeItem> treeSelect = new SelectionHandler<TreeItem>() {
 
@@ -69,7 +69,8 @@ public class MainFrame extends Composite {
 	/**
 	 * Handle item.
 	 *
-	 * @param item the item
+	 * @param item
+	 *            the item
 	 */
 	private void handleItem(TreeItem item) {
 		if (item.getTitle().length() == 0) {
@@ -85,7 +86,8 @@ public class MainFrame extends Composite {
 	/**
 	 * Show entry.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	private void showEntry(Entry e) {
 		if (entryPanel == null) {
@@ -107,7 +109,8 @@ public class MainFrame extends Composite {
 	/**
 	 * Show entry list.
 	 *
-	 * @param group the group
+	 * @param group
+	 *            the group
 	 */
 	protected void showEntryList(Group group) {
 		if (list == null) {
@@ -133,7 +136,7 @@ public class MainFrame extends Composite {
 
 	/** The doc. */
 	ApiDoc doc;
-	
+
 	/** The goto word handler. */
 	private ClickHandler gotoWordHandler = new ClickHandler() {
 
@@ -158,7 +161,8 @@ public class MainFrame extends Composite {
 	/**
 	 * Inits the.
 	 *
-	 * @param target the target
+	 * @param target
+	 *            the target
 	 */
 	public void init(String target) {
 
@@ -185,12 +189,14 @@ public class MainFrame extends Composite {
 	/**
 	 * Parses the data.
 	 *
-	 * @param doc the doc
+	 * @param doc
+	 *            the doc
 	 */
 	void parseData(ApiDoc doc) {
 		this.doc = doc;
 		lbTitle.setText(doc.title());
 		apiTree.parseData(doc);
+		lbSubtitle.setText(doc.summary());
 		handleItem(apiTree.getItem(0));
 		if (doc.wordUrl().length() > 0) {
 			Button btn = new Button("导出WORD文档");
@@ -219,4 +225,9 @@ public class MainFrame extends Composite {
 	/** The tools. */
 	@UiField
 	HorizontalPanel tools;
+
+	/** sub title. */
+	@UiField
+	Label lbSubtitle;
+
 }
