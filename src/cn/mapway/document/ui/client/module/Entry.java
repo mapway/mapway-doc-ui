@@ -22,7 +22,7 @@ public class Entry extends JavaScriptObject {
 	}
 
 	/**
-	 *  入口的函数名称.
+	 * 入口的函数名称.
 	 *
 	 * @return the string
 	 */
@@ -31,7 +31,7 @@ public class Entry extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 *  接口名称.
+	 * 接口名称.
 	 *
 	 * @return the string
 	 */
@@ -40,7 +40,7 @@ public class Entry extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 *  接口说明.
+	 * 接口说明.
 	 *
 	 * @return the string
 	 */
@@ -49,7 +49,7 @@ public class Entry extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 *  接口相对路径.
+	 * 接口相对路径.
 	 *
 	 * @return the string
 	 */
@@ -58,7 +58,7 @@ public class Entry extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 *  调用类型.
+	 * 调用类型.
 	 *
 	 * @return the string
 	 */
@@ -67,7 +67,7 @@ public class Entry extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 *  输入参数.
+	 * 输入参数.
 	 *
 	 * @return the js array
 	 */
@@ -76,7 +76,7 @@ public class Entry extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 *  输出参数.
+	 * 输出参数.
 	 *
 	 * @return the object info
 	 */
@@ -118,5 +118,14 @@ public class Entry extends JavaScriptObject {
 	 */
 	public final native String state()/*-{
 		return this.state;
+	}-*/;
+
+	/**
+	 * 全路径
+	 *
+	 * @return the string
+	 */
+	public final native String url()/*-{
+		return this.url;
 	}-*/;
 }

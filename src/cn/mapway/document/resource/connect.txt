@@ -1,0 +1,168 @@
+package ${package};
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.nutz.http.Header;
+import org.nutz.http.Http;
+import org.nutz.http.Response;
+import org.nutz.json.Json;
+import org.nutz.mapl.Mapl;
+import java.util.*;
+
+${importModules}
+
+/**
+ * @author apigen by zhangjianshe@gmail.com
+ */
+public class ${name} {
+
+ public interface ICallback<T> {
+    public void onSuccess(T data);
+
+    public void onError(String message);
+  }
+
+  private ExecutorService executor;
+
+  /**
+   * 使用缺省的ThreadPool
+   */
+  public ${name}() {
+    this(null);
+  }
+
+  /**
+   * 用户提供一个Pool
+   * 
+   * @param e
+   */
+  public ${name}(Executor e) {
+    if (e == null) {
+      executor = Executors.newFixedThreadPool(3);
+    }
+  }
+
+  public void shutdown() {
+    executor.shutdown();
+  }
+  
+	${modules}
+	
+	protected String apiBase="${basepath}";
+
+	/**
+	 * 设置接口连接基地址
+	 * 
+	 * @param base
+	 */
+	public void setApiBase(String base) {
+		apiBase = base;
+	}
+
+	/**
+	 * 输出日志
+	 * 
+	 * @param msg
+	 */
+	private void log(String msg) {
+		System.out.println(msg);
+	}
+
+	/**
+   * 网络获取数据 GET
+   * 
+   * @param path
+   * @param data
+   * @param type
+   * @return
+   * @throws Exception
+   */
+  protected final <T> T webget(String path, Object data, Class<T> type) throws Exception {
+    String url = path;
+    if (data != null) {
+      Map<String, Object> d = (Map<String, Object>) Mapl.toMaplist(data);
+
+      StringBuilder sb = new StringBuilder();
+      for (String key : d.keySet()) {
+        Object o = d.get(key);
+        if (sb.length() > 0) {
+          sb.append("&");
+        }
+        sb.append(key);
+        sb.append("=");
+        sb.append(String.valueOf(o));
+      }
+      url = url + "?" + sb.toString();
+    }
+
+    Http.disableJvmHttpsCheck();
+    Response r = Http.get(url, getTimeout());
+
+    if (type.getSimpleName().equals("String")) {
+      return (T) r.getContent();
+    } else {
+      T d = Json.fromJson(type, r.getReader());
+      return d;
+    }
+  }
+
+  Header header = Header.create();
+
+  public void addHeader(String key, String value) {
+    header.set(key, value);
+  }
+
+  /**
+   * 设置是否使用Json格式传送数据
+   * 
+   * @param enabled
+   */
+  public void enableJsonFormat(boolean enabled) {
+    if (enabled) {
+      header.set("Content-Type", "application/json");
+    } else {
+      header.remove("Content-Type");
+    }
+  }
+
+  public void clearHeader() {
+    header.clear();
+  }
+
+  /**
+   * 网络获取数据
+   * 
+   * @param path
+   * @param data
+   * @param type
+   * @return
+   * @throws Exception
+   */
+  @SuppressWarnings("unchecked")
+  protected final <T> T webpost(String path, String data, Class<T> type) throws Exception {
+
+    Http.disableJvmHttpsCheck();
+    Response r = Http.post3(path, data, header, getTimeout());
+
+    if (type.getSimpleName().equals("String")) {
+      return (T) r.getContent();
+    } else {
+      T d = Json.fromJson(type, r.getReader());
+      return d;
+    }
+  }
+
+  private int mTimeOut = 10 * 1000;
+
+  public void setTimeout(int time) {
+    mTimeOut = time;
+  }
+
+  public int getTimeout() {
+    return mTimeOut;
+  }
+	
+	${apis}
+}

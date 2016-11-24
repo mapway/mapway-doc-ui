@@ -104,8 +104,6 @@ public class ParameterPanel extends Composite implements
 			for (GenInfo info : gens) {
 				if (info.gen == false) {
 
-					
-
 					ObjectInfoPanel p = new ObjectInfoPanel();
 					p.addSelectionHandler(fieldTypeSelectionHandler);
 					p.parse(info.obj, gens2, mapper);

@@ -11,14 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
+import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 
 import cn.mapway.document.helper.DocHelper;
+import cn.mapway.document.helper.JavaConnextorExport;
 import cn.mapway.document.helper.ParseType;
 import cn.mapway.document.module.ApiDoc;
 import cn.mapway.document.parser.GenContext;
-import cn.mapway.document.parser.SpringParser;
 
 /**
  * 
@@ -69,10 +70,27 @@ public class MapwayDocServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		response.setCharacterEncoding("utf-8");
+		String contype = "html";
+		contype = request.getParameter("contype");
+
+		if (contype == null || contype.length() == 0) {
+			contype = "html";
+		}
+
 		PrintWriter out = response.getWriter();
 		DocHelper helper = new DocHelper();
 		ApiDoc doc = helper.toDoc(ParseType.PT_SPRING, context, packageNames);
-		out.println(Json.toJson(doc, JsonFormat.full()));
+
+		if (contype.equals("html")) {
+			System.out.println(Json.toJson(doc, JsonFormat.full()));
+
+		} else if (contype.equals("java")) {
+			JavaConnextorExport export = new JavaConnextorExport();
+			out.println("<pre>"
+					+ Strings.escapeHtml(export.export(doc,
+							"cn.mapway.document.connector", "TestConnector"))
+					+ "</pre>");
+		}
 		out.flush();
 		out.close();
 	}

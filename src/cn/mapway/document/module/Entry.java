@@ -10,8 +10,8 @@ import java.util.List;
  * @author zhangjianshe
  *
  */
-public class Entry implements Serializable{
-	
+public class Entry implements Serializable {
+
 	public Entry() {
 	}
 
@@ -26,6 +26,11 @@ public class Entry implements Serializable{
 
 	/** 接口相对路径. */
 	public String relativePath = "";
+
+	/**
+	 * 接口路径
+	 */
+	public String url = "";
 
 	/** 调用类型. */
 	public String invokeMethod = "";

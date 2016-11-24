@@ -1,13 +1,16 @@
 package cn.mapway.document.ui.client.main;
 
+import cn.mapway.document.ui.client.component.CustomButton;
 import cn.mapway.document.ui.client.module.ApiDoc;
 import cn.mapway.document.ui.client.module.Entry;
 import cn.mapway.document.ui.client.module.Group;
+import cn.mapway.document.ui.client.module.JarInfo;
 import cn.mapway.document.ui.client.resource.SysResource;
 import cn.mapway.document.ui.client.rpc.ApiDocProxy;
 import cn.mapway.document.ui.client.rpc.IOnData;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
@@ -15,6 +18,7 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -146,6 +150,16 @@ public class MainFrame extends Composite {
 		}
 	};
 
+	private ClickHandler downloadLinkHandler = new ClickHandler() {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			CustomButton btn = (CustomButton) event.getSource();
+			JarInfo jar = (JarInfo) btn.getData();
+			Window.open(jar.link(), "Connecgtor 下载", "");
+		}
+	};
+
 	/**
 	 * 获取模板文件中的数据.
 	 *
@@ -194,16 +208,29 @@ public class MainFrame extends Composite {
 	 */
 	void parseData(ApiDoc doc) {
 		this.doc = doc;
+
+		JsArray<JarInfo> jars = doc.getDownloads();
+
+		if (jars.length() > 0) {
+			for (int index = 0; index < jars.length(); index++) {
+				JarInfo jar = jars.get(index);
+				CustomButton btn = new CustomButton(jar.summary());
+				btn.setData(jar);
+				btn.addClickHandler(downloadLinkHandler);
+				tools.add(btn);
+			}
+		}
+
 		lbTitle.setText(doc.title());
 		apiTree.parseData(doc);
 		lbSubtitle.setText(doc.summary());
 		handleItem(apiTree.getItem(0));
 		if (doc.wordUrl().length() > 0) {
-			Button btn = new Button("导出WORD文档");
-			btn.setStyleName(SysResource.INSTANCE.getCss().btn());
+			CustomButton btn = new CustomButton("导出WORD文档");
 			btn.addClickHandler(gotoWordHandler);
 			tools.add(btn);
 		}
+
 	}
 
 	/** The api tree. */

@@ -189,8 +189,8 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 			LocalStorage.save(mEntry.relativePath(), key + "`" + va + "|" + v);
 		}
 		try {
-			ApiDocProxy.fetchString(mEntry.relativePath(), txtInput.getValue(),
-					"", mEntry.invokeMethod(), new IOnData<String>() {
+			ApiDocProxy.fetchString(mEntry.url(), txtInput.getValue(), "",
+					mEntry.invokeMethod(), new IOnData<String>() {
 						@Override
 						public void onError(String url, String error) {
 							txtOutput.setString(error);

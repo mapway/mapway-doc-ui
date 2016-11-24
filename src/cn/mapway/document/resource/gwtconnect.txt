@@ -1,0 +1,226 @@
+package ${package};
+
+import java.util.*;
+
+import com.google.gwt.core.client.*;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestBuilder;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
+import com.google.gwt.http.client.URL;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONParser;
+import com.google.gwt.json.client.JSONValue;
+
+
+${importModules}
+
+/**
+ * @author zhangjianshe@navinfo.com
+ * 
+ */
+public class ${name} {
+
+ public ${name}() {
+   headers=new HashMap<String, String>();
+ }
+ 
+ public interface ICallback<T> {
+    public void onSuccess(T data);
+
+    public void onError(String message);
+  }
+  
+  private Map<String, String> headers;
+
+  public void setHeader(String header, String value) {
+    headers.put(header, value);
+  }
+
+  public void setContentType(String type)
+  {
+    setHeader("Content-Type", type);
+  }
+  
+  /**
+   * 设置是否使用Json格式传送数据
+   * 
+   * @param enabled
+   */
+  public void enableJsonFormat(boolean enabled) {
+    if (enabled) {
+      setContentType("application/json");
+    } else {
+      setContentType("text/plain");
+    }
+  }
+  /**
+   *  构造Header
+   * @param rb
+   */
+  private void buildHeader(RequestBuilder rb)
+  {
+    for(String key:headers.keySet())
+    {
+      rb.setHeader(key, headers.get(key));
+    }
+  }
+  
+	protected static String apiBase="";
+
+	/**
+	 * 设置接口连接基地址
+	 * 
+	 * @param base
+	 */
+	public static void setApiBase(String base) {
+		apiBase = base;
+	}
+	public static String getApiBase(){
+		return apiBase;
+	}
+	private int mTimeOut = 10 * 1000;
+	
+	  public void setTimeout(int time) {
+	    mTimeOut = time;
+	  }
+	
+	  public int getTimeout() {
+	    return mTimeOut;
+	  }
+  
+	${modules}
+	
+	${apis}
+	
+	public  <T extends JavaScriptObject> void doGet(String url,
+			String data, final ICallback<T> handler) {
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET,
+				URL.encode(getApiBase()+url));
+				buildHeader(builder);
+		try {
+			Request request = builder.sendRequest(data, new RequestCallback() {
+				public void onError(Request request, Throwable exception) {
+					handler.onError(exception.getMessage());
+				}
+
+				public void onResponseReceived(Request request,
+						Response response) {
+					if (200 == response.getStatusCode()) {
+						T obj = JsonUtils.safeEval(response.getText());
+						handler.onSuccess(obj);
+					} else {
+						handler.onError(response.getStatusText());
+					}
+				}
+			});
+		} catch (RequestException e) {
+			handler.onError(e.getMessage());
+		}
+	}
+
+	public  void postJson(String url, String data,
+			final ICallback<JSONObject> handler) {
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.POST,
+				URL.encode(getApiBase()+url));
+				buildHeader(builder);
+		try {
+			Request request = builder.sendRequest(data, new RequestCallback() {
+				public void onError(Request request, Throwable exception) {
+					handler.onError(exception.getMessage());
+				}
+
+				public void onResponseReceived(Request request,
+						Response response) {
+					if (200 == response.getStatusCode()) {
+						JSONValue obj = JSONParser.parse(response.getText());
+						handler.onSuccess(obj.isObject());
+					} else {
+						handler.onError(response.getStatusText());
+					}
+				}
+			});
+		} catch (RequestException e) {
+			handler.onError(e.getMessage());
+		}
+	}
+
+	public  <T extends JavaScriptObject> void doPost(String url,
+			String data, final ICallback<T> handler) {
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.POST,
+				URL.encode(getApiBase()+url));
+				buildHeader(builder);
+		try {
+			Request request = builder.sendRequest(data, new RequestCallback() {
+				public void onError(Request request, Throwable exception) {
+					handler.onError(exception.getMessage());
+				}
+
+				public void onResponseReceived(Request request,
+						Response response) {
+					if (200 == response.getStatusCode()) {
+						T obj = JsonUtils.unsafeEval(response.getText());
+						handler.onSuccess(obj);
+					} else {
+						handler.onError(response.getStatusText());
+					}
+				}
+			});
+		} catch (RequestException e) {
+			handler.onError(e.getMessage());
+		}
+	}
+	
+	
+	public  void doGetString(String url, String data,
+			final ICallback<String> handler) {
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET,
+				URL.encode(getApiBase() + url));
+				buildHeader(builder);
+		try {
+			Request request = builder.sendRequest(data, new RequestCallback() {
+				public void onError(Request request, Throwable exception) {
+					handler.onError(exception.getMessage());
+				}
+
+				public void onResponseReceived(Request request,
+						Response response) {
+					if (200 == response.getStatusCode()) {
+						handler.onSuccess(response.getText());
+					} else {
+						handler.onError(response.getStatusText());
+					}
+				}
+			});
+		} catch (RequestException e) {
+			handler.onError(e.getMessage());
+		}
+	}
+	public  void doPostString(String url, String data,
+			final ICallback<String> handler) {
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.POST,
+				URL.encode(getApiBase() + url));
+		buildHeader(builder);		
+		try {
+			Request request = builder.sendRequest(data, new RequestCallback() {
+				public void onError(Request request, Throwable exception) {
+					handler.onError(exception.getMessage());
+				}
+
+				public void onResponseReceived(Request request,
+						Response response) {
+					if (200 == response.getStatusCode()) {
+						handler.onSuccess(response.getText());
+					} else {
+						handler.onError(response.getStatusText());
+					}
+				}
+			});
+		} catch (RequestException e) {
+			handler.onError(e.getMessage());
+		}
+	}
+	
+	
+}

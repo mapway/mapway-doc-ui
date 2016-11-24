@@ -1,7 +1,7 @@
 package cn.mapway.document.helper;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
@@ -12,9 +12,6 @@ import cn.mapway.document.parser.SpringParser;
 import cn.mapway.document.resource.Template;
 import cn.mapway.document.word.WordExport;
 
-import com.google.gwt.dom.client.Style.VerticalAlign;
-import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
-
 // TODO: Auto-generated Javadoc
 /**
  * 辅助类.
@@ -23,12 +20,28 @@ import com.google.gwt.user.client.ui.ValueBoxBase.TextAlignment;
  */
 public class DocHelper {
 
+	/** The ant home. */
+	private String antHome = "";
+
+	/**
+	 * Sets the ant home.
+	 *
+	 * @param home
+	 *            the new ant home
+	 */
+	public void setAntHome(String home) {
+		antHome = home;
+	}
+
 	/**
 	 * 生成WORD文档.
 	 *
-	 * @param api the api
-	 * @param fileName the file name
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param api
+	 *            the api
+	 * @param fileName
+	 *            the file name
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public void toWord(ApiDoc api, String fileName) throws IOException {
 		WordExport export = new WordExport();
@@ -38,9 +51,12 @@ public class DocHelper {
 	/**
 	 * 生成接口文档JSON格式.
 	 *
-	 * @param pt the pt
-	 * @param context the context
-	 * @param packages the packages
+	 * @param pt
+	 *            the pt
+	 * @param context
+	 *            the context
+	 * @param packages
+	 *            the packages
 	 * @return the api doc
 	 */
 	public ApiDoc toDoc(ParseType pt, GenContext context, String... packages) {
@@ -68,13 +84,27 @@ public class DocHelper {
 	/**
 	 * 生成HTML文档.
 	 *
-	 * @param pt the pt
-	 * @param context the context
-	 * @param packages the packages
+	 * @param pt
+	 *            the pt
+	 * @param context
+	 *            the context
+	 * @param packages
+	 *            the packages
 	 * @return the string
 	 */
 	public String genHTML(ParseType pt, GenContext context, String... packages) {
 		ApiDoc doc = toDoc(pt, context, packages);
+		return genHTML(doc);
+	}
+
+	/**
+	 * 生成文档.
+	 *
+	 * @param doc
+	 *            the doc
+	 * @return the string
+	 */
+	public String genHTML(ApiDoc doc) {
 		String template;
 		try {
 			template = Template
@@ -111,9 +141,12 @@ public class DocHelper {
 	/**
 	 * 生成Word File.
 	 *
-	 * @param pt the pt
-	 * @param context the context
-	 * @param packages the packages
+	 * @param pt
+	 *            the pt
+	 * @param context
+	 *            the context
+	 * @param packages
+	 *            the packages
 	 * @return the string
 	 */
 	public String genDoc(ParseType pt, GenContext context, String... packages) {
@@ -121,5 +154,28 @@ public class DocHelper {
 		String wordFile = "";
 
 		return wordFile;
+	}
+
+	/**
+	 * Jar.
+	 *
+	 * @param api
+	 *            the api
+	 * @param path
+	 *            the path
+	 * @param packageName
+	 *            the package name
+	 * @param className
+	 *            the class name
+	 * @param libPath
+	 *            the lib path
+	 * @return the list
+	 */
+	public List<JarInfo> jar(ApiDoc api, String path, String packageName,
+			String className, String libPath) {
+		JarHelper helper = new JarHelper();
+		helper.setAntHome(antHome);
+		return helper.jar(api, path, packageName, className, libPath);
+
 	}
 }

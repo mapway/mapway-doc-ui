@@ -74,8 +74,10 @@ public class EntryList extends Grid {
 	/**
 	 * Parses the.
 	 *
-	 * @param group the group
-	 * @param searchText the search text
+	 * @param group
+	 *            the group
+	 * @param searchText
+	 *            the search text
 	 * @return the string
 	 */
 	public String parse(Group group, String searchText) {
@@ -92,8 +94,10 @@ public class EntryList extends Grid {
 	/**
 	 * Parses the group.
 	 *
-	 * @param group the group
-	 * @param searchText the search text
+	 * @param group
+	 *            the group
+	 * @param searchText
+	 *            the search text
 	 * @return the string
 	 */
 	private String parseGroup(Group group, String searchText) {
@@ -127,7 +131,7 @@ public class EntryList extends Grid {
 			this.setWidget(row, column++, new Label((row) + ""));
 
 			this.setWidget(row, column++, new Label(e.title()));
-			this.setWidget(row, column++, new Label(e.relativePath()));
+			this.setWidget(row, column++, new Label(e.url()));
 			this.setWidget(row, column++, new Label(e.state()));
 			this.setWidget(row, column++, new Label(e.author()));
 			getCellFormatter().setHorizontalAlignment(row, column - 1,
@@ -145,8 +149,10 @@ public class EntryList extends Grid {
 	/**
 	 * Find count.
 	 *
-	 * @param group the group
-	 * @param searchText the search text
+	 * @param group
+	 *            the group
+	 * @param searchText
+	 *            the search text
 	 * @return the int
 	 */
 	public int findCount(Group group, String searchText) {

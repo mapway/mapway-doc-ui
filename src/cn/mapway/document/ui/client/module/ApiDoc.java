@@ -1,8 +1,7 @@
 package cn.mapway.document.ui.client.module;
 
-
 import com.google.gwt.core.client.JavaScriptObject;
-
+import com.google.gwt.core.client.JsArray;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -15,7 +14,7 @@ public class ApiDoc extends JavaScriptObject {
 	/**
 	 * Instantiates a new api doc.
 	 */
-	protected  ApiDoc() {
+	protected ApiDoc() {
 	}
 
 	/**
@@ -89,7 +88,7 @@ public class ApiDoc extends JavaScriptObject {
 	public final native Group root()/*-{
 		return this.root;
 	}-*/;
-	
+
 	/**
 	 * WordUrl
 	 *
@@ -97,5 +96,13 @@ public class ApiDoc extends JavaScriptObject {
 	 */
 	public final native String wordUrl()/*-{
 		return this.wordUrl;
+	}-*/;
+
+	/**
+	 * 
+	 * @return
+	 */
+	public final native JsArray<JarInfo> getDownloads()/*-{
+		return this.downloads;
 	}-*/;
 }

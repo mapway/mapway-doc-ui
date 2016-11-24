@@ -1,6 +1,10 @@
 package cn.mapway.document.module;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.mapway.document.helper.JarInfo;
 
 /**
  * ApiDoc V2
@@ -59,6 +63,7 @@ public class ApiDoc implements Serializable {
 	 */
 	public ApiDoc() {
 		root = new Group();
+		downloads = new ArrayList<JarInfo>();
 	}
 
 	/**
@@ -107,7 +112,6 @@ public class ApiDoc implements Serializable {
 				g = ng;
 			}
 		}
-
 		return g;
 	}
 
@@ -126,5 +130,11 @@ public class ApiDoc implements Serializable {
 			Group g = root.subGroups.get(i);
 			processGroupFullName(g, root.fullName);
 		}
+	}
+
+	private List<JarInfo> downloads;
+
+	public List<JarInfo> getDownloads() {
+		return downloads;
 	}
 }

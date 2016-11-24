@@ -177,8 +177,8 @@ public class SpringParser {
 			entry.parentClassName = c.getName();
 
 			if (entry != null) {
-				entry.relativePath = mContext.getBasepath() + basepath
-						+ entry.relativePath;
+				entry.relativePath = basepath + entry.relativePath;
+				entry.url = mContext.getBasepath() + entry.relativePath;
 
 			}
 		}
@@ -409,7 +409,7 @@ public class SpringParser {
 
 				Type type = getGenericType(f);
 				Class<?> c = (Class<?>) type;
-				fi.type = "List<" + c.getSimpleName() + ">";
+				fi.type = "List<" + c.getName() + ">";
 
 				ArrayList list = new ArrayList();
 				if (instance != null) {

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="api_java_connector" default="run" basedir=".">
+	<property name="target_path">target</property>
+	<property name="source_path">--SOURCE-PATH--</property>
+	<property name="out_path">--OUT-PATH--</property>
+	<property name="out_file_name">--OUT-FILE-NAME--</property>
+	<property name="lib_path">--LIB-PATH--</property>
+		
+			
+	<target name="run">
+		
+		
+		<delete dir="${target_path}" />
+		<mkdir dir="${target_path}"/>
+		
+		<path id="classpath">
+					<fileset dir="${lib_path}">
+						<include name="**/*.jar" />
+					</fileset>
+		</path>
+		
+		<javac includeAntRuntime="no" encoding="UTF-8" srcdir="${source_path}" destdir="${target_path}" verbose="false" fork="no">
+					<classpath refid="classpath">
+					</classpath>
+		</javac>
+
+				
+		<copy todir="${target_path}">
+			<fileset dir="${source_path}">
+				<include name="**/*.java" />
+			</fileset>
+		</copy>
+		<jar destfile="${out_path}\${out_file_name}" >
+			<manifest>
+				<attribute name="Create-Date" value="$(DSTAMP)-${TSTAMP}" />
+				<attribute name="Author" value="zhangjianshe@gmail.com" />
+			</manifest>
+		</jar>
+	</target>
+</project>
