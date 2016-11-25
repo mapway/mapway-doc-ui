@@ -4,14 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * 接口信息
- * 
- * @author zhangjianshe
+ * 接口信息.
  *
+ * @author zhangjianshe
  */
 public class Entry implements Serializable {
 
+	/**
+	 * Instantiates a new entry.
+	 */
 	public Entry() {
 	}
 
@@ -27,9 +30,7 @@ public class Entry implements Serializable {
 	/** 接口相对路径. */
 	public String relativePath = "";
 
-	/**
-	 * 接口路径
-	 */
+	/** 接口路径. */
 	public String url = "";
 
 	/** 调用类型. */
@@ -41,23 +42,15 @@ public class Entry implements Serializable {
 	/** 输出参数. */
 	public ObjectInfo output;
 
-	/**
-	 * 接口的排序值
-	 */
+	/** 接口的排序值. */
 	public int order;
 
-	/**
-	 * 接口创建者
-	 */
+	/** 接口创建者. */
 	public String author;
 
-	/**
-	 * 方法所在的类
-	 */
+	/** 方法所在的类. */
 	public String parentClassName;
 
-	/**
-	 * 开发状态
-	 */
+	/** 开发状态. */
 	public String state;
 }

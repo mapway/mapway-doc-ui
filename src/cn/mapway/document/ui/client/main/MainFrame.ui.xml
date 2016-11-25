@@ -29,6 +29,11 @@
 		font-size: 12px;
 		padding-left: 10px;
 	}
+	
+	.bottom {
+		background-color: #606060;
+		color: #f0f0f0;
+	}
 	</ui:style>
 	<g:DockLayoutPanel>
 		<g:north size="70">
@@ -57,11 +62,22 @@
 
 
 		</g:north>
+		<g:south size="45">
+			<g:HorizontalPanel height="45px" styleName="{style.bottom}"
+				width="100%" verticalAlignment="middle" spacing="5">
+				<g:HTML ui:field="lbCopy"></g:HTML>
+				<g:cell horizontalAlignment="right">
+
+					<g:Anchor ui:field="anchorDomain"></g:Anchor>
+				</g:cell>
+			</g:HorizontalPanel>
+		</g:south>
 		<g:west size="350">
 			<g:ScrollPanel styleName="{style.left}">
 				<m:ApiTree ui:field="apiTree"></m:ApiTree>
 			</g:ScrollPanel>
 		</g:west>
+
 		<g:center>
 			<g:ScrollPanel ui:field="content" styleName="{style.content}"></g:ScrollPanel>
 		</g:center>

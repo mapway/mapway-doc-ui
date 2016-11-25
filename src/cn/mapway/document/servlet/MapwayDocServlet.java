@@ -24,46 +24,33 @@ import cn.mapway.document.module.ApiDoc;
 import cn.mapway.document.parser.GenContext;
 import cn.mapway.document.resource.Template;
 
+// TODO: Auto-generated Javadoc
 /**
- * 文档服务入口
- * 
- * @author zhangjianshe
+ * 文档服务入口.
  *
+ * @author zhangjianshe
  */
 public class MapwayDocServlet extends HttpServlet {
 
-	/**
-	 * 日志记录器
-	 */
+	/** 日志记录器. */
 	private static Log log = Logs.getLog("Mapway-Document");
 
-	/**
-	 * 文档上下文环境
-	 */
+	/** 文档上下文环境. */
 	private GenContext context;
 
-	/**
-	 * 需要扫描的包名称
-	 */
+	/** 需要扫描的包名称. */
 	private String packageNames;
 
-	/**
-	 * connector 包名
-	 */
+	/** connector 包名. */
 	private String connectorPackageName;
 
-	/**
-	 * connector 类名
-	 */
+	/** connector 类名. */
 	private String connectorClassName;
 
-	/**
-	 * 用于编译的ANT HOME
-	 */
+	/** 用于编译的ANT HOME. */
 	private String antHome;
-	/**
-	 * 
-	 */
+
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -106,11 +93,16 @@ public class MapwayDocServlet extends HttpServlet {
 	}
 
 	/**
-	 * 调度文档命令
-	 * 
-	 * @param contype
+	 * 调度文档命令.
+	 *
+	 * @param path
+	 *            the path
+	 * @param request
+	 *            the request
 	 * @param response
+	 *            the response
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	private void dispatch(String path, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -125,10 +117,24 @@ public class MapwayDocServlet extends HttpServlet {
 		} else if (path.equals("/help")) {
 			html(response,
 					Template.readTemplate("/cn/mapway/document/resource/help.html"));
+		} else if (path.equals("/data")) {
+			DocHelper helper = new DocHelper();
+
+			ApiDoc api = helper.toDoc(ParseType.PT_SPRING, context,
+					packageNames);
+
+			json(response, api);
 		}
 
 	}
 
+	/**
+	 * Gets the download local.
+	 *
+	 * @param req
+	 *            the req
+	 * @return the download local
+	 */
 	private static String getDownloadLocal(HttpServletRequest req) {
 		String root = req.getServletContext().getRealPath("/");
 		String downloadPath = root + "/download/jar";
@@ -137,10 +143,12 @@ public class MapwayDocServlet extends HttpServlet {
 	}
 
 	/**
-	 * 输出文档HTML页面
-	 * 
+	 * 输出文档HTML页面.
+	 *
 	 * @param request
+	 *            the request
 	 * @param response
+	 *            the response
 	 */
 	private void genhtml(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -178,9 +186,9 @@ public class MapwayDocServlet extends HttpServlet {
 			jar.link = getBasePath(request) + "download/jar/" + jar.fileName;
 		}
 		// 删除临时文件
-		String sourcePath = getDownloadLocal(request) + File.separator
-				+ "source";
-		Files.deleteDir(new File(sourcePath));
+		// String sourcePath = getDownloadLocal(request) + File.separator
+		// + "source";
+		// Files.deleteDir(new File(sourcePath));
 
 		// 设置下载目录
 		api.getDownloads().addAll(jars);
@@ -188,15 +196,37 @@ public class MapwayDocServlet extends HttpServlet {
 		html(response, html);
 	}
 
+	/**
+	 * Gets the cache file name.
+	 *
+	 * @return the cache file name
+	 */
 	private File getCacheFileName() {
 
 		return new File(getTempFolder() + "/html.data");
 	}
 
+	/**
+	 * Gets the doc root.
+	 *
+	 * @param request
+	 *            the request
+	 * @return the doc root
+	 */
 	private String getDocRoot(HttpServletRequest request) {
 		return getDownloadLocal(request);
 	}
 
+	/**
+	 * Byteout.
+	 *
+	 * @param response
+	 *            the response
+	 * @param data
+	 *            the data
+	 * @param contentType
+	 *            the content type
+	 */
 	private void byteout(HttpServletResponse response, byte[] data,
 			String contentType) {
 		if (!Strings.isBlank(contentType)) {
@@ -210,14 +240,40 @@ public class MapwayDocServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Json.
+	 *
+	 * @param response
+	 *            the response
+	 * @param data
+	 *            the data
+	 */
 	private void json(HttpServletResponse response, Object data) {
 		out(response, Json.toJson(data), "application/json");
 	}
 
+	/**
+	 * Html.
+	 *
+	 * @param response
+	 *            the response
+	 * @param data
+	 *            the data
+	 */
 	private void html(HttpServletResponse response, String data) {
 		out(response, data, "text/html");
 	}
 
+	/**
+	 * Out.
+	 *
+	 * @param response
+	 *            the response
+	 * @param data
+	 *            the data
+	 * @param contentType
+	 *            the content type
+	 */
 	private void out(HttpServletResponse response, String data,
 			String contentType) {
 		response.setContentType(contentType);
@@ -230,6 +286,13 @@ public class MapwayDocServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Gets the base path.
+	 *
+	 * @param request
+	 *            the request
+	 * @return the base path
+	 */
 	public static String getBasePath(HttpServletRequest request) {
 		String path = request.getContextPath();
 		String port = request.getServerPort() == 80 ? "" : (":" + request
@@ -260,43 +323,35 @@ public class MapwayDocServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	/**
-	 * 作者
-	 */
+	/** 作者. */
 	public final static String PARAM_AUTHOR = "author";
-	/**
-	 * 标题
-	 */
+
+	/** 标题. */
 	public final static String PARAM_TITLE = "title";
-	/**
-	 * 子标题
-	 */
+
+	/** 子标题. */
 	public final static String PARAM_SUB_TITLE = "subtitle";
-	/**
-	 * 接口URL基路径
-	 */
+
+	/** 接口URL基路径. */
 	public final static String PARAM_BASE_PATH = "basePath";
-	/**
-	 * 域名
-	 */
+
+	/** 域名. */
 	public final static String PARAM_DOMAIN = "domain";
 
-	/**
-	 * ANT hOME路径
-	 */
+	/** ANT hOME路径. */
 	public final static String PARAM_ANT_HOME = "antHome";
-	/**
-	 * 扫描的包名，支持，号隔开多个包名
-	 */
+
+	/** 扫描的包名，支持，号隔开多个包名. */
 	public final static String PARAM_SCAN_PACKAGES = "scanPackages";
-	/**
-	 * 连接的包名
-	 */
+
+	/** 连接的包名. */
 	public final static String PARAM_CONNECTOR_PACKAGE_NAME = "connectorPackageName";
-	/**
-	 * 连接的类名
-	 */
+
+	/** 连接的类名. */
 	public final static String PARAM_CONNECTOR_CLASS_NAME = "connectorClassName";
+
+	/** 连接的类名. */
+	public final static String PARAM_COPY_RIGHT = "copyright";
 
 	/**
 	 * Initialization of the servlet. <br>
@@ -322,6 +377,8 @@ public class MapwayDocServlet extends HttpServlet {
 		connectorClassName = Strings.sBlank(this
 				.getInitParameter(PARAM_CONNECTOR_CLASS_NAME));
 
+		context.setCopyright(Strings.sBlank(getInitParameter(PARAM_COPY_RIGHT)));
+
 		// 删除临时文件
 		File htmlCache = getCacheFileName();
 		if (htmlCache.exists()) {
@@ -329,6 +386,11 @@ public class MapwayDocServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Gets the temp folder.
+	 *
+	 * @return the temp folder
+	 */
 	public String getTempFolder() {
 		String folder = System.getProperty("java.io.tmpdir");
 		return folder;

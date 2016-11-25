@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.mapway.document.annotation.Doc;
 
+/**
+ * The Class CopyOfTestController3.
+ */
 @Doc(value = "ABCD", group = "/泛能",desc="今天我们做对了吗?")
 @Controller
 @RequestMapping(value="doc/456/")

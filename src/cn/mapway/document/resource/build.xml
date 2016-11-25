@@ -30,7 +30,7 @@
 				<include name="**/*.java" />
 			</fileset>
 		</copy>
-		<jar destfile="${out_path}\${out_file_name}" >
+		<jar destfile="${out_path}\${out_file_name}" basedir="${target_path}" >
 			<manifest>
 				<attribute name="Create-Date" value="$(DSTAMP)-${TSTAMP}" />
 				<attribute name="Author" value="zhangjianshe@gmail.com" />

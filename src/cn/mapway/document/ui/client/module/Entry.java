@@ -121,7 +121,7 @@ public class Entry extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * 全路径
+	 * 全路径.
 	 *
 	 * @return the string
 	 */

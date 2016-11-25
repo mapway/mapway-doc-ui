@@ -90,17 +90,36 @@ public class ApiDoc extends JavaScriptObject {
 	}-*/;
 
 	/**
-	 * WordUrl
+	 * WordUrl.
 	 *
 	 * @return the group
 	 */
 	public final native String wordUrl()/*-{
 		return this.wordUrl;
 	}-*/;
+	
+	/**
+	 * WordUrl.
+	 *
+	 * @return the group
+	 */
+	public final native String domain()/*-{
+		return this.domain;
+	}-*/;
+	
+	/**
+	 * WordUrl.
+	 *
+	 * @return the group
+	 */
+	public final native String copyright()/*-{
+		return this.copyright;
+	}-*/;
 
 	/**
-	 * 
-	 * @return
+	 * Gets the downloads.
+	 *
+	 * @return the downloads
 	 */
 	public final native JsArray<JarInfo> getDownloads()/*-{
 		return this.downloads;

@@ -5,6 +5,10 @@ import java.util.List;
 import cn.mapway.document.annotation.ApiField;
 import cn.mapway.document.annotation.Doc;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Req.
+ */
 @Doc(value = "触发条件", desc = "<p>触发条件分为两类:设备属性条件 和定时器触发条件，"
 	    + "<p>定时器(虚拟设备,deviceId=0)有两个属性 1000为定时属性 1001为倒计时属性，"
 	    + "<p>定时属性 value值为一个具体的时间格式为2016-05-18 13:24:03,"
@@ -19,18 +23,23 @@ import cn.mapway.document.annotation.Doc;
 	    )
 public class Req {
 
+	/** The f 1. */
 	@ApiField("int field")
 	public int f1;
 
+	/** The boolea field. */
 	@ApiField("booelan field")
 	public Boolean booleaField;
 
+	/** The names. */
 	@ApiField("List test")
 	public List<String> names;
 
+	/** The rets. */
 	@ApiField("RET数组")
 	public List<Ret> rets;
 
+	/** The test obj. */
 	@ApiField("TestObject in api Field")
 	public TestObj testObj;
 

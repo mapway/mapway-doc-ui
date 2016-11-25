@@ -77,6 +77,8 @@ public class SpringParser {
 		doc.title = context.getDocTitle();
 		doc.wordUrl = context.getWordURL();
 		doc.summary = context.getSubtitle();
+		doc.domain=context.getDomain();
+		doc.copyright=context.getCopyright();
 
 		for (Class<?> clz : clzs) {
 			if (clz.getAnnotation(Controller.class) != null

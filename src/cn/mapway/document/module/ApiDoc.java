@@ -6,60 +6,48 @@ import java.util.List;
 
 import cn.mapway.document.helper.JarInfo;
 
+// TODO: Auto-generated Javadoc
 /**
- * ApiDoc V2
- * 
- * @author zhangjianshe
+ * ApiDoc V2.
  *
+ * @author zhangjianshe
  */
 public class ApiDoc implements Serializable {
 
-	/**
-	 * 用户设置导出WordURL地址
-	 */
+	/** 用户设置导出WordURL地址. */
 	public String wordUrl = "";
-	/**
-	 * 作者
-	 */
+
+	/** 作者. */
 	public String author;
 
-	/**
-	 * 标题
-	 */
+	/** 标题. */
 	public String title;
 
-	/**
-	 * API版本
-	 */
+	/** API版本. */
 	public String version;
 
-	/**
-	 * API关联网址
-	 */
+	/** API关联网址. */
 	public String link;
 
-	/**
-	 * API简介
-	 */
+	/** API简介. */
 	public String summary;
 
-	/**
-	 * API 的整体说明文档
-	 */
+	/** API 的整体说明文档. */
 	public String description;
 
-	/**
-	 * 接口访问的基地址
-	 */
+	/** API 的整体说明文档. */
+	public String copyright;
+	/** API 的整体说明文档. */
+	public String domain;
+
+	/** 接口访问的基地址. */
 	public String basePath;
 
-	/**
-	 * API分组的根节点
-	 */
+	/** API分组的根节点. */
 	public Group root;
 
 	/**
-	 * 
+	 * Instantiates a new api doc.
 	 */
 	public ApiDoc() {
 		root = new Group();
@@ -68,9 +56,10 @@ public class ApiDoc implements Serializable {
 
 	/**
 	 * 根据路径查找Group,如果不存在这个路径的对象，就在树中创建这个路径.
-	 * 
+	 *
 	 * @param path
-	 * @return
+	 *            the path
+	 * @return the group
 	 */
 	public Group findGroup(String path) {
 
@@ -115,15 +104,29 @@ public class ApiDoc implements Serializable {
 		return g;
 	}
 
+	/**
+	 * Sort.
+	 */
 	public void sort() {
 		processFullName();
 		root.sort();
 	}
 
+	/**
+	 * Process full name.
+	 */
 	public void processFullName() {
 		processGroupFullName(root, "");
 	}
 
+	/**
+	 * Process group full name.
+	 *
+	 * @param root
+	 *            the root
+	 * @param ppath
+	 *            the ppath
+	 */
 	private void processGroupFullName(Group root, String ppath) {
 		root.fullName = ppath + "/" + root.name;
 		for (int i = 0; i < root.subGroups.size(); i++) {
@@ -132,8 +135,14 @@ public class ApiDoc implements Serializable {
 		}
 	}
 
+	/** The downloads. */
 	private List<JarInfo> downloads;
 
+	/**
+	 * Gets the downloads.
+	 *
+	 * @return the downloads
+	 */
 	public List<JarInfo> getDownloads() {
 		return downloads;
 	}

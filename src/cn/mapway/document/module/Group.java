@@ -6,14 +6,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * API 分组
- * 
- * @author zhangjianshe
+ * API 分组.
  *
+ * @author zhangjianshe
  */
 public class Group implements Serializable {
 
+	/**
+	 * Instantiates a new group.
+	 */
 	public Group() {
 		entries = new ArrayList<Entry>();
 		subGroups = new ArrayList<Group>();
@@ -21,6 +24,7 @@ public class Group implements Serializable {
 		setParent(null);
 	}
 
+	/** The order. */
 	public Integer order = 1;
 
 	/** 节点名称. */
@@ -29,24 +33,16 @@ public class Group implements Serializable {
 	/** 节点说明. */
 	public String summary;
 
-	/**
-	 * 父节点
-	 */
+	/** 父节点. */
 	private Group parent;
 
-	/**
-	 * 节点全路径名称
-	 */
+	/** 节点全路径名称. */
 	public String fullName = "/";
 
-	/**
-	 * 子节点
-	 */
+	/** 子节点. */
 	public List<Entry> entries;
 
-	/**
-	 * 子分组
-	 */
+	/** 子分组. */
 	public List<Group> subGroups;
 
 	/**
@@ -112,16 +108,26 @@ public class Group implements Serializable {
 		return sb.toString();
 	}
 
+	/**
+	 * Gets the parent.
+	 *
+	 * @return the parent
+	 */
 	public Group getParent() {
 		return parent;
 	}
 
+	/**
+	 * Sets the parent.
+	 *
+	 * @param parent the new parent
+	 */
 	public void setParent(Group parent) {
 		this.parent = parent;
 	}
 
 	/**
-	 * 排序
+	 * 排序.
 	 */
 	public void sort() {
 

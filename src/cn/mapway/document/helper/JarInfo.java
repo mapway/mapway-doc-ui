@@ -2,6 +2,7 @@ package cn.mapway.document.helper;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class JarInfo.
  *
@@ -21,8 +22,6 @@ public class JarInfo implements Serializable {
 	/** The summary. */
 	public String summary;
 
-	/**
-	 * link
-	 */
+	/** link. */
 	public String link;
 }

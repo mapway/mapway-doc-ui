@@ -31,6 +31,9 @@ public class GenContext extends Properties {
 	private final static String WORDURL = "WORDURL";
 	/** SUBTITLE URL. */
 	private final static String SUBTITLE = "SUBTITLE";
+	
+	/** SUBTITLE URL. */
+	private final static String COPYRIGHT = "COPYRIGHT";
 
 	/**
 	 * Gets the domain.
@@ -175,5 +178,24 @@ public class GenContext extends Properties {
 	 */
 	public void setSubtitle(String subtitle) {
 		put(SUBTITLE, subtitle);
+	}
+	
+	/**
+	 * Gets the subtitle.
+	 *
+	 * @return the subtitle
+	 */
+	public String getCopyright() {
+		return getProperty(COPYRIGHT);
+	}
+
+	/**
+	 * Sets the subtitle.
+	 *
+	 * @param subtitle
+	 *            the new subtitle
+	 */
+	public void setCopyright(String copyright) {
+		put(COPYRIGHT, copyright);
 	}
 }

@@ -30,7 +30,7 @@
 			<param-value>http://localhost:8080/mapway-doc-ui/</param-value>
 		</init-param>
 		<init-param>
-			<param-name>packages</param-name>
+			<param-name>scanPackages</param-name>
 			<param-value>cn.mapway.document.test</param-value>
 		</init-param>
 		<init-param>
@@ -44,6 +44,14 @@
 		<init-param>
 			<param-name>connectorClassName</param-name>
 			<param-value>SolaApi</param-value>
+		</init-param>
+		<init-param>
+			<param-name>connectorClassName</param-name>
+			<param-value>SolaApi</param-value>
+		</init-param>
+		<init-param>
+			<param-name>copyright</param-name>
+			<param-value>2016 mapway.cn</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

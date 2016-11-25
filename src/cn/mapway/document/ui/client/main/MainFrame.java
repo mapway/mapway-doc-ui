@@ -19,8 +19,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -150,6 +150,7 @@ public class MainFrame extends Composite {
 		}
 	};
 
+	/** The download link handler. */
 	private ClickHandler downloadLinkHandler = new ClickHandler() {
 
 		@Override
@@ -225,10 +226,20 @@ public class MainFrame extends Composite {
 		apiTree.parseData(doc);
 		lbSubtitle.setText(doc.summary());
 		handleItem(apiTree.getItem(0));
-		if (doc.wordUrl().length() > 0) {
-			CustomButton btn = new CustomButton("导出WORD文档");
-			btn.addClickHandler(gotoWordHandler);
-			tools.add(btn);
+//		if (doc.wordUrl().length() > 0) {
+//			CustomButton btn = new CustomButton("导出WORD文档");
+//			btn.addClickHandler(gotoWordHandler);
+//			tools.add(btn);
+//		}
+
+		GWT.log(doc.domain());
+		GWT.log(doc.copyright());
+		if (doc.domain() != null) {
+			anchorDomain.setText(doc.domain());
+		}
+
+		if (doc.copyright() != null) {
+			lbCopy.setHTML("&copy; " + doc.copyright());
 		}
 
 	}
@@ -256,5 +267,13 @@ public class MainFrame extends Composite {
 	/** sub title. */
 	@UiField
 	Label lbSubtitle;
+
+	/** sub title. */
+	@UiField
+	HTML lbCopy;
+
+	/** sub title. */
+	@UiField
+	Anchor anchorDomain;
 
 }

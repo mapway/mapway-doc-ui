@@ -61,20 +61,20 @@ public class WordExport {
 	}
 
 	/**
-	 * 输出接口信息
-	 * 
-	 * @param doc
-	 * @param api
+	 * 输出接口信息.
+	 *
+	 * @param doc the doc
+	 * @param api the api
 	 */
 	private void createEntries(XWPFDocument doc, ApiDoc api) {
 		exportGroup(doc, api.root);
 	}
 
 	/**
-	 * 输出Group
-	 * 
-	 * @param doc
-	 * @param root
+	 * 输出Group.
+	 *
+	 * @param doc the doc
+	 * @param root the root
 	 */
 	private void exportGroup(XWPFDocument doc, Group root) {
 		for (Entry e : root.entries) {
@@ -86,10 +86,10 @@ public class WordExport {
 	}
 
 	/**
-	 * 输出Entry
-	 * 
-	 * @param doc
-	 * @param e
+	 * 输出Entry.
+	 *
+	 * @param doc the doc
+	 * @param e the e
 	 */
 	private void exportEntry(XWPFDocument doc, Entry e) {
 
@@ -115,10 +115,10 @@ public class WordExport {
 	}
 
 	/**
-	 * 描述
-	 * 
-	 * @param doc
-	 * @param objectInfo
+	 * 描述.
+	 *
+	 * @param doc the doc
+	 * @param objectInfo the object info
 	 */
 	private void descript(XWPFDocument doc, ObjectInfo objectInfo) {
 		int nRows = objectInfo.fields.size() + 2;
@@ -172,6 +172,12 @@ public class WordExport {
 		doc.createParagraph();
 	}
 
+	/**
+	 * Header.
+	 *
+	 * @param cell the cell
+	 * @param text the text
+	 */
 	private void header(XWPFTableCell cell, String text) {
 		XWPFRun run = cell.addParagraph().createRun();
 		run.setBold(true);
@@ -222,6 +228,12 @@ public class WordExport {
 		r1.addBreak(BreakType.PAGE);
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void main(String[] args) throws IOException {
 
 		WordExport export = new WordExport();

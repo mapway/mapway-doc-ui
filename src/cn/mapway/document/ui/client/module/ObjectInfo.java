@@ -3,6 +3,10 @@ package cn.mapway.document.ui.client.module;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ObjectInfo.
+ */
 /*
  * 类对象信息
  */

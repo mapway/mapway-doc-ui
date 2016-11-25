@@ -271,6 +271,12 @@ public class JarHelper {
 				+ className + ".java";
 	}
 
+	/**
+	 * Exec.
+	 *
+	 * @param cmd the cmd
+	 * @param dir the dir
+	 */
 	private void exec(String cmd, String dir) {
 		try {
 			Runtime.getRuntime().exec(cmd, null, new File(dir));

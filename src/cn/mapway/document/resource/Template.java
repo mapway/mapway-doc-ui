@@ -16,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+// TODO: Auto-generated Javadoc
 /**
  * 模板类.
  *
