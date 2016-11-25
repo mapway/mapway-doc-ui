@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mapway文档生成器使用说明</title>
+<meta charset='UTF-8'>
+<meta name="keywords" content="Mapway 文档说明 ">
+<meta name="description"
+	content="Mapway文档生成器使用说明-author zhangjianshe@gmail.com">
+<meta name="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+pre {
+	border: solid 1px skyblue;
+	border-radius: 10px;
+	background-color: #f0f0f0;
+	padding: 15px;
+	margin: 5px;
+}
+
+.cp {
+	padding: 5px;
+}
+</style>
+</head>
+
+<body>
+	<div>
+		<h3>文档生成器说明</h3>
+		<div>
+			本文档生成器提供一个Web Servlet 和 辅助类 DocHelper.
+			<div>
+				<p>Web Servlet 配置说明</p>
+				在web.xml中做如下配置
+				<pre>
+					
+				&lt;servlet&gt;
+		&lt;servlet-name&gt;MapwayDocServlet&lt;/servlet-name&gt;
+		&lt;servlet-class&gt;cn.mapway.document.servlet.MapwayDocServlet&lt;/servlet-class&gt;
+		&lt;init-param&gt;
+			&lt;param-name&gt;author&lt;/param-name&gt;
+			&lt;param-value&gt;zhangjianshe@gmail.com&lt;/param-value&gt;
+		&lt;/init-param&gt;
+		&lt;init-param&gt;
+			&lt;param-name&gt;title&lt;/param-name&gt;
+			&lt;param-value&gt;测试接口&lt;/param-value&gt;
+		&lt;/init-param&gt;
+		&lt;init-param&gt;
+			&lt;param-name&gt;subtitle&lt;/param-name&gt;
+			&lt;param-value&gt;副标题&lt;/param-value&gt;
+		&lt;/init-param&gt;
+		
+		&lt;init-param&gt;
+			&lt;param-name&gt;basePath&lt;/param-name&gt;
+			&lt;param-value&gt;http://localhost:8080/mapway-doc-ui/&lt;/param-value&gt;
+		&lt;/init-param&gt;
+		&lt;init-param&gt;
+			&lt;!--需要扫描的API包--&gt;
+			&lt;param-name&gt;scanPackages&lt;/param-name&gt;
+			&lt;param-value&gt;cn.mapway.document.test&lt;/param-value&gt;
+		&lt;/init-param&gt;
+		&lt;init-param&gt;
+			&lt;!--ANT 脚本安装目录--&gt;
+			&lt;param-name&gt;antHome&lt;/param-name&gt;
+			&lt;param-value&gt;c:\ant&lt;/param-value&gt;
+		&lt;/init-param&gt;
+		&lt;init-param&gt;
+			&lt;!--客户端连接器包名--&gt;
+			&lt;param-name&gt;connectorPackageName&lt;/param-name&gt;
+			&lt;param-value&gt;cn.mapway.api.connector&lt;/param-value&gt;
+		&lt;/init-param&gt;
+		&lt;init-param&gt;
+			&lt;!--客户端连接器类名--&gt;
+			&lt;param-name&gt;connectorClassName&lt;/param-name&gt;
+			&lt;param-value&gt;SolaApi&lt;/param-value&gt;
+		&lt;/init-param&gt;
+		&lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+		&lt;/servlet&gt;
+		&lt;!--Servlet 映射--&gt;
+		&lt;servlet-mapping&gt;
+			&lt;servlet-name&gt;MapwayDocServlet&lt;/servlet-name&gt;
+			&lt;url-pattern&gt;/doc/*&lt;/url-pattern&gt;
+		&lt;/servlet-mapping&gt;</pre>
+
+			</div>
+		</div>
+		<div class='cp'>&copy;2016 mapway.cn</div>
+	</div>
+</body>
+</html>
