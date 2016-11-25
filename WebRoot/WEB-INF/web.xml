@@ -22,6 +22,10 @@
 			<param-value>测试接口</param-value>
 		</init-param>
 		<init-param>
+			<param-name>subtitle</param-name>
+			<param-value>测试接口</param-value>
+		</init-param>
+		<init-param>
 			<param-name>basePath</param-name>
 			<param-value>http://localhost:8080/mapway-doc-ui/</param-value>
 		</init-param>
@@ -29,10 +33,22 @@
 			<param-name>packages</param-name>
 			<param-value>cn.mapway.document.test</param-value>
 		</init-param>
+		<init-param>
+			<param-name>antHome</param-name>
+			<param-value>c:\ant</param-value>
+		</init-param>
+		<init-param>
+			<param-name>connectorPackageName</param-name>
+			<param-value>cn.mapway.api.connector</param-value>
+		</init-param>
+		<init-param>
+			<param-name>connectorClassName</param-name>
+			<param-value>SolaApi</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MapwayDocServlet</servlet-name>
-		<url-pattern>/doc</url-pattern>
+		<url-pattern>/doc/*</url-pattern>
 	</servlet-mapping>
 </web-app>

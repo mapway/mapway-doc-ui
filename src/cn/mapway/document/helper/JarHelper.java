@@ -140,20 +140,18 @@ public class JarHelper {
 		Map<String, String> vars = new HashMap<String, String>();
 		vars.put("--SOURCE-PATH--", javaConnectorSourcePath);
 		vars.put("--OUT-PATH--", javaConnectorPath + "/target");
-		vars.put("--OUT-FILE-NAME--", fileName+".jar");
+		vars.put("--OUT-FILE-NAME--", fileName + ".jar");
 		vars.put("--LIB-PATH--", libPath);
 
 		String t = StrUtil.replace2(template, vars);
-		Files.write(javaConnectorPath + File.separator + "build.xml", t);
 
-		String cmd = Lang.isWin() ? "ant.bat" : "ant.sh";
-		try {
-			Lang.execOutput(antHome + File.separator + "bin" + File.separator
-					+ cmd, Charset.defaultCharset());
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
+		String buildFile = javaConnectorPath + File.separator + "build.xml";
+		Files.write(buildFile, t);
+
+		String cmd = Lang.isWin() ? "\\bin\\ant.bat" : "/bin/ant";
+
+		String exec = antHome + cmd;
+		exec(exec, javaConnectorPath);
 
 		JarInfo info = new JarInfo();
 		info.fileName = fileName + ".jar";
@@ -216,16 +214,16 @@ public class JarHelper {
 		vars.put("--LIB-PATH--", libPath);
 
 		String t = StrUtil.replace2(template, vars);
-		Files.write(javaConnectorPath + File.separator + "build.xml", t);
 
-		String cmd = Lang.isWin() ? "ant.bat" : "ant.sh";
-		try {
-			Lang.execOutput(antHome + File.separator + "bin" + File.separator
-					+ cmd, Charset.defaultCharset());
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
+		String buildFile = javaConnectorPath + File.separator + "build.xml";
+		Files.write(buildFile, t);
+
+		String cmd = Lang.isWin() ? "\\bin\\ant.bat" : "/bin/ant";
+
+		String exec = antHome + cmd;
+		exec(exec, javaConnectorPath);
+		
+		
 
 		JarInfo info = new JarInfo();
 		info.fileName = fileName + ".jar";
@@ -271,5 +269,13 @@ public class JarHelper {
 
 		return javaConnectorSourcePath + File.separator + p + File.separator
 				+ className + ".java";
+	}
+
+	private void exec(String cmd, String dir) {
+		try {
+			Runtime.getRuntime().exec(cmd, null, new File(dir));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
