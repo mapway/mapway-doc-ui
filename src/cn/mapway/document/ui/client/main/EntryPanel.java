@@ -54,7 +54,7 @@ public class EntryPanel extends Composite {
 		mEntry = e;
 		lbTITLE.setText(e.title());
 		lbSUMMARY.setHTML(e.summary());
-		lbURL.setText("接口网址:  " + e.relativePath());
+		lbURL.setText("接口网址:  "+ e.url());
 		lbAUTHOR.setText("作者:" + e.author());
 		lbINVOKE.setText("调用方法:" + e.invokeMethod());
 
