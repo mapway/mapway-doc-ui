@@ -2,6 +2,7 @@ package cn.mapway.document.ui.client.test;
 
 import java.util.Date;
 
+import cn.mapway.document.ui.client.component.Clients;
 import cn.mapway.document.ui.client.main.JsonPanel;
 import cn.mapway.document.ui.client.main.storage.LocalStorage;
 import cn.mapway.document.ui.client.module.Entry;
@@ -112,7 +113,7 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 	public void invoke(Entry entry) {
 		mEntry = entry;
 		lbTitle.setText(entry.title());
-		lbUrl.setText(entry.relativePath());
+		lbUrl.setText(Clients.getHostPort()+entry.url());
 		String his = readHistory();
 		if (his.length() == 0) {
 			his = entry.input().get(0).json();

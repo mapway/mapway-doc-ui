@@ -26,6 +26,7 @@ import cn.mapway.document.module.ApiDoc;
 import cn.mapway.document.module.Entry;
 import cn.mapway.document.module.Group;
 import cn.mapway.document.module.ObjectInfo;
+import cn.mapway.document.ver.MapwayDocVer;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -77,8 +78,10 @@ public class SpringParser {
 		doc.title = context.getDocTitle();
 		doc.wordUrl = context.getWordURL();
 		doc.summary = context.getSubtitle();
-		doc.domain=context.getDomain();
-		doc.copyright=context.getCopyright();
+		doc.domain = context.getDomain();
+		doc.copyright = context.getCopyright();
+
+		doc.copyright = doc.copyright + "-" + MapwayDocVer.version();
 
 		for (Class<?> clz : clzs) {
 			if (clz.getAnnotation(Controller.class) != null

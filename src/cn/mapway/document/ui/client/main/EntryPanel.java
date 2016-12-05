@@ -1,5 +1,6 @@
 package cn.mapway.document.ui.client.main;
 
+import cn.mapway.document.ui.client.component.Clients;
 import cn.mapway.document.ui.client.module.Entry;
 import cn.mapway.document.ui.client.resource.SysResource;
 import cn.mapway.document.ui.client.test.TestPanel;
@@ -48,13 +49,14 @@ public class EntryPanel extends Composite {
 	/**
 	 * Parses the.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	public void parse(Entry e) {
 		mEntry = e;
 		lbTITLE.setText(e.title());
 		lbSUMMARY.setHTML(e.summary());
-		lbURL.setText("接口网址:  "+ e.url());
+		lbURL.setText("接口网址:  " + Clients.getHostPort() + e.url());
 		lbAUTHOR.setText("作者:" + e.author());
 		lbINVOKE.setText("调用方法:" + e.invokeMethod());
 
@@ -92,11 +94,11 @@ public class EntryPanel extends Composite {
 	/** The lb URL. */
 	@UiField
 	Label lbURL;
-	
+
 	/** The lb AUTHOR. */
 	@UiField
 	Label lbAUTHOR;
-	
+
 	/** The lb INVOKE. */
 	@UiField
 	Label lbINVOKE;
@@ -111,7 +113,7 @@ public class EntryPanel extends Composite {
 
 	/** The dlg. */
 	DialogBox dlg;
-	
+
 	/** The test panel. */
 	TestPanel testPanel;
 
@@ -122,7 +124,8 @@ public class EntryPanel extends Composite {
 	/**
 	 * On test.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@UiHandler("btnTest")
 	void onTest(ClickEvent e) {

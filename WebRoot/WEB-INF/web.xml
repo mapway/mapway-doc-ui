@@ -27,7 +27,7 @@
 		</init-param>
 		<init-param>
 			<param-name>basePath</param-name>
-			<param-value>http://localhost:8080/mapway-doc-ui/</param-value>
+			<param-value>/mapway-doc-ui/</param-value>
 		</init-param>
 		<init-param>
 			<param-name>scanPackages</param-name>

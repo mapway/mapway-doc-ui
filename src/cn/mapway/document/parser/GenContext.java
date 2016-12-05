@@ -181,16 +181,19 @@ public class GenContext extends Properties {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Gets the copyright.
+	 *
+	 * @return the copyright
 	 */
 	public String getCopyright() {
 		return getProperty(COPYRIGHT);
 	}
 
+	
 	/**
-	 * 
-	 * @param copyright
+	 * Sets the copyright.
+	 *
+	 * @param copyright the new copyright
 	 */
 	public void setCopyright(String copyright) {
 		put(COPYRIGHT, copyright);
