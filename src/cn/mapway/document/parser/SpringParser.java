@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.mapway.document.annotation.ApiField;
+import cn.mapway.document.annotation.Code;
+import cn.mapway.document.annotation.Codes;
 import cn.mapway.document.annotation.DevelopmentState;
 import cn.mapway.document.annotation.Doc;
 import cn.mapway.document.module.ApiDoc;
 import cn.mapway.document.module.Entry;
+import cn.mapway.document.module.FieldCode;
 import cn.mapway.document.module.Group;
 import cn.mapway.document.module.ObjectInfo;
 import cn.mapway.document.ver.MapwayDocVer;
@@ -395,6 +398,15 @@ public class SpringParser {
 			fi.example = wf.example();
 			fi.name = f.getName();
 			fi.type = f.getType().getName();
+
+			// 处理返回代码
+			Codes codes = f.getAnnotation(Codes.class);
+			if (codes != null) {
+				for (Code code : codes.value()) {
+					FieldCode fc = new FieldCode(code.value(), code.desc());
+					fi.codes.add(fc);
+				}
+			}
 
 			// 记录类型的循环次数
 

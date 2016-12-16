@@ -1,5 +1,7 @@
 package cn.mapway.document.ui.client.module;
 
+import cn.mapway.document.ui.client.main.FieldCode;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
@@ -99,4 +101,7 @@ public class ObjectInfo extends JavaScriptObject {
 		return this.json;
 	}-*/;
 
+	public final native JsArray<FieldCode> codes()/*-{
+		return this.codes;
+	}-*/;
 }

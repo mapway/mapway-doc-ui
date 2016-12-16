@@ -8,6 +8,7 @@ import cn.mapway.document.ui.client.module.GenInfo;
 import cn.mapway.document.ui.client.module.ObjectInfo;
 import cn.mapway.document.ui.client.resource.SysResource;
 
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -16,9 +17,13 @@ import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -31,12 +36,16 @@ public class ObjectInfoPanel extends Grid implements
 
 	/** The lb title. */
 	private Label lbTitle;
-	
+
 	/** The lb summary. */
 	private HTML lbSummary;
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt.event.dom.client.ClickEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt.event
+	 * .dom.client.ClickEvent)
 	 */
 	@Override
 	public void onClick(ClickEvent arg0) {
@@ -120,13 +129,18 @@ public class ObjectInfoPanel extends Grid implements
 	/**
 	 * 级联操作.
 	 *
-	 * @param obj the obj
-	 * @param objList the obj list
-	 * @param mapper the mapper
+	 * @param obj
+	 *            the obj
+	 * @param objList
+	 *            the obj list
+	 * @param mapper
+	 *            the mapper
 	 */
-	public void parse(ObjectInfo obj, List<GenInfo> objList, Map<String, Anchor> mapper) {
+	public void parse(ObjectInfo obj, List<GenInfo> objList,
+			Map<String, Anchor> mapper) {
 
-		lbTitle.setText(obj.type()+"==>" +(obj.title() == null ?"": obj.title()));
+		lbTitle.setText(obj.type() + "==>"
+				+ (obj.title() == null ? "" : obj.title()));
 		lbSummary.setHTML(obj.summary());
 		this.resizeRows(obj.fields().length() + 2);
 
@@ -183,10 +197,48 @@ public class ObjectInfoPanel extends Grid implements
 			l.setStyleName(SysResource.INSTANCE.getCss().text());
 			setWidget(row, col++, l);
 
+			FlowPanel fp = new FlowPanel();
+
 			l = new Label(o.title());
 			l.setStyleName(SysResource.INSTANCE.getCss().summary());
-			setWidget(row, col++, l);
+			fp.add(l);
+			setWidget(row, col++, fp);
 
+			// 处理返回值
+			JsArray<FieldCode> codes = o.codes();
+			if (codes != null && codes.length() > 0) {
+				FlexTable g = new FlexTable();
+
+				Element ele = g.getElement();
+				ele.setAttribute("borderCollapse", "collapse");
+				ele.setAttribute("rules", "rows");
+				ele.setAttribute("border", "1px");
+				ele.setAttribute("cellPadding", "3px");
+
+				g.setWidget(0, 0, new Label("代码"));
+				g.setWidget(0, 1, new Label("说明"));
+
+				CellFormatter cf = g.getCellFormatter();
+				cf.setAlignment(0, 0, HasHorizontalAlignment.ALIGN_RIGHT,
+						HasVerticalAlignment.ALIGN_MIDDLE);
+
+				for (int index = 0; index < codes.length(); index++) {
+					FieldCode fc = codes.get(index);
+					l = new Label(fc.value());
+					l.setStyleName(SysResource.INSTANCE.getCss().type());
+					g.setWidget(index + 1, 0, l);
+
+					cf.setAlignment(index + 1, 0,
+							HasHorizontalAlignment.ALIGN_RIGHT,
+							HasVerticalAlignment.ALIGN_MIDDLE);
+
+					l = new Label(fc.desc());
+					l.setStyleName(SysResource.INSTANCE.getCss().summary());
+					g.setWidget(index + 1, 1, l);
+				}
+
+				fp.add(g);
+			}
 			row++;
 		}
 	}
@@ -194,8 +246,10 @@ public class ObjectInfoPanel extends Grid implements
 	/**
 	 * Find obj.
 	 *
-	 * @param type the type
-	 * @param objList the obj list
+	 * @param type
+	 *            the type
+	 * @param objList
+	 *            the obj list
 	 * @return true, if successful
 	 */
 	private boolean findObj(String type, List<GenInfo> objList) {
@@ -215,7 +269,8 @@ public class ObjectInfoPanel extends Grid implements
 	/**
 	 * Checks if is primitive.
 	 *
-	 * @param type the type
+	 * @param type
+	 *            the type
 	 * @return true, if is primitive
 	 */
 	private boolean isPrimitive(String type) {
@@ -229,8 +284,12 @@ public class ObjectInfoPanel extends Grid implements
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.event.logical.shared.HasSelectionHandlers#addSelectionHandler(com.google.gwt.event.logical.shared.SelectionHandler)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.google.gwt.event.logical.shared.HasSelectionHandlers#addSelectionHandler
+	 * (com.google.gwt.event.logical.shared.SelectionHandler)
 	 */
 	@Override
 	public HandlerRegistration addSelectionHandler(

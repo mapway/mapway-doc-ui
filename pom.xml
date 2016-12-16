@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.mapway</groupId>
 	<artifactId>mapway-doc-ui</artifactId>
-	<version>0.r.33</version>
+	<version>0.r.34</version>
 
 	<name>mapway-doc-ui</name>
 	<description>auto gen doc from api with ui</description>
 	<url>http://doc-ui.mapway.cn</url>
- 
+
 	<properties>
 		<SpringVersion>4.2.6.RELEASE</SpringVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,6 +47,9 @@
 					<exclude>**/ui/**</exclude>
 				</excludes>
 			</resource>
+			<resource>
+				<directory>resources</directory>
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>
@@ -56,12 +59,14 @@
 
 					<source>1.7</source>
 					<target>1.7</target>
-
+					<compilerArgument>-proc:none</compilerArgument>
 					<excludes>
 						<exclude>**/test/**/*.java</exclude>
 						<exclude>**/ui/**/*.java</exclude>
 					</excludes>
+
 				</configuration>
+
 			</plugin>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -86,6 +91,26 @@
 							</resources>
 						</configuration>
 					</execution>
+
+					<execution>
+						<id>copy-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>d:\\</outputDirectory>
+							<resources>
+								<resource>
+									<directory>target</directory>
+									<includes>
+										<include>*.jar</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
 				</executions>
 			</plugin>
 
@@ -101,6 +126,8 @@
 					</execution>
 				</executions>
 			</plugin>
+
+
 		</plugins>
 	</build>
 	<dependencies>
@@ -187,7 +214,6 @@
 									<goal>sign</goal>
 								</goals>
 							</execution>
-
 						</executions>
 					</plugin>
 				</plugins>
