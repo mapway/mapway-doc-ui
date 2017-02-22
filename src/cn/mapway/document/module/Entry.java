@@ -34,10 +34,14 @@ public class Entry implements Serializable {
 	public String url = "";
 
 	/** 调用类型. */
-	public String invokeMethod = "";
+	public List<String> invokeMethods = new ArrayList<String>();
 
 	/** 输入参数. */
 	public List<ObjectInfo> input = new ArrayList<ObjectInfo>();
+	/** 输入参数. */
+	public List<ObjectInfo> pathParas = new ArrayList<ObjectInfo>();
+	/** 输入参数. */
+	public List<ObjectInfo> queryParas = new ArrayList<ObjectInfo>();
 
 	/** 输出参数. */
 	public ObjectInfo output;

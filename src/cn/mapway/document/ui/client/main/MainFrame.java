@@ -226,14 +226,9 @@ public class MainFrame extends Composite {
 		apiTree.parseData(doc);
 		lbSubtitle.setText(doc.summary());
 		handleItem(apiTree.getItem(0));
-//		if (doc.wordUrl().length() > 0) {
-//			CustomButton btn = new CustomButton("导出WORD文档");
-//			btn.addClickHandler(gotoWordHandler);
-//			tools.add(btn);
-//		}
 
-		GWT.log(doc.domain());
-		GWT.log(doc.copyright());
+
+	
 		if (doc.domain() != null) {
 			anchorDomain.setText(doc.domain());
 		}

@@ -12,6 +12,7 @@ import cn.mapway.document.module.Group;
 import cn.mapway.document.module.ObjectInfo;
 import cn.mapway.document.resource.Template;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * 输出Java Connect 代码.
@@ -241,7 +242,10 @@ public class GwtConnextorExport {
 
 		String type = getType(unwrapType(e.output.type));
 
-		if (e.invokeMethod.compareToIgnoreCase("post") == 0) {
+		//TODO 解析更多 invoke method
+		String invokeMethod=e.invokeMethods.get(0);
+		
+		if (invokeMethod.compareToIgnoreCase("post") == 0) {
 
 			if (type.equals("String")) {
 				sb.append("doPostString(\"" + e.relativePath

@@ -24,24 +24,24 @@ import javax.tools.JavaFileObject;
 import cn.mapway.document.annotation.Code;
 import cn.mapway.document.annotation.Codes;
 
+// TODO: Auto-generated Javadoc
 /**
- * 错误代码生成的注解处理器
- * 
- * @author zhangjianshe
+ * 错误代码生成的注解处理器.
  *
+ * @author zhangjianshe
  */
 @SupportedAnnotationTypes({ "cn.mapway.document.annotation.Codes",
 		"cn.mapway.document.annotation.Code" })
 @SupportedSourceVersion(SourceVersion.RELEASE_5)
 public class CodesGeneratorProcessor extends AbstractProcessor {
 
-	/**
-	 * 辅助工具
-	 */
+	/** 辅助工具. */
 	Elements utils;
 
 	/**
-	 * 初始化处理器
+	 * 初始化处理器.
+	 *
+	 * @param processingEnv the processing env
 	 */
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -51,6 +51,9 @@ public class CodesGeneratorProcessor extends AbstractProcessor {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set, javax.annotation.processing.RoundEnvironment)
+	 */
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations,
 			RoundEnvironment roundEnv) {
@@ -100,11 +103,11 @@ public class CodesGeneratorProcessor extends AbstractProcessor {
 	}
 
 	/**
-	 * 处理代码
-	 * 
-	 * @param codes
-	 * @param c
-	 * @param scope
+	 * 处理代码.
+	 *
+	 * @param codes the codes
+	 * @param c the c
+	 * @param scope the scope
 	 */
 	private void processCoder(Map<String, Code> codes, Code c, String scope) {
 		if (c.name() == null || c.name().length() == 0) {
@@ -120,6 +123,13 @@ public class CodesGeneratorProcessor extends AbstractProcessor {
 		}
 	}
 
+	/**
+	 * Builds the key.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @return the string
+	 */
 	private String buildKey(String scope, Code c) {
 		String key = "";
 
@@ -135,6 +145,13 @@ public class CodesGeneratorProcessor extends AbstractProcessor {
 		return key;
 	}
 
+	/**
+	 * Write to file.
+	 *
+	 * @param data the data
+	 * @param pe the pe
+	 * @param className the class name
+	 */
 	private void writeToFile(String data, PackageElement pe, String className) {
 
 		JavaFileObject generationForPath;
@@ -152,10 +169,12 @@ public class CodesGeneratorProcessor extends AbstractProcessor {
 	}
 
 	/**
-	 * 生成代码
-	 * 
-	 * @param codes
-	 * @param className
+	 * 生成代码.
+	 *
+	 * @param codes the codes
+	 * @param pkgElement the pkg element
+	 * @param className the class name
+	 * @return the string
 	 */
 	private String generateCodes(Map<String, Code> codes,
 			PackageElement pkgElement, String className) {

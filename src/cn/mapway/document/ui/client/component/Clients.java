@@ -1,6 +1,5 @@
 package cn.mapway.document.ui.client.component;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Window;
 
 
@@ -18,7 +17,6 @@ public class Clients {
 		String host = Window.Location.getHost();
 		String protocol = Window.Location.getProtocol();
 		String r = protocol + "//" + host;
-		GWT.log(r);
 		return r;
 	}
 }

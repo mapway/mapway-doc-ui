@@ -74,11 +74,11 @@
 		</g:Label>
 
 
-		<m:ParameterPanel ui:field="paraIn" styleName="{style.partin}"></m:ParameterPanel>
+		<m:InputParameterPanel ui:field="paraIn" styleName="{style.partin}"></m:InputParameterPanel>
 
-		<m:ParameterPanel ui:field="paraOut" styleName="{style.partout}"></m:ParameterPanel>
-
-		<g:HTML ui:field="javaSource" styleName="{style.source}">
+		<m:OutputParameter ui:field="paraOut" styleName="{style.partout}"></m:OutputParameter>
+		
+		<g:HTML ui:field="javaSource" styleName="{style.source}" visible="false">
 		</g:HTML>
 	</g:HTMLPanel>
 </ui:UiBinder> 

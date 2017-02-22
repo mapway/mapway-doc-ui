@@ -12,9 +12,7 @@ import cn.mapway.document.annotation.Doc;
 @Doc(value = "RET对象定义", desc = "RET对象描述")
 public class Ret {
 
-	/**
-	 * sads
-	 */
+	/** sads. */
 	@ApiField(value = "double value", example = "35.4")
 	@Codes({ @Code(value = "0", desc = "调用成功"),
 			@Code(value = "123", desc = "调用成功"),

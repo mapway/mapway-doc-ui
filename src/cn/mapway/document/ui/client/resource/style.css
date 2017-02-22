@@ -16,7 +16,11 @@
 	font-weight: bold;
 	cursor: pointer;
 }
-
+.title
+{
+	font-weight: bold;
+	color:darkblue;
+}
 .entry {
 	color: #3d73d5;
 	font-weight: normal;
@@ -55,6 +59,7 @@
 }
 
 .summary {
+	padding-top:5px;
 	color: green;
 }
 

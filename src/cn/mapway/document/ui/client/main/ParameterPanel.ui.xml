@@ -46,11 +46,7 @@
 	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.out}">
-		<div class="{style.box}">
-			<g:HorizontalPanel width="100%">
-				<g:Label ui:field="lbTitle" styleName="{style.title}"></g:Label>
-			</g:HorizontalPanel>
-		</div>
+		
 
 		<m:ObjectInfoPanel ui:field="tbl" styleName="{style.tbl}"
 			cellPadding="10" cellSpacing="1" width="100%">

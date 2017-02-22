@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.client.JsArrayString;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -62,8 +63,8 @@ public class Entry extends JavaScriptObject {
 	 *
 	 * @return the string
 	 */
-	public final native String invokeMethod()/*-{
-		return this.invokeMethod;
+	public final native JsArrayString  invokeMethods()/*-{
+		return this.invokeMethods;
 	}-*/;
 
 	/**
@@ -73,6 +74,24 @@ public class Entry extends JavaScriptObject {
 	 */
 	public final native JsArray<ObjectInfo> input()/*-{
 		return this.input;
+	}-*/;
+	
+	/**
+	 * 输入参数.
+	 *
+	 * @return the js array
+	 */
+	public final native JsArray<ObjectInfo> pathParas()/*-{
+		return this.pathParas;
+	}-*/;
+	
+	/**
+	 * 输入参数.
+	 *
+	 * @return the js array
+	 */
+	public final native JsArray<ObjectInfo> queryParas()/*-{
+		return this.queryParas;
 	}-*/;
 
 	/**

@@ -191,7 +191,7 @@ public class TestPanel extends Composite implements HasCloseHandlers<Void> {
 		}
 		try {
 			ApiDocProxy.fetchString(mEntry.url(), txtInput.getValue(), "",
-					mEntry.invokeMethod(), new IOnData<String>() {
+					mEntry.invokeMethods().get(0), new IOnData<String>() {
 						@Override
 						public void onError(String url, String error) {
 							txtOutput.setString(error);

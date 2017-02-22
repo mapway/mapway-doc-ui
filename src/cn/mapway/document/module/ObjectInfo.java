@@ -46,5 +46,6 @@ public class ObjectInfo implements Serializable {
 	/** 对象的JSON例子. */
 	public String json;
 
+	/** The codes. */
 	public List<FieldCode> codes = new ArrayList<FieldCode>();
 }

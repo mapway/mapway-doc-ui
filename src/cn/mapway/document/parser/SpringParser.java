@@ -1,5 +1,6 @@
 package cn.mapway.document.parser;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -12,11 +13,15 @@ import org.nutz.castor.Castors;
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
 import org.nutz.lang.Mirror;
+import org.nutz.lang.Strings;
 import org.nutz.log.Logs;
 import org.nutz.resource.Scans;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.mapway.document.annotation.ApiField;
@@ -30,6 +35,7 @@ import cn.mapway.document.module.FieldCode;
 import cn.mapway.document.module.Group;
 import cn.mapway.document.module.ObjectInfo;
 import cn.mapway.document.ver.MapwayDocVer;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -120,7 +126,6 @@ public class SpringParser {
 		Doc doc = clz.getAnnotation(Doc.class);
 
 		if (doc == null) {
-			log.debug("class " + clz.getName() + " is not annotated with Doc");
 			return;
 		}
 
@@ -215,7 +220,9 @@ public class SpringParser {
 		Entry e = new Entry();
 
 		RequestMapping rm = m.getAnnotation(RequestMapping.class);
+		
 		if (rm != null) {
+			//TODO 增加对多路径的支持
 			String[] paths = rm.value();
 			if (paths == null || paths.length == 0) {
 
@@ -223,18 +230,19 @@ public class SpringParser {
 				e.relativePath = paths[0];
 			}
 
-			e.invokeMethod = "GET";
+			//处理请求方法 支持对多种调用方式 POST GET PUT DELETE 等
 			RequestMethod[] ms = rm.method();
 			if (ms != null) {
 				for (int i = 0; i < ms.length; i++) {
 					RequestMethod rm0 = ms[i];
-					if (rm0.equals(RequestMethod.POST)) {
-
-						e.invokeMethod = "POST";
-						break;
-					}
+					e.invokeMethods.add(rm0.name());
 				}
 			}
+			
+		}
+		if(e.invokeMethods.size()==0)
+		{
+			e.invokeMethods.add("GET");
 		}
 
 		if (e.relativePath.length() == 0) {
@@ -252,25 +260,108 @@ public class SpringParser {
 			e.state = transState(summary.state());
 		}
 
+		
+		
 		Class<?>[] ps = m.getParameterTypes();
 		Class<?> out = m.getReturnType();
 
+		int i=0;
 		for (Class<?> clz : ps) {
+			
 			String name = clz.getSimpleName();
-			String pname = clz.getPackage().getName();
+			String pname = "";
+			if(clz.getPackage()!=null)
+				{
+					pname=clz.getPackage().getName();
+				}
 
 			if (name.startsWith("Http") || pname.startsWith("org.")) {
 				continue;
 			} else {
+				
+				Annotation[][] parameterAnnotations = m.getParameterAnnotations();
+				Annotation[] ass=parameterAnnotations[i];
+				
+				//处理每一个参数
+				PathVariable pathVariable=null;
+				RequestParam queryVariable=null;
+				RequestBody isRequestBody=null;
+				ApiField paraDoc=null;
+				for(Annotation a:ass)
+				{
+					if(a instanceof PathVariable)
+					{
+						pathVariable=(PathVariable) a;
+					}
+					else if(a instanceof RequestParam)
+					{
+						queryVariable=(RequestParam) a;
+					}
+					else if(a instanceof ApiField)
+					{
+						paraDoc=(ApiField) a;
+					}
+					else if(a instanceof RequestBody)
+					{
+						isRequestBody=(RequestBody) a;
+					}
+				}
 				ObjectInfo p = handleParameter(clz, name);
-
-				if (p != null) {
+				
+				if(p==null)
+				{
+					continue;
+				}
+				
+				if(paraDoc!=null)
+				{
+					p.example=paraDoc.example();
+					p.manditary=paraDoc.mandidate();
+					p.title=paraDoc.value();
+					p.summary=paraDoc.value();
+				}
+				
+				if(pathVariable!=null)
+				{
+					//路径参数
+					if(Strings.isBlank(pathVariable.value()))
+					{
+						p.name="未知";
+					}
+					else
+					{
+						p.name=pathVariable.value();
+					}
+					e.pathParas.add(p);
+				}
+				else if(queryVariable!=null)
+				{
+					p.name=queryVariable.value();
+					e.queryParas.add(p);
+				}
+				else if(isRequestBody!=null){
+					
 					e.input.add(p);
 				}
+			i++;
+			}
+			
+		}
+		
+		//处理返回值注解
+		ApiField returnDoc=m.getAnnotation(ApiField.class);
+		
+		e.output = handleParameter(out, "out");
+		if(returnDoc!=null)
+		{
+			//类型 解释 例子
+			if(returnDoc.example()!=null &&returnDoc.example().length()>0)
+			{
+				e.output.example =returnDoc.example();
 			}
 		}
-		e.output = handleParameter(out, "out");
-
+		
+	
 		String group_path = group_base_path + summary.group();
 		Group apiGroup = document.findGroup(group_path);
 		apiGroup.entries.add(e);
@@ -318,19 +409,19 @@ public class SpringParser {
 			InstantiationException {
 
 		ObjectInfo p = new ObjectInfo();
-		Doc summary = clz.getAnnotation(Doc.class);
+		Doc doc = clz.getAnnotation(Doc.class);
 
 		p.name = name == null ? clz.getSimpleName() : name;
 
-		p.title = summary == null ? "" : summary.value();
-		p.summary = summary == null ? "" : summary.desc();
+		p.title = doc == null ? "" : doc.value();
+		
 
 		if (isPrimitive(clz)) {
 			p.type = clz.getSimpleName();
 		} else {
 			p.type = clz.getName();
 		}
-		String sum = "";
+		String sum = doc == null ? "" :( Strings.isBlank(doc.desc()) ?doc.value():doc.desc());
 
 		// 循环处理父类中的解释
 		Class<?> superclazz = clz.getSuperclass();
@@ -342,7 +433,7 @@ public class SpringParser {
 			sum += summary1 == null ? "" : summary1.desc();
 			superclazz = superclazz.getSuperclass();
 		}
-		p.summary = sum + (summary == null ? "" : summary.desc());
+		p.summary = sum;
 
 		deeps = new Deeps();
 		deeps.push(clz.getName(), deeps.getLevel());
@@ -508,6 +599,10 @@ public class SpringParser {
 	private Object newInstance(Class<?> c) {
 		// System.out.println(c.getName());
 		Mirror<?> m = Mirror.me(c);
+		if(m.isArray())
+		{
+			return new ArrayList();
+		}
 		if (m.isInt()) {
 			return (Integer) 0;
 		} else if (m.isMap()) {

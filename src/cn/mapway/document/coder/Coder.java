@@ -1,5 +1,6 @@
 package cn.mapway.document.coder;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Coder.
  */
@@ -48,7 +49,9 @@ public class Coder {
 	}
 
 	/**
-	 * 输出对象字符串
+	 * 输出对象字符串.
+	 *
+	 * @return the string
 	 */
 	@Override
 	public String toString() {

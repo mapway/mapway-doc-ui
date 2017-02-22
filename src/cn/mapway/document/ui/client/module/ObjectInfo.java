@@ -5,7 +5,7 @@ import cn.mapway.document.ui.client.main.FieldCode;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ObjectInfo.
  */
@@ -103,5 +103,9 @@ public class ObjectInfo extends JavaScriptObject {
 
 	public final native JsArray<FieldCode> codes()/*-{
 		return this.codes;
+	}-*/;
+
+	public final native void title(String string) /*-{
+	return this.title=string;
 	}-*/;
 }

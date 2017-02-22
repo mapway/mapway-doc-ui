@@ -10,6 +10,7 @@ import cn.mapway.document.ui.client.module.ObjectInfo;
 import cn.mapway.document.ui.client.resource.SysResource;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
@@ -29,7 +30,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * 参数面板.
  *
@@ -56,9 +57,7 @@ public class ParameterPanel extends Composite implements
 		tbl.addSelectionHandler(fieldTypeSelectionHandler);
 	}
 
-	/** The lb title. */
-	@UiField
-	Label lbTitle;
+	
 
 	/** The m obj. */
 	ObjectInfo mObj;
@@ -95,7 +94,13 @@ public class ParameterPanel extends Composite implements
 		gens = new ArrayList<GenInfo>();
 		mapper = new HashMap<String, Anchor>();
 
-		lbTitle.setText(string);
+		
+		if(tbl.isPrimitive(obj.type()))
+		{
+			//簡單類型
+		}
+		mObj.title(string);
+		
 		tbl.parse(mObj, gens, mapper);
 
 		objInfoPanel.clear();
@@ -179,4 +184,6 @@ public class ParameterPanel extends Composite implements
 	/** The obj info panel. */
 	@UiField
 	HTMLPanel objInfoPanel;
+
+	
 }

@@ -18,16 +18,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
 // TODO: Auto-generated Javadoc
 /**
- * 自定义注解类.
+ * 自定义注解类，可以应用在类，方法，参数，字段上.
  *
  * @author zhangjianshe@navinfo.com
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.TYPE,
-		ElementType.FIELD })
+@Target({ ElementType.METHOD,  ElementType.TYPE
+		 })
 public @interface Doc {
 
 	/**

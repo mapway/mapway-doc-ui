@@ -1,10 +1,11 @@
 package cn.mapway.document.ver;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * 用于识别当前版本号和版权声明!  
+ * 用于识别当前版本号和版权声明!  .
+ *
  * @author Zhangjianshe(zhangjianshe@gmail.com)
- * 
  */
 public class MapwayDocVer {
 
@@ -50,7 +51,7 @@ public class MapwayDocVer {
 	 * @return the int
 	 */
 	public static int minorVersion() {
-		return 33;
+		return 35;
 	}
 
 	/**

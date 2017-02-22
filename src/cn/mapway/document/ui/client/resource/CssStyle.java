@@ -198,4 +198,10 @@ public interface CssStyle extends CssResource {
 	 * @return the string
 	 */
 	String imgButton();
+	
+	/**
+	 * title.
+	 * @return title
+	 */
+	String title();
 }

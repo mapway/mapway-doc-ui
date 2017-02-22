@@ -58,10 +58,24 @@ public class EntryPanel extends Composite {
 		lbSUMMARY.setHTML(e.summary());
 		lbURL.setText("接口网址:  " + Clients.getHostPort() + e.url());
 		lbAUTHOR.setText("作者:" + e.author());
-		lbINVOKE.setText("调用方法:" + e.invokeMethod());
+		
+		StringBuilder sb=new StringBuilder();
+		
+		for(int i=0;i<e.invokeMethods().length();i++)
+		{
+			String invokeMethod=e.invokeMethods().get(i);
+			if(sb.length()>0)
+			{
+				sb.append(",");
+			}
+			sb.append(invokeMethod);
+		}
+		lbINVOKE.setText("调用方法:" + sb.toString());
 
-		paraIn.parse(e.input().get(0), "传入参数");
-		paraOut.parse(e.output(), "传出参数");
+		
+		paraIn.parseEntry(e);
+		
+		paraOut.parse(e.output());
 
 		String html = "<p>JAVA源码信息<br/><table cellpadding='5px'>";
 		html += "<tr><td>控制类</td><td>" + e.parentClassName() + "</td></tr>";
@@ -105,11 +119,11 @@ public class EntryPanel extends Composite {
 
 	/** The para in. */
 	@UiField
-	ParameterPanel paraIn;
+	InputParameterPanel paraIn;
 
 	/** The para out. */
 	@UiField
-	ParameterPanel paraOut;
+	OutputParameter paraOut;
 
 	/** The dlg. */
 	DialogBox dlg;

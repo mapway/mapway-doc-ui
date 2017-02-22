@@ -6,27 +6,28 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// TODO: Auto-generated Javadoc
 /**
- * 注解
- * 
- * @author zhangjianshe
+ * 注解.
  *
+ * @author zhangjianshe
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD })
 public @interface Codes {
+	
 	/**
-	 * Code list
-	 * 
-	 * @return
+	 * Code list.
+	 *
+	 * @return the code[]
 	 */
 	public Code[] value();
 
 	/**
-	 * scope
-	 * 
-	 * @return
+	 * scope.
+	 *
+	 * @return the string
 	 */
 	public String scope() default "";
 }

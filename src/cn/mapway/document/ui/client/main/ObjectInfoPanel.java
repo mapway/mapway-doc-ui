@@ -25,7 +25,6 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -75,6 +74,7 @@ public class ObjectInfoPanel extends Grid implements
 		RowFormatter rf = getRowFormatter();
 
 		lbTitle = new Label();
+		lbTitle.setStyleName(SysResource.INSTANCE.getCss().title());
 		lbSummary = new HTML();
 		lbSummary.setStyleName(SysResource.INSTANCE.getCss().summary());
 		HTMLPanel vp = new HTMLPanel("");
@@ -139,9 +139,9 @@ public class ObjectInfoPanel extends Grid implements
 	public void parse(ObjectInfo obj, List<GenInfo> objList,
 			Map<String, Anchor> mapper) {
 
-		lbTitle.setText(obj.type() + "==>"
-				+ (obj.title() == null ? "" : obj.title()));
-		lbSummary.setHTML(obj.summary());
+		lbTitle.setText( (obj.title()==null?"":obj.title()));
+		lbSummary.setHTML(obj.summary() == null ? "" : obj.summary());
+		
 		this.resizeRows(obj.fields().length() + 2);
 
 		RowFormatter rf = getRowFormatter();
@@ -273,7 +273,7 @@ public class ObjectInfoPanel extends Grid implements
 	 *            the type
 	 * @return true, if is primitive
 	 */
-	private boolean isPrimitive(String type) {
+	public boolean isPrimitive(String type) {
 
 		for (String s : ps) {
 			if (type.contains(s)) {

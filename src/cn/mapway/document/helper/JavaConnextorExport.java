@@ -201,7 +201,10 @@ public class JavaConnextorExport {
 				+ e.methodName + "(" + getType(unwrapType(e.input.get(0).type))
 				+ " req) throws Exception{\r\n");
 
-		if (e.invokeMethod.equalsIgnoreCase("POST")) {
+		//TODO 解析更多的INVOKE MEHOD
+		String invokeMethod =e.invokeMethods.get(0);
+		
+		if (invokeMethod.equalsIgnoreCase("POST")) {
 			sb.append("\t String url=this.apiBase+\"" + e.relativePath
 					+ "\";\r\n");
 			sb.append("\t " + getType(getType(unwrapType(e.output.type)))
