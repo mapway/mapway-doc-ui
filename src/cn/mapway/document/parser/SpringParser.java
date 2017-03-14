@@ -48,7 +48,6 @@ import cn.mapway.document.module.ObjectInfo;
 import cn.mapway.document.ver.MapwayDocVer;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * 解析Spring 注解.
  *

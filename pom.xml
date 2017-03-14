@@ -8,7 +8,7 @@
 	<name>mapway-doc-ui</name>
 	<description>auto gen doc from api with ui</description>
 	<url>http://doc-ui.mapway.cn</url>
-
+ 
 	<properties>
 		<SpringVersion>4.2.6.RELEASE</SpringVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
