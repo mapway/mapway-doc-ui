@@ -3,6 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.mapway</groupId>
 	<artifactId>mapway-doc-ui</artifactId>
+
 	<version>0.r.37</version>
 
 	<name>mapway-doc-ui</name>

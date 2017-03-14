@@ -14,7 +14,6 @@ import org.nutz.lang.Lang;
 import cn.mapway.document.module.ApiDoc;
 import cn.mapway.document.resource.Template;
 
-// TODO: Auto-generated Javadoc
 /**
  * 输出Jar包工具.
  *
@@ -270,6 +269,7 @@ public class JarHelper {
 		return javaConnectorSourcePath + File.separator + p + File.separator
 				+ className + ".java";
 	}
+
 
 	/**
 	 * Exec.

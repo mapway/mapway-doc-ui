@@ -27,6 +27,10 @@
 		</init-param>
 		<init-param>
 			<param-name>basePath</param-name>
+			<param-value>http://localhost:8080/mapway-doc-ui/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>basePath</param-name>
 			<param-value>/mapway-doc-ui/</param-value>
 		</init-param>
 		<init-param>
@@ -52,6 +56,18 @@
 		<init-param>
 			<param-name>copyright</param-name>
 			<param-value>2016 mapway.cn</param-value>
+		</init-param>
+		<init-param>
+			<param-name>antHome</param-name>
+			<param-value>c:\ant</param-value>
+		</init-param>
+		<init-param>
+			<param-name>connectorPackageName</param-name>
+			<param-value>cn.mapway.api.connector</param-value>
+		</init-param>
+		<init-param>
+			<param-name>connectorClassName</param-name>
+			<param-value>SolaApi</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

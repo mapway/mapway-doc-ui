@@ -93,9 +93,8 @@ public class MapwayDocServlet extends HttpServlet {
 	}
 
 	/**
-	 * 调度文档命令.
-	 *
-	 * @param path
+	 * 调度文档命令
+	 * 
 	 *            the path
 	 * @param request
 	 *            the request
