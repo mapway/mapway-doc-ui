@@ -169,6 +169,8 @@ public class MapwayDocServlet extends HttpServlet {
 
 		String docroot = getDocRoot(request);
 
+		if(context.getEnableJavaConnector())
+		{
 		List<JarInfo> jars = helper.jar(api, docroot, connectorPackageName,
 				connectorClassName, helper.getClass().getClassLoader()
 						.getResource("").getPath()
@@ -184,13 +186,11 @@ public class MapwayDocServlet extends HttpServlet {
 			}
 			jar.link = getBasePath(request) + "download/jar/" + jar.fileName;
 		}
-		// 删除临时文件
-		// String sourcePath = getDownloadLocal(request) + File.separator
-		// + "source";
-		// Files.deleteDir(new File(sourcePath));
+		api.getDownloads().addAll(jars);
+		}
 
 		// 设置下载目录
-		api.getDownloads().addAll(jars);
+		
 		String html = helper.genHTML(api);
 		html(response, html);
 	}
@@ -352,6 +352,12 @@ public class MapwayDocServlet extends HttpServlet {
 	/** 连接的类名. */
 	public final static String PARAM_COPY_RIGHT = "copyright";
 
+	/** 是否允许生成JavaConnector. */
+	public final static String PARAM_ENABLE_JAVA_CONNECTOR = "enableJavaConnector";
+	
+	/** 是否允许生成GwtConnector. */
+	public final static String PARAM_ENABLE_GWT_CONNECTOR = "enableGwtConnector";
+	
 	/**
 	 * Initialization of the servlet. <br>
 	 *
@@ -377,6 +383,8 @@ public class MapwayDocServlet extends HttpServlet {
 				.getInitParameter(PARAM_CONNECTOR_CLASS_NAME));
 
 		context.setCopyright(Strings.sBlank(getInitParameter(PARAM_COPY_RIGHT)));
+		context.setEnableJavaConnector(Strings.sBlank(getInitParameter(PARAM_ENABLE_JAVA_CONNECTOR)));
+		context.setEnableGwtConnector(Strings.sBlank(getInitParameter(PARAM_ENABLE_GWT_CONNECTOR)));
 
 		// 删除临时文件
 		File htmlCache = getCacheFileName();

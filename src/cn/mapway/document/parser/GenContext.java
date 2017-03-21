@@ -34,6 +34,12 @@ public class GenContext extends Properties {
 
 	/** CopyRight. */
 	private final static String COPYRIGHT = "COPYRIGHT";
+	
+	/** ENABLEJAVACONNECTOR. */
+	private final static String ENABLEJAVACONNECTOR = "ENABLEJAVACONNECTOR";
+	
+	/** ENABLEGWTCONNECTOR. */
+	private final static String ENABLEGWTCONNECTOR = "ENABLEGWTCONNECTOR";
 
 	/**
 	 * Gets the domain.
@@ -197,5 +203,41 @@ public class GenContext extends Properties {
 	 */
 	public void setCopyright(String copyright) {
 		put(COPYRIGHT, copyright);
+	}
+
+	/**
+	 * Sets the enable java connector.
+	 *
+	 * @param v the new enable java connector
+	 */
+	public void setEnableJavaConnector(String v) {
+		put(ENABLEJAVACONNECTOR, v);
+	}
+
+	/**
+	 * Sets the enable gwt connector.
+	 *
+	 * @param v the new enable gwt connector
+	 */
+	public void setEnableGwtConnector(String v) {
+		put(ENABLEGWTCONNECTOR, v);
+	}
+	
+	/**
+	 * Gets the enable java connector.
+	 *
+	 * @return the enable java connector
+	 */
+	public Boolean getEnableJavaConnector() {
+		return Boolean.valueOf(getProperty(ENABLEJAVACONNECTOR));
+	}
+
+	/**
+	 * Gets the enable gwt connector.
+	 *
+	 * @return the enable gwt connector
+	 */
+	public Boolean getEnableGwtConnector() {
+		return Boolean.valueOf(getProperty(ENABLEGWTCONNECTOR));
 	}
 }

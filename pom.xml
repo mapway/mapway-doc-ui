@@ -4,7 +4,7 @@
 	<groupId>cn.mapway</groupId>
 	<artifactId>mapway-doc-ui</artifactId>
 
-	<version>0.r.37</version>
+	<version>0.r.38</version>
 
 	<name>mapway-doc-ui</name>
 	<description>auto gen doc from api with ui</description>
