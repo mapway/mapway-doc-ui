@@ -24,7 +24,7 @@ import javax.tools.JavaFileObject;
 import cn.mapway.document.annotation.Code;
 import cn.mapway.document.annotation.Codes;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * 错误代码生成的注解处理器.
  *

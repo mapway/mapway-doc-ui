@@ -12,7 +12,7 @@ import cn.mapway.document.module.Group;
 import cn.mapway.document.module.ObjectInfo;
 import cn.mapway.document.resource.Template;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * 输出Java Connect 代码.
  *

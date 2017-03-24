@@ -10,6 +10,9 @@ import java.io.Serializable;
  */
 public class FieldCode implements Serializable {
 	
+	public FieldCode() {
+		this("","");
+}
 	/**
 	 * Gets the value.
 	 *

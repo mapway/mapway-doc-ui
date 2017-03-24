@@ -92,7 +92,7 @@ public class JarHelper {
 	 *            the lib path
 	 * @return the jar info
 	 */
-	private JarInfo exportGwtConnector(ApiDoc api, String path,
+	public JarInfo exportGwtConnector(ApiDoc api, String path,
 			String packageName, String className, String libPath) {
 
 		packageName = packageName + ".client";
@@ -262,7 +262,7 @@ public class JarHelper {
 	 *            the class name
 	 * @return the string
 	 */
-	private String makePathFile(String javaConnectorSourcePath,
+	public static String makePathFile(String javaConnectorSourcePath,
 			String packageName, String className) {
 		String p = packageName.replace(".", File.separator);
 
