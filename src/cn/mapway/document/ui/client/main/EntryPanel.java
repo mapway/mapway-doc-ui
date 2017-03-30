@@ -25,143 +25,158 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class EntryPanel extends Composite {
 
-	/** The ui binder. */
-	private static EntryPanelUiBinder uiBinder = GWT
-			.create(EntryPanelUiBinder.class);
+  /** The ui binder. */
+  private static EntryPanelUiBinder uiBinder = GWT.create(EntryPanelUiBinder.class);
 
-	/**
-	 * The Interface EntryPanelUiBinder.
-	 */
-	interface EntryPanelUiBinder extends UiBinder<Widget, EntryPanel> {
-	}
+  /**
+   * The Interface EntryPanelUiBinder.
+   */
+  interface EntryPanelUiBinder extends UiBinder<Widget, EntryPanel> {
+  }
 
-	/**
-	 * Instantiates a new entry panel.
-	 */
-	public EntryPanel() {
-		initWidget(uiBinder.createAndBindUi(this));
-		btnTest.setStyleName(SysResource.INSTANCE.getCss().btn());
-	}
+  /**
+   * Instantiates a new entry panel.
+   */
+  public EntryPanel() {
+    initWidget(uiBinder.createAndBindUi(this));
+    btnTest.setStyleName(SysResource.INSTANCE.getCss().btn());
+  }
 
-	/** The m entry. */
-	Entry mEntry;
+  /** The m entry. */
+  Entry mEntry;
 
-	/**
-	 * Parses the.
-	 *
-	 * @param e
-	 *            the e
-	 */
-	public void parse(Entry e) {
-		mEntry = e;
-		lbTITLE.setText(e.title());
-		lbSUMMARY.setHTML(e.summary());
-		lbURL.setText("接口网址:  " + Clients.getHostPort() + e.url());
-		lbAUTHOR.setText("作者:" + e.author());
-		
-		StringBuilder sb=new StringBuilder();
-		
-		for(int i=0;i<e.invokeMethods().length();i++)
-		{
-			String invokeMethod=e.invokeMethods().get(i);
-			if(sb.length()>0)
-			{
-				sb.append(",");
-			}
-			sb.append(invokeMethod);
-		}
-		lbINVOKE.setText("调用方法:" + sb.toString());
+  /**
+   * Parses the.
+   *
+   * @param e the e
+   */
+  public void parse(Entry e) {
+    mEntry = e;
+    lbTITLE.setText(e.title());
+    lbSUMMARY.setHTML(e.summary());
+    lbURL.setText("接口网址:  " + Clients.getHostPort() + e.url());
+    lbAUTHOR.setText("作者:" + e.author());
 
-		
-		paraIn.parseEntry(e);
-		
-		paraOut.parse(e.output());
+    StringBuilder sb = new StringBuilder();
 
-		String html = "<p>JAVA源码信息<br/><table cellpadding='5px'>";
-		html += "<tr><td>控制类</td><td>" + e.parentClassName() + "</td></tr>";
-		html += "<tr><td>控制方法</td><td>" + e.methodName() + "</td></tr>";
+    for (int i = 0; i < e.invokeMethods().length(); i++) {
+      String invokeMethod = e.invokeMethods().get(i);
+      if (sb.length() > 0) {
+        sb.append(",");
+      }
+      sb.append(invokeMethod);
+    }
+    lbINVOKE.setText("调用方法:" + sb.toString());
 
-		if (e.input().length() > 0) {
-			html += "<tr><td>输入参数 </td><td>" + e.input().get(0).type()
-					+ "</td></tr>";
-		}
-		if (e.output() != null) {
-			html += "<tr><td>输出参数</td><td>" + e.output().type() + "</td></tr>";
-		}
 
-		html += "</table>";
-		javaSource.setHTML(html);
-	}
+    paraIn.parseEntry(e);
 
-	/** The java source. */
-	@UiField
-	HTML javaSource;
+    paraOut.parse(e.output());
 
-	/** The lb TITLE. */
-	@UiField
-	Label lbTITLE;
+    String html = toJavaMethod(e);
 
-	/** The lb SUMMARY. */
-	@UiField
-	HTML lbSUMMARY;
 
-	/** The lb URL. */
-	@UiField
-	Label lbURL;
+    javaSource.setHTML(html);
+  }
 
-	/** The lb AUTHOR. */
-	@UiField
-	Label lbAUTHOR;
+  /**
+   * 返回调用Java Connector方法
+   * 
+   * @param e
+   * @return
+   */
+  private String toJavaMethod(Entry e) {
+    String html = "<p>调用方法:" + e.methodName() + "</p>";
+    return html;
+  }
 
-	/** The lb INVOKE. */
-	@UiField
-	Label lbINVOKE;
+  /**
+   * @param e
+   * @return
+   */
+  private String toSourceInfo(Entry e) {
+    String html = "<p>JAVA源码信息<br/><table cellpadding='5px'>";
+    html += "<tr><td>控制类</td><td>" + e.parentClassName() + "</td></tr>";
+    html += "<tr><td>控制方法</td><td>" + e.methodName() + "</td></tr>";
 
-	/** The para in. */
-	@UiField
-	InputParameterPanel paraIn;
+    if (e.input().length() > 0) {
+      html += "<tr><td>输入参数 </td><td>" + e.input().get(0).type() + "</td></tr>";
+    }
+    if (e.output() != null) {
+      html += "<tr><td>输出参数</td><td>" + e.output().type() + "</td></tr>";
+    }
+    html += "</table>";
+    return html;
+  }
 
-	/** The para out. */
-	@UiField
-	OutputParameter paraOut;
+  /** The java source. */
+  @UiField
+  HTML javaSource;
 
-	/** The dlg. */
-	DialogBox dlg;
+  /** The lb TITLE. */
+  @UiField
+  Label lbTITLE;
 
-	/** The test panel. */
-	TestPanel testPanel;
+  /** The lb SUMMARY. */
+  @UiField
+  HTML lbSUMMARY;
 
-	/** The btn test. */
-	@UiField
-	Button btnTest;
+  /** The lb URL. */
+  @UiField
+  Label lbURL;
 
-	/**
-	 * On test.
-	 *
-	 * @param e
-	 *            the e
-	 */
-	@UiHandler("btnTest")
-	void onTest(ClickEvent e) {
-		if (dlg == null) {
-			dlg = new DialogBox();
-			dlg.setText("接口测试");
-			testPanel = new TestPanel();
-			testPanel.addCloseHandler(new CloseHandler<Void>() {
+  /** The lb AUTHOR. */
+  @UiField
+  Label lbAUTHOR;
 
-				@Override
-				public void onClose(CloseEvent<Void> event) {
-					dlg.hide();
-				}
-			});
-			dlg.setWidget(testPanel);
-			dlg.setGlassEnabled(true);
-			dlg.setAutoHideEnabled(false);
-			dlg.setStyleName(SysResource.INSTANCE.getCss().dlg());
-		}
-		dlg.show();
-		dlg.center();
-		testPanel.invoke(mEntry);
-	}
+  /** The lb INVOKE. */
+  @UiField
+  Label lbINVOKE;
+
+  /** The para in. */
+  @UiField
+  InputParameterPanel paraIn;
+
+  /** The para out. */
+  @UiField
+  OutputParameter paraOut;
+
+  /** The dlg. */
+  DialogBox dlg;
+
+  /** The test panel. */
+  TestPanel testPanel;
+
+  /** The btn test. */
+  @UiField
+  Button btnTest;
+
+  /**
+   * On test.
+   *
+   * @param e the e
+   */
+  @UiHandler("btnTest")
+  void onTest(ClickEvent e) {
+    if (dlg == null) {
+      dlg = new DialogBox();
+      dlg.setText("接口测试");
+      testPanel = new TestPanel();
+      testPanel.addCloseHandler(new CloseHandler<Void>() {
+
+        @Override
+        public void onClose(CloseEvent<Void> event) {
+          dlg.hide();
+        }
+      });
+      dlg.setWidget(testPanel);
+      dlg.setGlassEnabled(true);
+      dlg.setAutoHideEnabled(false);
+      dlg.setStyleName(SysResource.INSTANCE.getCss().dlg());
+    }
+    dlg.show();
+    dlg.center();
+    testPanel.invoke(mEntry);
+  }
 
 }

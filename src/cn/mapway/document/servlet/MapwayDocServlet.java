@@ -85,7 +85,6 @@ public class MapwayDocServlet extends HttpServlet {
     // |-------- Server-----|--app----|servlet| pathinfo
     // PathInfo http://www.ennwifi.cn/mapwaydoc/doc/ demo/123
     String pathInfo = request.getPathInfo();
-
     dispatch(pathInfo, request, response);
 
   }
@@ -112,9 +111,7 @@ public class MapwayDocServlet extends HttpServlet {
       html(response, Template.readTemplate("/cn/mapway/document/resource/help.html"));
     } else if (path.equals("/data")) {
       DocHelper helper = new DocHelper();
-
       ApiDoc api = helper.toDoc(ParseType.PT_SPRING, context, packageNames);
-
       json(response, api);
     }
 

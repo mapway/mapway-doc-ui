@@ -9,6 +9,5 @@
 	<inherits name="com.google.gwt.http.HTTP" />
 	<inherits name="com.google.gwt.resources.Resources" />
 	<collapse-all-properties />
-	<add-linker name="sso" />
-
+    <add-linker name="sso" />
 </module>

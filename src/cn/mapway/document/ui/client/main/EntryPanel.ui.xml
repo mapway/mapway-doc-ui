@@ -78,7 +78,7 @@
 
 		<m:OutputParameter ui:field="paraOut" styleName="{style.partout}"></m:OutputParameter>
 		
-		<g:HTML ui:field="javaSource" styleName="{style.source}" visible="false">
+		<g:HTML ui:field="javaSource" styleName="{style.source}" visible="true">
 		</g:HTML>
 	</g:HTMLPanel>
 </ui:UiBinder> 

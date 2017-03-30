@@ -31,7 +31,15 @@
 .entry:HOVER {
 	background-color: skyblue;
 }
-
+.entryImportent{
+	color: #ff0000;
+	font-weight: normal;
+	cursor: pointer;
+	line-height: 26px;
+}
+.entryImportent:HOVER {
+	background-color: skyblue;
+}
 .entrySelected {
 	background-color: white;
 }

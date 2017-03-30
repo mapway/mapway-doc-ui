@@ -105,13 +105,19 @@ public class GwtConnextorExport {
       for (ObjectInfo fi : oi.fields) {
 
         sb.append("  /**\r\n  * 获取" + fi.title + " " + fi.summary + ".\r\n   */\r\n");
-        sb.append("  public final  native " + getType(fi.type) + " " + fi.name + "() /*-{\r\n"
-            + "        return this." + fi.name + ";\r\n  }-*/;\r\n");
+        sb.append("  public final  native " + getType(fi.type) + " get"
+            + Strings.upperFirst(fi.name) + "() /*-{\r\n" + "        return this." + fi.name
+            + ";\r\n  }-*/;\r\n");
 
         sb.append("  /**\r\n  " + fi.title + "\r\n " + fi.summary + "\r\n */\r\n");
-        sb.append("  public final  native void " + fi.name + "(" + getType(fi.type)
-            + " v) /*-{\r\n" + "        this." + fi.name + " = v;\r\n  }-*/;\r\n");
+        sb.append("  public final  native void set" + Strings.upperFirst(fi.name) + "("
+            + getType(fi.type) + " v) /*-{\r\n" + "        this." + fi.name
+            + " = v;\r\n  }-*/;\r\n");
+
       }
+      sb.append(" /**\r\n" + "   * 对象字符串\r\n" + "   */\r\n"
+          + "  public final String toJson() {\r\n" + "    return JsonUtils.stringify(this);\r\n"
+          + "  }");
       sb.append("}\r\n");
 
       JavaClassContent jcc = new JavaClassContent();
@@ -255,10 +261,54 @@ public class GwtConnextorExport {
       return "JsArray<" + getType(subtype) + ">";
     }
 
+    String t = type;
+
     int index = type.lastIndexOf(".");
     if (index > 0) {
       return type.substring(index + 1);
     }
+    return changeTypeFromObject2Native(t);
+  }
+
+  /**
+   * 将 Java对象类型转化为原生类型 "int", "Integer", "float", "Float", "Double", "double", "long", "Long",
+   * "Date", "DateTime", "String", "boolean", "Boolean", "char", "short", "byte", "Timestamp", "Map"
+   * 
+   * @param type
+   * @return
+   */
+  private String changeTypeFromObject2Native(String type) {
+
+    if ("Integer".equals(type)) {
+      return "int";
+    }
+    if ("Double".equals(type)) {
+      return "double";
+    }
+    if ("Boolean".equals(type)) {
+      return "boolean";
+    }
+    if ("Char".equals(type)) {
+      return "char";
+    }
+    if ("Short".equals(type)) {
+      return "int";
+    }
+    if ("Long".equals(type)) {
+      return "String";
+    }
+    if ("long".equals(type)) {
+      return "String";
+    }
+    if ("Float".equals(type)) {
+      return "double";
+    }
+    if ("float".equals(type)) {
+      return "double";
+    }
+
+
+
     return type;
   }
 
