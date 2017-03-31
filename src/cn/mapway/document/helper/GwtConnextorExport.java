@@ -100,7 +100,7 @@ public class GwtConnextorExport {
       sb.append("public  class " + getType(unwrapType(oi.type)) + " extends JavaScriptObject {\r\n");
       sb.append("  protected " + getType(unwrapType(oi.type)) + "(){}\r\n");
       sb.append("  public final static native " + getType(unwrapType(oi.type))
-          + " create()/*-{\r\n        return {}\r\n  }-*/;\r\n");
+          + " create()/*-{\r\n        return {};\r\n  }-*/;\r\n");
 
       for (ObjectInfo fi : oi.fields) {
 
@@ -295,10 +295,10 @@ public class GwtConnextorExport {
       return "int";
     }
     if ("Long".equals(type)) {
-      return "String";
+      return "int";
     }
     if ("long".equals(type)) {
-      return "String";
+      return "int";
     }
     if ("Float".equals(type)) {
       return "double";
