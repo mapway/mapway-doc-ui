@@ -20,6 +20,7 @@ import org.nutz.log.Logs;
 import cn.mapway.document.helper.DocHelper;
 import cn.mapway.document.helper.JarInfo;
 import cn.mapway.document.helper.ParseType;
+import cn.mapway.document.helper.Scans;
 import cn.mapway.document.module.ApiDoc;
 import cn.mapway.document.parser.GenContext;
 import cn.mapway.document.resource.Template;
@@ -113,6 +114,14 @@ public class MapwayDocServlet extends HttpServlet {
       DocHelper helper = new DocHelper();
       ApiDoc api = helper.toDoc(ParseType.PT_SPRING, context, packageNames);
       json(response, api);
+    } else if (path.startsWith("/ref/")) {
+      // 读取图片资源
+      String url = path.substring(5);
+      int pos = url.lastIndexOf('/');
+      String packageName = url.substring(0, pos);
+      String resName = url.substring(pos + 1);
+      byte[] data = Scans.readBinResource(packageName, resName);
+      byteout(response, data, null);
     }
 
   }
@@ -213,7 +222,7 @@ public class MapwayDocServlet extends HttpServlet {
 
     }
     try {
-      response.getOutputStream().write(DocHelper.getClearGifData());
+      response.getOutputStream().write(data);
     } catch (IOException e) {
       e.printStackTrace();
     }

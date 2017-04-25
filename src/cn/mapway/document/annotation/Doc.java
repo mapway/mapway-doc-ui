@@ -18,7 +18,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * 自定义注解类，可以应用在类，方法，参数，字段上.
  *
@@ -77,5 +76,13 @@ public @interface Doc {
    * @return
    */
   public ApiStyle style() default ApiStyle.NORMAL;
+
+
+  /**
+   * 引用的HTML文件.
+   * 
+   * @return
+   */
+  public String[] refs() default {};
 
 }
