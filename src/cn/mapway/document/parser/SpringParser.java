@@ -245,6 +245,7 @@ public class SpringParser {
     if (summary != null) {
       e.title = summary.value();
       e.summary = summary.desc() == null ? "" : summary.desc();
+      e.summary += parseRef(clsType, summary.refs());
       e.order = summary.order();
       e.author = summary.author();
       e.state = transState(summary.state());
@@ -428,7 +429,7 @@ public class SpringParser {
       sum += summary1 == null ? "" : summary1.desc();
       superclazz = superclazz.getSuperclass();
     }
-    p.summary = sum;
+    p.summary = sum + parseRef(clz, doc.refs());
 
     deeps = new Deeps();
     deeps.push(clz.getName(), deeps.getLevel());
@@ -492,6 +493,7 @@ public class SpringParser {
 
       deeps.push(f.getType().getName(), deeps.getLevel());
 
+
       // 处理字段
       if (isPrimitive(f.getType())) {
         // 原始数据类型 无需解析子类
@@ -499,7 +501,11 @@ public class SpringParser {
 
         if (instance != null) {
           // 处理例子
-          f.set(instance, Castors.me().castTo(wf.example(), f.getType()));
+          if (!Strings.isBlank(wf.example())) {
+            Object obj = Castors.me().castTo(wf.example(), f.getType());
+            Mirror.me(instance).setValue(instance, f, obj);
+
+          }
         }
       } else if (isList(f)) {
 
@@ -507,10 +513,10 @@ public class SpringParser {
         Class<?> c = (Class<?>) type;
         fi.type = "List<" + c.getName() + ">";
 
-        ArrayList list = new ArrayList();
+        List list = (List) newInstance(ArrayList.class);
         if (instance != null) {
           // 处理例子
-          f.set(instance, list);
+          Mirror.me(instance).setValue(instance, f, list);
         }
 
         int count = deeps.getPreLevelCount(c.getName(), deeps.getLevel());
