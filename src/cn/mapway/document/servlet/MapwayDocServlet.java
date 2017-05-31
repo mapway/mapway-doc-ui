@@ -114,6 +114,14 @@ public class MapwayDocServlet extends HttpServlet {
       DocHelper helper = new DocHelper();
       ApiDoc api = helper.toDoc(ParseType.PT_SPRING, context, packageNames);
       json(response, api);
+    } else if (path.startsWith("/javascript")) {
+      String exportName = request.getParameter("apiName");
+      if (Strings.isBlank(exportName)) {
+        exportName = "Api";
+      }
+      DocHelper helper = new DocHelper();
+      String data = helper.toJavascript(ParseType.PT_SPRING, context, packageNames, exportName);
+      out(response, data, "text/javascript");
     } else if (path.startsWith("/ref/")) {
       // 读取图片资源
       String url = path.substring(5);

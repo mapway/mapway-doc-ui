@@ -429,8 +429,9 @@ public class SpringParser {
       sum += summary1 == null ? "" : summary1.desc();
       superclazz = superclazz.getSuperclass();
     }
-    p.summary = sum + parseRef(clz, doc.refs());
-
+    if (doc != null) {
+      p.summary = sum + parseRef(clz, doc.refs());
+    }
     deeps = new Deeps();
     deeps.push(clz.getName(), deeps.getLevel());
     Object instance = null;
