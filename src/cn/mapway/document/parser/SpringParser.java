@@ -589,7 +589,7 @@ public class SpringParser {
    * @return the object
    */
   private Object newInstance(Class<?> c) {
-    // System.out.println(c.getName());
+    log.warn(c.getName());
     Mirror<?> m = Mirror.me(c);
     if (m.isArray()) {
       return new ArrayList();

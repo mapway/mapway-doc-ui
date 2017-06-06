@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.mapway</groupId>
         <artifactId>mapway-maven</artifactId>
-        <version>1.0.12-SNAPSHOT</version>
+        <version>1.0.15-SNAPSHOT</version>
         <relativePath>../mapway-maven</relativePath>
     </parent>
 
