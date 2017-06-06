@@ -35,11 +35,9 @@ public class ApiDocProxy {
       contextType = "application/json;charset=UTF-8";
     }
     builder.setHeader("Content-type", contextType);
-    if (RpcContext.get().ENN_CUSTOM_TOKEN.length() > 0) {
-      builder.setHeader("ENN-CUSTOM-TOKEN", RpcContext.get().ENN_CUSTOM_TOKEN);
-    }
-    if (RpcContext.get().ENN_GATEWAY_TOKEN.length() > 0) {
-      builder.setHeader("ENN-GATEWAY-TOKEN", RpcContext.get().ENN_GATEWAY_TOKEN);
+    RpcContext context = RpcContext.get();
+    if (context.KEY != null && context.KEY.length() > 0 && context.VALUE != null) {
+      builder.setHeader(context.KEY, context.VALUE);
     }
     Request request = builder.sendRequest(jsonData, new RequestCallback() {
       @Override
@@ -75,9 +73,10 @@ public class ApiDocProxy {
     RequestBuilder builder =
         new RequestBuilder(method.equalsIgnoreCase("post") ? RequestBuilder.POST
             : RequestBuilder.GET, URL.encode(url));
-    builder.setHeader("ENN-CUSTOM-TOKEN", RpcContext.get().ENN_CUSTOM_TOKEN);
-    builder.setHeader("ENN-GATEWAY-TOKEN", RpcContext.get().ENN_GATEWAY_TOKEN);
-
+    RpcContext context = RpcContext.get();
+    if (context.KEY != null && context.KEY.length() > 0 && context.VALUE != null) {
+      builder.setHeader(context.KEY, context.VALUE);
+    }
     Request request = builder.sendRequest(jsonData, new RequestCallback() {
       @Override
       public void onError(Request request, Throwable exception) {

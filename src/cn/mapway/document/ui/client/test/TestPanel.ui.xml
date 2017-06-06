@@ -71,12 +71,14 @@
 		<g:north size="40">
 
 			<g:HorizontalPanel spacing="2" verticalAlignment="middle">
-				<g:Label text="用户TOKEN"></g:Label>
-				<g:TextBox ui:field="txtCustomToken" styleName="{style.input}"></g:TextBox>
+				<g:Label text="HTTP头"></g:Label>
+				<g:TextBox ui:field="txtHeader" styleName="{style.input}"></g:TextBox>
+                <g:Label text="HTTP头值"></g:Label>
+                <g:TextBox ui:field="txtHeaderValue" styleName="{style.input}"></g:TextBox>
+                
 				<g:Image ui:field="btnHistory" width="28px" height="28px"
 					styleName="{style.btnImage}"></g:Image>
-				<g:Label text="网关TOKEN"></g:Label>
-				<g:TextBox ui:field="txtGatewayToken" styleName="{style.input}"></g:TextBox>
+				
 			</g:HorizontalPanel>
 
 		</g:north>
