@@ -154,6 +154,8 @@ public class ${name} {
     }
   }
 
+
+
   private int mTimeOut = 10 * 1000;
 
   public void setTimeout(int time) {
