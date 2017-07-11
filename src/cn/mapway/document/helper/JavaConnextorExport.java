@@ -96,7 +96,8 @@ public class JavaConnextorExport {
       sb.append("  (" + oi.title + ").\r\n");
       sb.append("  " + oi.summary + "\r\n");
       sb.append("  */\r\n");
-      sb.append("public  class " + getType(unwrapType(oi.type)) + " {\r\n");
+      sb.append("public  class " + getType(unwrapType(oi.type))
+          + " implements java.io.Serializable,com.google.gwt.user.client.rpc.IsSerializable {\r\n");
 
       for (ObjectInfo fi : oi.fields) {
         sb.append("  private " + getType(fi.type) + "  " + fi.name + ";\r\n");
