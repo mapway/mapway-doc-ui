@@ -7,7 +7,7 @@
     <parent>
         <groupId>cn.mapway</groupId>
         <artifactId>mapway-maven</artifactId>
-        <version>1.0.30-SNAPSHOT</version>
+        <version>1.0.33-SNAPSHOT</version>
         <relativePath>../mapway-maven</relativePath>
     </parent>
     <name>mapway-doc-ui</name>
@@ -29,7 +29,9 @@
             <email>zhangjianshe@gmail.com</email>
         </developer>
     </developers>
+   
     <build>
+       
         <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
@@ -42,7 +44,7 @@
                         <goals>
                             <goal>timestamp-property</goal>
                         </goals>
-                        <phase>post-clean</phase>
+                        <phase>generate-sources</phase>
                     </execution>
                 </executions>
                 <configuration>
