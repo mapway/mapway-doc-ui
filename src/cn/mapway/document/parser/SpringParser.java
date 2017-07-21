@@ -36,7 +36,6 @@ import cn.mapway.document.module.Entry;
 import cn.mapway.document.module.FieldCode;
 import cn.mapway.document.module.Group;
 import cn.mapway.document.module.ObjectInfo;
-import cn.mapway.document.ver.MapwayDocVer;
 
 
 
@@ -90,7 +89,7 @@ public class SpringParser {
     doc.domain = context.getDomain();
     doc.copyright = context.getCopyright();
 
-    doc.copyright = doc.copyright + "-" + MapwayDocVer.version();
+    doc.copyright = doc.copyright + "-" + CompileVersion.VERSION;
 
     for (Class<?> clz : clzs) {
       if (clz.getAnnotation(Controller.class) != null
@@ -105,8 +104,6 @@ public class SpringParser {
     doc.sort();
     return doc;
   }
-
-
 
   private Set<Class<?>> scanPackage(String pk) {
 
