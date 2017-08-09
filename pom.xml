@@ -7,9 +7,11 @@
     <parent>
         <groupId>cn.mapway</groupId>
         <artifactId>mapway-maven</artifactId>
-        <version>1.0.34-SNAPSHOT</version>
+      
+        <version>1.0.36-SNAPSHOT</version>
         <relativePath>../mapway-maven</relativePath>
     </parent>
+    
     <name>mapway-doc-ui</name>
     <description>auto gen doc from api with ui</description>
     <url>http://doc-ui.mapway.cn</url>
@@ -53,6 +55,7 @@
                     <timeZone>GMT+8</timeZone>
                 </configuration>
             </plugin>
+            
             <plugin>
                 <groupId>cn.mapway</groupId>
                 <artifactId>mapway-maven-plugin</artifactId>
@@ -180,12 +183,13 @@
          <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
-            <scope>provider</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <scope>compile</scope>
         </dependency>
+        
     </dependencies>
 </project>

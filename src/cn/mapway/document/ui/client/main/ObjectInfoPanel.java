@@ -183,11 +183,9 @@ public class ObjectInfoPanel extends Grid implements HasSelectionHandlers<Object
         }
       }
 
-      if (o.minLength() == 0 && o.maxLength() == 0) {
-        l = new Label("不限长度");
-      } else {
-        l = new Label(o.minLength() + "-" + o.maxLength());
-      }
+      l = handleLengthConstrain(o);
+
+
 
       l.setStyleName(SysResource.INSTANCE.getCss().text());
       setWidget(row, col++, l);
@@ -241,6 +239,55 @@ public class ObjectInfoPanel extends Grid implements HasSelectionHandlers<Object
   }
 
   /**
+   * 处理长度约束.
+   * 
+   * @param o
+   * @return
+   */
+  static Label handleLengthConstrain(ObjectInfo o) {
+    Label l;
+    if (isString(o)) {
+      if (o.minLength() == 0 && o.maxLength() == 0) {
+        l = new Label("不限长度");
+      } else {
+        l = new Label(o.minLength() + "-" + o.maxLength());
+      }
+    } else if (isNumber(o)) {
+      if (o.min() != null && o.max() != null) {
+        l = new Label(o.min() + "至" + o.max());
+      } else if (o.min() != null) {
+        l = new Label("最小为:" + o.min());
+      } else if (o.max() != null) {
+        l = new Label("最大为:" + o.min());
+      } else {
+        l = new Label("未设定范围");
+      }
+    } else {
+      l = new Label("");
+    }
+
+    return l;
+  }
+
+  private static boolean isNumber(ObjectInfo o) {
+    for (String s : numbers) {
+      if (o.type().contains(s)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static boolean isString(ObjectInfo o) {
+    for (String s : strings) {
+      if (o.type().contains(s)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Find obj.
    *
    * @param type the type
@@ -256,6 +303,11 @@ public class ObjectInfoPanel extends Grid implements HasSelectionHandlers<Object
     return false;
   }
 
+  /** The ps. */
+  private static String[] numbers = {"int", "Integer", "float", "FLoat", "Double", "double",
+      "long", "Long", "short", "byte"};
+  /** The ps. */
+  private static String[] strings = {"String"};
   /** The ps. */
   private static String[] ps = {"int", "Integer", "float", "FLoat", "Double", "double", "long",
       "Long", "Date", "DateTime", "String", "boolean", "Boolean", "char", "short", "byte",

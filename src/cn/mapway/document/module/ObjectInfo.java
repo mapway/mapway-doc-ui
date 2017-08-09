@@ -34,6 +34,16 @@ public class ObjectInfo implements Serializable {
 
 
   /**
+   * 最大值.
+   */
+  public Long max = null;
+
+  /**
+   * 最小值.
+   */
+  public Long min = null;
+
+  /**
    * 字符串最小长度.
    */
   public int minLength = 0;

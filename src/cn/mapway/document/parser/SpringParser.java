@@ -10,9 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Length;
 import org.nutz.castor.Castors;
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
@@ -278,8 +280,11 @@ public class SpringParser {
         RequestParam queryVariable = null;
         RequestBody isRequestBody = null;
         ApiField paraDoc = null;
-        Length stringConstrain = null;
+        Size stringConstrain = null;
         NotNull nullConstrain = null;
+        Min minConstrain = null;
+        Max maxConstrain = null;
+
 
         for (Annotation a : ass) {
           if (a instanceof PathVariable) {
@@ -290,10 +295,14 @@ public class SpringParser {
             paraDoc = (ApiField) a;
           } else if (a instanceof RequestBody) {
             isRequestBody = (RequestBody) a;
-          } else if (a instanceof Length) {
-            stringConstrain = (Length) a;
+          } else if (a instanceof Size) {
+            stringConstrain = (Size) a;
           } else if (a instanceof NotNull) {
             nullConstrain = (NotNull) a;
+          } else if (a instanceof Min) {
+            minConstrain = (Min) a;
+          } else if (a instanceof Max) {
+            maxConstrain = (Max) a;
           }
         }
 
@@ -317,6 +326,12 @@ public class SpringParser {
           p.maxLength = stringConstrain.max();
         }
 
+        if (minConstrain != null) {
+          p.min = minConstrain.value();
+        }
+        if (maxConstrain != null) {
+          p.max = maxConstrain.value();
+        }
         if (nullConstrain != null) {
           p.manditary = true;
         }

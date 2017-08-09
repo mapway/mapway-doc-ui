@@ -92,6 +92,24 @@ public class ObjectInfo extends JavaScriptObject {
   }-*/;
 
   /**
+   * Length.
+   *
+   * @return the int
+   */
+  public final native Double min()/*-{
+		return this.min;
+  }-*/;
+
+  /**
+   * MaxLength.
+   *
+   * @return the int
+   */
+  public final native Double max()/*-{
+		return this.max;
+  }-*/;
+
+  /**
    * Fields.
    *
    * @return the js array
