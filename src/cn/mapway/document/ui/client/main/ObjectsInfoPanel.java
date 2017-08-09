@@ -181,7 +181,12 @@ public class ObjectsInfoPanel extends Grid implements HasSelectionHandlers<Objec
       l.setStyleName(SysResource.INSTANCE.getCss().text());
       setWidget(row, col++, l);
 
-      l = new Label(o.length() == 0 ? "----" : (o.length() + ""));
+
+      if (o.minLength() == 0 && o.maxLength() == 0) {
+        l = new Label("不限长度");
+      } else {
+        l = new Label(o.minLength() + "-" + o.maxLength());
+      }
       l.setStyleName(SysResource.INSTANCE.getCss().text());
       setWidget(row, col++, l);
 

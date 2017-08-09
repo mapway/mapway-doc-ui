@@ -14,98 +14,106 @@ import com.google.gwt.core.client.JsArray;
  */
 public class ObjectInfo extends JavaScriptObject {
 
-	/**
-	 * Instantiates a new object info.
-	 */
-	protected ObjectInfo() {
-	}
+  /**
+   * Instantiates a new object info.
+   */
+  protected ObjectInfo() {}
 
-	/**
-	 * Name.
-	 *
-	 * @return the string
-	 */
-	public final native String name()/*-{
+  /**
+   * Name.
+   *
+   * @return the string
+   */
+  public final native String name()/*-{
 		return this.name;
-	}-*/;
+  }-*/;
 
-	/**
-	 * Type.
-	 *
-	 * @return the string
-	 */
-	public final native String type()/*-{
+  /**
+   * Type.
+   *
+   * @return the string
+   */
+  public final native String type()/*-{
 		return this.type;
-	}-*/;
+  }-*/;
 
-	/**
-	 * Summary.
-	 *
-	 * @return the string
-	 */
-	public final native String summary()/*-{
+  /**
+   * Summary.
+   *
+   * @return the string
+   */
+  public final native String summary()/*-{
 		return this.summary;
-	}-*/;
+  }-*/;
 
-	/**
-	 * Title.
-	 *
-	 * @return the string
-	 */
-	public final native String title()/*-{
+  /**
+   * Title.
+   *
+   * @return the string
+   */
+  public final native String title()/*-{
 		return this.title;
-	}-*/;
+  }-*/;
 
-	/**
-	 * Example.
-	 *
-	 * @return the string
-	 */
-	public final native String example()/*-{
+  /**
+   * Example.
+   *
+   * @return the string
+   */
+  public final native String example()/*-{
 		return this.example;
-	}-*/;
+  }-*/;
 
-	/**
-	 * Manditary.
-	 *
-	 * @return true, if successful
-	 */
-	public final native boolean manditary()/*-{
+  /**
+   * Manditary.
+   *
+   * @return true, if successful
+   */
+  public final native boolean manditary()/*-{
 		return this.manditary;
-	}-*/;
+  }-*/;
 
-	/**
-	 * Length.
-	 *
-	 * @return the int
-	 */
-	public final native int length()/*-{
-		return this.length;
-	}-*/;
+  /**
+   * Length.
+   *
+   * @return the int
+   */
+  public final native int minLength()/*-{
+		return this.minLength;
+  }-*/;
 
-	/**
-	 * Fields.
-	 *
-	 * @return the js array
-	 */
-	public final native JsArray<ObjectInfo> fields()/*-{
+  /**
+   * MaxLength.
+   *
+   * @return the int
+   */
+  public final native int maxLength()/*-{
+		return this.maxLength;
+  }-*/;
+
+  /**
+   * Fields.
+   *
+   * @return the js array
+   */
+  public final native JsArray<ObjectInfo> fields()/*-{
 		return this.fields || [];
-	}-*/;
+  }-*/;
 
-	/**
-	 * Json.
-	 *
-	 * @return the string
-	 */
-	public final native String json() /*-{
+  /**
+   * Json.
+   *
+   * @return the string
+   */
+  public final native String json() /*-{
 		return this.json;
-	}-*/;
+  }-*/;
 
-	public final native JsArray<FieldCode> codes()/*-{
+  public final native JsArray<FieldCode> codes()/*-{
 		return this.codes;
-	}-*/;
+  }-*/;
 
-	public final native void title(String string) /*-{
-	return this.title=string;
-	}-*/;
+  public final native void title(String string) /*-{
+		return this.title = string;
+  }-*/;
 }

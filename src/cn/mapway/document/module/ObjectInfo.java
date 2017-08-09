@@ -32,8 +32,15 @@ public class ObjectInfo implements Serializable {
   /** The manditary. */
   public boolean manditary;
 
-  /** The length. */
-  public int length = 0;
+
+  /**
+   * 字符串最小长度.
+   */
+  public int minLength = 0;
+  /**
+   * 字符串最大长度.
+   */
+  public int maxLength = 0;
 
   /** The fields. */
   public List<ObjectInfo> fields = new ArrayList<ObjectInfo>();

@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 import org.nutz.castor.Castors;
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
@@ -275,6 +278,9 @@ public class SpringParser {
         RequestParam queryVariable = null;
         RequestBody isRequestBody = null;
         ApiField paraDoc = null;
+        Length stringConstrain = null;
+        NotNull nullConstrain = null;
+
         for (Annotation a : ass) {
           if (a instanceof PathVariable) {
             pathVariable = (PathVariable) a;
@@ -284,8 +290,13 @@ public class SpringParser {
             paraDoc = (ApiField) a;
           } else if (a instanceof RequestBody) {
             isRequestBody = (RequestBody) a;
+          } else if (a instanceof Length) {
+            stringConstrain = (Length) a;
+          } else if (a instanceof NotNull) {
+            nullConstrain = (NotNull) a;
           }
         }
+
         ObjectInfo p = handleParameter(clz, name);
 
         if (p == null) {
@@ -298,6 +309,16 @@ public class SpringParser {
           p.title = paraDoc.value();
           // 处理注释,从ref中获取
           p.summary = parseRef(clsType, paraDoc.refs());
+        }
+
+        // 长度约束
+        if (stringConstrain != null) {
+          p.minLength = stringConstrain.min();
+          p.maxLength = stringConstrain.max();
+        }
+
+        if (nullConstrain != null) {
+          p.manditary = true;
         }
 
         if (pathVariable != null) {
@@ -468,12 +489,12 @@ public class SpringParser {
     deeps.incLevel();
 
     ApiField wf = f.getAnnotation(ApiField.class);
+
     if (wf != null) {
 
       ObjectInfo fi = new ObjectInfo();
       fi.manditary = wf.mandidate();
       fi.title = wf.value();
-      fi.length = wf.length();
       fi.example = wf.example();
       fi.name = f.getName();
       fi.type = f.getType().getName();
