@@ -504,7 +504,7 @@ public class SpringParser {
     deeps.incLevel();
 
     ApiField wf = f.getAnnotation(ApiField.class);
-
+    Annotation[] ass = f.getAnnotations();
     if (wf != null) {
 
       ObjectInfo fi = new ObjectInfo();
@@ -521,6 +521,42 @@ public class SpringParser {
           FieldCode fc = new FieldCode(code.value(), code.desc());
           fi.codes.add(fc);
         }
+      }
+
+      // 处理字段约束
+      Size stringConstrain = null;
+      NotNull nullConstrain = null;
+      Min minConstrain = null;
+      Max maxConstrain = null;
+
+
+      for (Annotation a : ass) {
+        if (a instanceof Size) {
+          stringConstrain = (Size) a;
+        } else if (a instanceof NotNull) {
+          nullConstrain = (NotNull) a;
+        } else if (a instanceof Min) {
+          minConstrain = (Min) a;
+        } else if (a instanceof Max) {
+          maxConstrain = (Max) a;
+        }
+      }
+
+
+      // 长度约束
+      if (stringConstrain != null) {
+        fi.minLength = stringConstrain.min();
+        fi.maxLength = stringConstrain.max();
+      }
+
+      if (minConstrain != null) {
+        fi.min = minConstrain.value();
+      }
+      if (maxConstrain != null) {
+        fi.max = maxConstrain.value();
+      }
+      if (nullConstrain != null) {
+        fi.manditary = true;
       }
 
       // 记录类型的循环次数

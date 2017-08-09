@@ -131,11 +131,11 @@ public class ObjectsInfoPanel extends Grid implements HasSelectionHandlers<Objec
    * @param objs the objs
    * @param title the title
    */
-  public void parse(JsArray<ObjectInfo> objs, String title) {
+  public void parse(JsArray<ObjectInfo> objs, String title, String html) {
 
 
     lbTitle.setText(title);
-    lbSummary.setHTML("");
+    lbSummary.setHTML(html);
 
     this.resizeRows(objs.length() + 2);
 
@@ -169,7 +169,7 @@ public class ObjectsInfoPanel extends Grid implements HasSelectionHandlers<Objec
         setWidget(row, col++, l);
       } else {
         CustomAnchor a = new CustomAnchor();
-        a.setText(type);
+        a.setText(ObjectInfoPanel.simple(type));
         a.setData(o);
         a.setStyleName(SysResource.INSTANCE.getCss().typeLink());
         a.addClickHandler(this);

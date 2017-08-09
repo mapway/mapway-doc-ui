@@ -133,7 +133,7 @@ public class ObjectInfoPanel extends Grid implements HasSelectionHandlers<Object
    */
   public void parse(ObjectInfo obj, List<GenInfo> objList, Map<String, Anchor> mapper) {
 
-    lbTitle.setText((obj.title() == null ? "" : obj.title()));
+    lbTitle.setText((obj.title() == null ? "" : obj.title() + "(" + obj.type() + ")"));
     lbSummary.setHTML(obj.summary() == null ? "" : obj.summary());
 
     this.resizeRows(obj.fields().length() + 2);
@@ -161,13 +161,13 @@ public class ObjectInfoPanel extends Grid implements HasSelectionHandlers<Object
 
       String type = o.type();
       if (isPrimitive(type)) {
-        l = new Label(o.type());
+        l = new Label(simple(type));
         l.setStyleName(SysResource.INSTANCE.getCss().type());
 
         setWidget(row, col++, l);
       } else {
         CustomAnchor a = new CustomAnchor();
-        a.setText(type);
+        a.setText(simple(type));
         a.setData(o);
         a.setStyleName(SysResource.INSTANCE.getCss().typeLink());
         a.addClickHandler(this);
@@ -238,6 +238,24 @@ public class ObjectInfoPanel extends Grid implements HasSelectionHandlers<Object
     }
   }
 
+  public static String simple(String type) {
+    if (type == null) {
+      return "";
+    }
+    int index = type.lastIndexOf('.');
+    if (index >= 0) {
+      // 处理<>
+      int ltIndex = type.lastIndexOf('<');
+      if (ltIndex >= 0) {
+        String start = type.substring(0, ltIndex + 1);
+        return start + type.substring(index + 1);
+      } else {
+        return type.substring(index + 1);
+      }
+    } else
+      return type;
+  }
+
   /**
    * 处理长度约束.
    * 
@@ -248,9 +266,9 @@ public class ObjectInfoPanel extends Grid implements HasSelectionHandlers<Object
     Label l;
     if (isString(o)) {
       if (o.minLength() == 0 && o.maxLength() == 0) {
-        l = new Label("不限长度");
+        l = new Label("");
       } else {
-        l = new Label(o.minLength() + "-" + o.maxLength());
+        l = new Label(o.minLength() + "-" + o.maxLength() + "个字符");
       }
     } else if (isNumber(o)) {
       if (o.min() != null && o.max() != null) {
@@ -260,7 +278,7 @@ public class ObjectInfoPanel extends Grid implements HasSelectionHandlers<Object
       } else if (o.max() != null) {
         l = new Label("最大为:" + o.min());
       } else {
-        l = new Label("未设定范围");
+        l = new Label("");
       }
     } else {
       l = new Label("");
