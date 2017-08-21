@@ -35,10 +35,10 @@
 		color: #f0f0f0;
 	}
 	</ui:style>
-	<g:DockLayoutPanel>
+	<g:DockLayoutPanel ui:field="root">
 		<g:north size="70">
 
-			<g:HorizontalPanel styleName="{style.top}"
+			<g:HorizontalPanel styleName="{style.top}" ui:field="topBar"
 				verticalAlignment="middle" width="100%">
 				<g:cell>
 					<g:HorizontalPanel height="70px"
